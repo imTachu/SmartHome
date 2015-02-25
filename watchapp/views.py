@@ -1,13 +1,12 @@
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
-from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect, render_to_response
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages 
-from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.models import User
-from django.shortcuts import render_to_response
+from django.contrib.auth.models import User, Group
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
  
 from forms import SignUpForm
 
@@ -42,8 +41,6 @@ def signup(request):
  
             # Save new user attributes
             user.save()
-            team = Team(name=username)
-            team.save()
             return HttpResponseRedirect(reverse('watchapp:login'))  # Redirect after POST
     else:
         form = SignUpForm()
@@ -52,3 +49,20 @@ def signup(request):
         'form': form,
     }
     return render_to_response('watchapp/signup.html', data, context_instance=RequestContext(request))
+
+def login_success(request):
+    if request.user.groups.filter(name="constructoras").exists():
+        # user is an admin
+        return HttpResponseRedirect(reverse('watchapp:constructora_home'))
+    elif request.user.groups.filter(name="usuarios").exists():
+        return HttpResponseRedirect(reverse('watchapp:usuarios_home'))
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def constructora_home(request):
+	return HttpResponse("Usuario constructora autenticado")
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
+def usuarios_home(request):
+	return HttpResponse("Usuario residente / propietario autenticado")
