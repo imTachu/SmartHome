@@ -9,9 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
  
 from forms import SignUpForm
+from watchapp.models import ConstructorCompany, Property, UserProfile, Sensor, Event
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world. You're at the watchapp index.")
 	
 @login_required()
 def home(request):
@@ -55,7 +56,7 @@ def login_success(request):
         # user is an admin
         return HttpResponseRedirect(reverse('watchapp:constructora_home'))
     elif request.user.groups.filter(name="usuarios").exists():
-        return HttpResponseRedirect(reverse('watchapp:usuarios_home'))
+        return HttpResponseRedirect(reverse('watchapp:users_home'))
 
 @login_required()
 @user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
@@ -64,5 +65,9 @@ def constructora_home(request):
 
 @login_required()
 @user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
-def usuarios_home(request):
-	return HttpResponse("Usuario residente / propietario autenticado")
+def users_home(request):
+	print request.user.username
+	return render(request, 'watchapp/users_home.html',
+    {
+    	"request": request,
+    })

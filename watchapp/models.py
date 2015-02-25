@@ -7,27 +7,28 @@ from django.contrib.auth.models import User, Group
 
 '''Clase para las constructoras'''
 class ConstructorCompany(models.Model):
-	nit = models.CharField(max_length=15)
-	company_name = models.CharField(max_length=100)
-	address = models.CharField(max_length=100)
-	fixed_phone = models.PositiveIntegerField(validators=[MinValueValidator(0000000), MaxValueValidator(9999999)])
-	fixed_phone_extension = models.PositiveIntegerField(validators=[MinValueValidator(00000), MaxValueValidator(99999)])
-	mobile_number = models.PositiveIntegerField(validators=[MinValueValidator(0000000), MaxValueValidator(9999999999)])
-	email = models.EmailField(max_length=50, blank=False, unique=True)
-	contact_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User)
+    nit = models.CharField(max_length=15)
+    company_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    fixed_phone = models.PositiveIntegerField(validators=[MinValueValidator(0000000), MaxValueValidator(9999999)], null=True)
+    fixed_phone_extension = models.PositiveIntegerField(validators=[MinValueValidator(00000), MaxValueValidator(99999)], null=True)
+    mobile_number = models.CharField(max_length=15, null=True)
+    email = models.EmailField(max_length=50, blank=False, unique=True)
+    contact_name = models.CharField(max_length=100)
 
 '''Clase para los inmuebles'''
 class Property(models.Model):
-	name = models.CharField(max_length=60)
-	address = models.CharField(max_length=100)
-	fixed_phone = models.PositiveIntegerField(validators=[MinValueValidator(0000000), MaxValueValidator(9999999)])
-	plan = models.CharField(max_length=60)
-	constructor_company = models.ForeignKey(ConstructorCompany, null=True)
+    name = models.CharField(max_length=60)
+    address = models.CharField(max_length=100, null=True)
+    fixed_phone = models.CharField(max_length=15, null=True)
+    plan = models.CharField(max_length=60, null=True)
+    constructor_company = models.ForeignKey(ConstructorCompany, null=True)
 	
 '''Clase extendida de User, se usa para autenticacion, y relaciona las propiedades que un usuario tiene como propietario o residente'''
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    mobile_number = models.PositiveIntegerField(validators=[MinValueValidator(0000000), MaxValueValidator(9999999999)])
+    mobile_number = models.CharField(max_length=15)
     properties_as_resident = models.ManyToManyField(Property, related_name="properties_as_resident")
     properties_as_owner = models.ManyToManyField(Property, related_name="properties_as_owner")
 
