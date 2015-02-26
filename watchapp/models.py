@@ -49,8 +49,8 @@ class Sensor(models.Model):
     code = models.CharField(max_length=15)
     description = models.CharField(max_length=60)
     type = models.CharField(max_length=30, choices=SENSOR_TYPES_CHOICES)
-    x = models.DecimalField(max_digits=10, decimal_places=10)
-    y = models.DecimalField(max_digits=10, decimal_places=10)
+    location_in_plan = models.CharField(max_length=20)
+    color = models.CharField(max_length=20)
     status = models.CharField(max_length=10, choices=SENSOR_STATUS_CHOICES)
 
 '''Clase para eventos'''

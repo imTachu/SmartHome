@@ -94,22 +94,6 @@ def users_home(request):
             "request": request,
         })
 
-@login_required()
-@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
-def get_property_info_by_name(request):
-    """
-    Esta funcion tiene el contenido del home de usuarios (propietarios / residentes), 
-    se puede acceder despues de la autenticacion de un usuario que este en el Group usuarios
-    	@param request
-    	@author Lorena Salamanca
-    """
-    print request.POST["select_as_resident"]
-    selected_property = Property.objects.get(name=request.POST["select_as_resident"])
-    return render(request, 'watchapp/users_home.html', {
-        "selected_property": selected_property,
-        "request": request,
-    })
-
 ####################### Vistas para constructoras #######################
 
 @login_required()
