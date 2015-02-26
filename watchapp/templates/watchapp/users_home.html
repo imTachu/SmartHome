@@ -15,9 +15,11 @@
 <p>Bienvenido <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong>,</p>
 
 <p>Tú última visita a WatchApp fue {{ user.last_login }} </p>
+<form method="post" action="{% url 'watchapp:users_home' %}" id="get_property_info_by_name">
+{% csrf_token %}
 <div>
 	<label>Inmuebles en los que soy propietario</label> 
-	<select id="select_as_owner" onchange="onchange_select_as_owner()">
+	<select id="select_as_owner" name="select_as_owner" onchange="onchange_select_as_owner();get_property_info_by_name();">
 		<option value="0">Selecciona...</option>
 		{% for each_property_as_owner in request.user.userprofile.properties_as_owner.all %}
 			<option value="{{ each_property_as_owner.name }}">{{ each_property_as_owner.name }}</option>
@@ -27,13 +29,22 @@
 <br>
 <div>
 	<label>Inmuebles en los que soy residente</label> 
-	<select id="select_as_resident" onchange="onchange_select_as_resident()">
+	<select id="select_as_resident" name="select_as_resident" onchange="onchange_select_as_resident();get_property_info_by_name();">
 		<option value="0">Selecciona...</option>
 		{% for each_property_as_resident in request.user.userprofile.properties_as_resident.all %}
 			<option value="{{ each_property_as_resident.name }}">{{ each_property_as_resident.name }}</option>
 		{% endfor %}
 	</select>
 </div>
+</form>
+
+{% if selected_property.name %}
+<div>
+<p>{{ selected_property.name }}</p>
+<p>{{ selected_property.address }}</p>
+<p>{{ selected_property.fixed_phone }}</p>
+</div>
+{% endif %}
 </div>
 
 <script>
@@ -46,6 +57,9 @@ function onchange_select_as_owner() {
 function onchange_select_as_resident() {
     var x = document.getElementById("select_as_resident").value;
     var element = document.getElementById('select_as_owner').value = "0";
+}
+function get_property_info_by_name(){
+    document.getElementById("get_property_info_by_name").submit();
 }
 </script>
 
