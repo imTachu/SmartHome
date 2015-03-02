@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date', models.DateTimeField()),
                 ('description', models.CharField(max_length=200)),
-                ('value', models.DecimalField(max_digits=10, decimal_places=10)),
+                ('value', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('type', models.CharField(max_length=30, choices=[(b'0', b'Disparo de alarma'), (b'1', b'Activar alarma'), (b'3', b'Alerta en sensor'), (b'2', b'Desactivar alarma'), (b'4', b'Cambio actuador')])),
             ],
             options={
