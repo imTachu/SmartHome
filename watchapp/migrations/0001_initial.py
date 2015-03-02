@@ -20,11 +20,12 @@ class Migration(migrations.Migration):
                 ('nit', models.CharField(max_length=15)),
                 ('company_name', models.CharField(max_length=100)),
                 ('address', models.CharField(max_length=100)),
-                ('fixed_phone', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(9999999)])),
-                ('fixed_phone_extension', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(99999)])),
-                ('mobile_number', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(9999999999L)])),
+                ('fixed_phone', models.PositiveIntegerField(null=True, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(9999999)])),
+                ('fixed_phone_extension', models.PositiveIntegerField(null=True, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(99999)])),
+                ('mobile_number', models.CharField(max_length=15, null=True)),
                 ('email', models.EmailField(unique=True, max_length=50)),
                 ('contact_name', models.CharField(max_length=100)),
+                ('user', models.OneToOneField(null=True, to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -48,9 +49,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=60)),
-                ('address', models.CharField(max_length=100)),
-                ('fixed_phone', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(9999999)])),
-                ('plan', models.CharField(max_length=60)),
+                ('address', models.CharField(max_length=100, null=True)),
+                ('fixed_phone', models.CharField(max_length=15, null=True)),
+                ('plan', models.CharField(max_length=60, null=True)),
                 ('constructor_company', models.ForeignKey(to='watchapp.ConstructorCompany', null=True)),
             ],
             options={
@@ -64,8 +65,8 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(max_length=15)),
                 ('description', models.CharField(max_length=60)),
                 ('type', models.CharField(max_length=30, choices=[(b'0', b'Sensor digital'), (b'1', b'Sensor analogo'), (b'2', b'Sensor PWM'), (b'3', b'Actuador digital'), (b'4', b'Actuador analogo'), (b'5', b'Actuador PWM')])),
-                ('x', models.DecimalField(max_digits=10, decimal_places=10)),
-                ('y', models.DecimalField(max_digits=10, decimal_places=10)),
+                ('location_in_plan', models.CharField(max_length=20, null=True)),
+                ('color', models.CharField(max_length=20, null=True)),
                 ('status', models.CharField(max_length=10, choices=[(b'0', b'Encendido'), (b'1', b'Apagado')])),
             ],
             options={
@@ -76,7 +77,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('mobile_number', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(9999999999L)])),
+                ('mobile_number', models.CharField(max_length=15)),
                 ('properties_as_owner', models.ManyToManyField(related_name='properties_as_owner', to='watchapp.Property')),
                 ('properties_as_resident', models.ManyToManyField(related_name='properties_as_resident', to='watchapp.Property')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^login/$', login, {'template_name': 'watchapp/login.html', }, name="login"),
 	url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
+	url(r'^sensorstatus/$', views.get_PropertysByUser, name='get_PropertysByUser'),
 	url('', include('django.contrib.auth.urls')),
 	
 	#URLs para funcionalidades de usuarios (residente/propietario)

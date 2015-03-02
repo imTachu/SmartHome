@@ -94,6 +94,32 @@ def users_home(request):
             "request": request,
         })
 
+#@login_required()
+def get_PropertySensors(propertyId):
+    SensorList = []
+    events = Event.objects.filter(property_id=propertyId)
+    for e in events:
+        sensor = Sensor.objects.get(pk=e.sensor_id)
+        if sensor not in SensorList:
+            SensorList.append(sensor)
+    return SensorList
+@login_required()
+def get_PropertysByUser(request):
+    propertyList = []
+    user = User.objects.filter(username=request.user.username)
+    userP = UserProfile.objects.get(user_id=user[0].id)
+    for p in userP.properties_as_resident.all():
+        property = Property.objects.get(pk=p.id)
+        if property not in propertyList:
+            propertyList.append(property)
+    for p in userP.properties_as_owner.all():
+        property = Property.objects.get(pk=p.id)
+        if property not in propertyList:
+            propertyList.append(property)
+    return render(request,"watchapp/sensorstatus.html",{ 
+            "propertyList": propertyList, 
+        })
+
 ####################### Vistas para constructoras #######################
 
 @login_required()

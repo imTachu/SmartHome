@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 
 '''Clase para las constructoras'''
 class ConstructorCompany(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,null=True)
     nit = models.CharField(max_length=15)
     company_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -49,8 +49,8 @@ class Sensor(models.Model):
     code = models.CharField(max_length=15)
     description = models.CharField(max_length=60)
     type = models.CharField(max_length=30, choices=SENSOR_TYPES_CHOICES)
-    location_in_plan = models.CharField(max_length=20)
-    color = models.CharField(max_length=20)
+    location_in_plan = models.CharField(max_length=20,null=True)
+    color = models.CharField(max_length=20,null=True)
     status = models.CharField(max_length=10, choices=SENSOR_STATUS_CHOICES)
 
 '''Clase para eventos'''
@@ -64,7 +64,7 @@ class Event(models.Model):
     )
     date = models.DateTimeField()
     description = models.CharField(max_length=200)
-    value = models.DecimalField(max_digits=10, decimal_places=10)
+    value = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=30, choices=EVENT_CHOICES)
     property = models.ForeignKey(Property)
     sensor = models.ForeignKey(Sensor)

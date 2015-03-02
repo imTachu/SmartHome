@@ -65,6 +65,14 @@ DATABASES = {
         'HOST': 'ec2-107-21-104-188.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+    #'default':  {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'smarthome',
+    #    'USER': 'postgres',
+    #    'PASSWORD': 'postgres',
+    #    'HOST': 'localhost',
+    #    'PORT': '5432',
+    #}
 }
 
 # Internationalization
