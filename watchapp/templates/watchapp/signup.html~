@@ -74,7 +74,7 @@ input[type=text], input[type=password], input[type=email]{
 
                                 <div class="row">
                                     <div class="col-lg-8">
-					 <a href="{% url 'watchapp:login' %}" style="font-weight:bold;">Login</a>
+					 <a href="{% url 'watchapp:login' %}">Login</a>
                                     </div>
                                     <div class="col-lg-4 text-right">
        					<input type="submit" value="Register" class="btn btn-action" />

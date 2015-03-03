@@ -26,7 +26,7 @@
             <div>
                 <!-- Button for smallest screens -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="/watchapp">
+                <a class="navbar-brand" href="index.html">
     
                 {% load static %}
                 <img src="{{ STATIC_URL }}css/Images/logo.png" alt="WatchApp" style="background-size: cover;"></a>
@@ -97,7 +97,11 @@
                     <div class="col-md-6 widget">
                         <div class="widget-body">
                             <p class="simplenav">
-                                <a href="/watchapp">Home</a> | <b><a href="{% url 'watchapp:login' %}">Sign up</a></b>
+                                <a href="#">Home</a> | 
+								<a href="about.html">About</a> |
+								<a href="sidebar-right.html">Sidebar</a> |
+								<a href="contact.html">Contact</a> |
+								<b><a href="signup.html">Sign up</a></b>
                             </p>
                         </div>
                     </div>

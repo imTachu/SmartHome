@@ -20,6 +20,6 @@ urlpatterns = patterns('',
 	
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
-url(r'^$', TemplateView.as_view(template_name='watchapp/index.html')),
+   url(r'^index/$', TemplateView.as_view(template_name='index.html'), name="index"),
 
 )
