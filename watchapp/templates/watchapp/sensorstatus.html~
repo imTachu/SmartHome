@@ -1,4 +1,4 @@
-{% extends "watchapp/base_master.html" %} {% block content %} {% if form.errors %}
+{% extends "watchapp/base.html" %} {% block content %} {% if form.errors %}
 <p>
     Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
 {% endif %} {% load url from future %}

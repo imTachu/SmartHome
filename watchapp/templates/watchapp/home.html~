@@ -1,4 +1,4 @@
-{% extends "watchapp/base_master.html" %}
+{% extends "watchapp/base.html" %}
  
 {% block content %}
  

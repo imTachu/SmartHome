@@ -1,0 +1,63 @@
+{% extends "watchapp/base_master.html" %}
+ 
+{% block content %}
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+    {% endif %}
+ {% load url from future %}
+ 
+
+<div>
+
+<p>Bienvenido <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong>,</p>
+
+<p>Tú última visita a WatchApp fue {{ user.last_login }} </p>
+<form method="post" action="{% url 'watchapp:users_home' %}" id="get_property_info_by_name">
+{% csrf_token %}
+<div>
+	<label>Inmuebles en los que soy propietario</label> 
+	<select id="select_as_owner" name="select_as_owner" onchange="onchange_select_as_owner();get_property_info_by_name();">
+		<option value="0">Selecciona...</option>
+		{% for each_property_as_owner in request.user.userprofile.properties_as_owner.all %}
+			<option value="{{ each_property_as_owner.name }}">{{ each_property_as_owner.name }}</option>
+		{% endfor %}
+	</select>
+</div>
+<br>
+<div>
+	<label>Inmuebles en los que soy residente</label> 
+	<select id="select_as_resident" name="select_as_resident" onchange="onchange_select_as_resident();get_property_info_by_name();">
+		<option value="0">Selecciona...</option>
+		{% for each_property_as_resident in request.user.userprofile.properties_as_resident.all %}
+			<option value="{{ each_property_as_resident.name }}">{{ each_property_as_resident.name }}</option>
+		{% endfor %}
+	</select>
+</div>
+</form>
+
+{% if selected_property.name %}
+<div>
+<p>{{ selected_property.name }}</p>
+<p>{{ selected_property.address }}</p>
+<p>{{ selected_property.fixed_phone }}</p>
+</div>
+{% endif %}
+</div>
+
+<script>
+//Funcion que cuando se selecciona un valor en el select de propietarios, devuelve al valor default el select de residentes.
+function onchange_select_as_owner() {
+    var x = document.getElementById("select_as_owner").value;
+    var element = document.getElementById('select_as_resident').value = "0";
+}
+//Funcion que cuando se selecciona un valor en el select de residentes, devuelve al valor default el select de propietarios.
+function onchange_select_as_resident() {
+    var x = document.getElementById("select_as_resident").value;
+    var element = document.getElementById('select_as_owner').value = "0";
+}
+function get_property_info_by_name(){
+    document.getElementById("get_property_info_by_name").submit();
+}
+</script>
+
+{% endblock %}
