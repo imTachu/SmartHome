@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = patterns('',
     #URLs index o para autenticacion
-	#url(r'^$', views.index, name='index'),
+	url(r'^$', TemplateView.as_view(template_name='watchapp/index.html')),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^login/$', login, {'template_name': 'watchapp/login.html', }, name="login"),
 	url(r'^login_success/$', views.login_success, name='login_success'),
@@ -20,6 +20,5 @@ urlpatterns = patterns('',
 	
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
-url(r'^$', TemplateView.as_view(template_name='watchapp/index.html')),
 
 )
