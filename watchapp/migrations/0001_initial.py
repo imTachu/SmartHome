@@ -39,6 +39,8 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=200)),
                 ('value', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('type', models.CharField(max_length=30, choices=[(b'0', b'Disparo de alarma'), (b'1', b'Activar alarma'), (b'3', b'Alerta en sensor'), (b'2', b'Desactivar alarma'), (b'4', b'Cambio actuador')])),
+                ('is_critical', models.BooleanField(default=False)),
+                ('is_fatal', models.BooleanField(default=False)),
             ],
             options={
             },
@@ -51,7 +53,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=60)),
                 ('address', models.CharField(max_length=100, null=True)),
                 ('fixed_phone', models.CharField(max_length=15, null=True)),
-                ('plan', models.CharField(max_length=60, null=True)),
+                ('plan', models.CharField(max_length=300, null=True)),
                 ('constructor_company', models.ForeignKey(to='watchapp.ConstructorCompany', null=True)),
             ],
             options={

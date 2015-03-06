@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from forms import SignUpForm
 from watchapp.models import ConstructorCompany, Property, UserProfile, Sensor, Event
-
+from watchapp.serializers import EventSerializer
+from rest_framework import viewsets
 
 ####################### Vistas index o para autenticacion #######################
 
@@ -103,6 +104,7 @@ def get_PropertySensors(propertyId):
         if sensor not in SensorList:
             SensorList.append(sensor)
     return SensorList
+
 @login_required()
 def get_PropertysByUser(request):
     propertyList = []
@@ -132,3 +134,14 @@ def constructora_home(request):
     	@author Lorena Salamanca
     """
     return HttpResponse("Usuario constructora autenticado")
+
+	
+	
+	
+
+class EventViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer

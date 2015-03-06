@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'watchapp',
+	'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,27 +53,24 @@ ROOT_URLCONF = 'smarthome.urls'
 
 WSGI_APPLICATION = 'smarthome.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'PAGINATE_BY': 10
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    #'default':  {
-    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #    'NAME': 'dc1gs4uaso7vsq',
-    #    'USER': 'hazenavzfyagbs',
-    #    'PASSWORD': 'HASO-rgOkCQ71cmdfJVXBnxkDO',
-    #    'HOST': 'ec2-107-21-104-188.compute-1.amazonaws.com',
-    #    'PORT': '5432',
-    #}
     'default':  {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'smarthome',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'dc1gs4uaso7vsq',
+        'USER': 'hazenavzfyagbs',
+        'PASSWORD': 'HASO-rgOkCQ71cmdfJVXBnxkDO',
+        'HOST': 'ec2-107-21-104-188.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+
 }
 
 # Internationalization
@@ -106,3 +104,11 @@ LOGIN_REDIRECT_URL = "/watchapp/login_success/"
 
 # Redirect when login is not correct.
 LOGIN_URL = '/'
+
+#Configuracion para el envio de correos electronicos
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'watchapp.latam@gmail.com'
+EMAIL_HOST_PASSWORD = 'miso4101'
+

@@ -4,6 +4,9 @@ from decimal import Decimal
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
 
 '''Clase para las constructoras'''
 class ConstructorCompany(models.Model):
@@ -22,7 +25,7 @@ class Property(models.Model):
     name = models.CharField(max_length=60)
     address = models.CharField(max_length=100, null=True)
     fixed_phone = models.CharField(max_length=15, null=True)
-    plan = models.CharField(max_length=60, null=True)
+    plan = models.CharField(max_length=300, null=True)
     constructor_company = models.ForeignKey(ConstructorCompany, null=True)
 	
 '''Clase extendida de User, se usa para autenticacion, y relaciona las propiedades que un usuario tiene como propietario o residente'''
@@ -62,9 +65,21 @@ class Event(models.Model):
         ('2', 'Desactivar alarma'),
         ('4', 'Cambio actuador'),
     )
-    date = models.DateTimeField()
+    date = models.DateTimeField('date', auto_now_add=True)
     description = models.CharField(max_length=200)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=30, choices=EVENT_CHOICES)
+    is_critical = models.BooleanField(default=False)
+    is_fatal = models.BooleanField(default=False)
     property = models.ForeignKey(Property)
     sensor = models.ForeignKey(Sensor)
+
+@receiver(post_save, sender=Event)
+def EventNotifier(sender, instance, **kwargs):
+    print "helloooo!"
+    if instance.is_critical:
+        send_mail('CRITICO', 'Here is the message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
+		#email = EmailMessage('Subject', 'Body', to=['tachu.salamanca@gmail.com'])
+		#email.send()
+	if instance.is_fatal:
+	    send_mail('FATAL', 'Here is the message.', ['tachu.salamanca@gmail.com'], fail_silently=False)
