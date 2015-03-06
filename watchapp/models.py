@@ -28,6 +28,9 @@ class Property(models.Model):
     plan = models.CharField(max_length=300, null=True)
     constructor_company = models.ForeignKey(ConstructorCompany, null=True)
 	
+    def __unicode__(self):
+        return self.name
+
 '''Clase extendida de User, se usa para autenticacion, y relaciona las propiedades que un usuario tiene como propietario o residente'''
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -56,6 +59,9 @@ class Sensor(models.Model):
     color = models.CharField(max_length=20,null=True)
     status = models.CharField(max_length=10, choices=SENSOR_STATUS_CHOICES)
 
+    def __unicode__(self):
+        return self.description
+
 '''Clase para eventos'''
 class Event(models.Model):
     EVENT_CHOICES = (
@@ -74,12 +80,11 @@ class Event(models.Model):
     property = models.ForeignKey(Property)
     sensor = models.ForeignKey(Sensor)
 
+'''Clase receiver que se ejecuta cuando se recibe un POST de evento para envio de notificaciones (email y SMS)'''
 @receiver(post_save, sender=Event)
 def EventNotifier(sender, instance, **kwargs):
-    print "helloooo!"
+    print "entra al event notifier! :D"
     if instance.is_critical:
-        send_mail('CRITICO', 'Here is the message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
-		#email = EmailMessage('Subject', 'Body', to=['tachu.salamanca@gmail.com'])
-		#email.send()
+        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
 	if instance.is_fatal:
-	    send_mail('FATAL', 'Here is the message.', ['tachu.salamanca@gmail.com'], fail_silently=False)
+	    send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)

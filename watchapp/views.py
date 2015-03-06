@@ -135,13 +135,13 @@ def constructora_home(request):
     """
     return HttpResponse("Usuario constructora autenticado")
 
-	
-	
-	
+####################### Vista para rest_framework #######################
 
 class EventViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Esta función es el API endpoint que permite hacer peticiones GET / POST a eventos.
+	     @param viewsets
+		 @author Lorena Salamanca
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer

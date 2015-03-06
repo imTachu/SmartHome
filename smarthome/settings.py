@@ -53,6 +53,7 @@ ROOT_URLCONF = 'smarthome.urls'
 
 WSGI_APPLICATION = 'smarthome.wsgi.application'
 
+#Administracion de permisos para la ejecucion de peticiones a rest_framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
     'PAGINATE_BY': 10
