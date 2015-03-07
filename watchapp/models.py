@@ -85,6 +85,6 @@ class Event(models.Model):
 def EventNotifier(sender, instance, **kwargs):
     print "entra al event notifier! :D"
     if instance.is_critical:
-        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
+        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
 	if instance.is_fatal:
-	    send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
+	    send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)

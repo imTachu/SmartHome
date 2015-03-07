@@ -139,7 +139,7 @@ def constructora_home(request):
 
 class EventViewSet(viewsets.ModelViewSet):
     """
-    Esta función es el API endpoint que permite hacer peticiones GET / POST a eventos.
+    Esta funcion es el API endpoint que permite hacer peticiones GET / POST a eventos.
 	     @param viewsets
 		 @author Lorena Salamanca
     """

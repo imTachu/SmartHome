@@ -71,7 +71,6 @@ DATABASES = {
         'HOST': 'ec2-107-21-104-188.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-
 }
 
 # Internationalization
