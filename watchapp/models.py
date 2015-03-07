@@ -86,10 +86,11 @@ class Event(models.Model):
 @receiver(post_save, sender=Event)
 def EventNotifier(sender, instance, **kwargs):
     print "entra al event notifier! :D"
+    print instance.property.name
     if instance.is_critical == True:
         print "entra al evento critico"
         send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
     if instance.is_fatal == True:
         print "entra al evento fatal"
         send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
-        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': '+573166537244', 'message': 'Prueba SMS Watchapp'})
+        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': '+573166537244', 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp})
