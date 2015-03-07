@@ -7,6 +7,8 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
+import os
+import requests
 
 '''Clase para las constructoras'''
 class ConstructorCompany(models.Model):
@@ -85,7 +87,19 @@ class Event(models.Model):
 @receiver(post_save, sender=Event)
 def EventNotifier(sender, instance, **kwargs):
     print "entra al event notifier! :D"
-    if instance.is_critical:
-        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
-	if instance.is_fatal:
-	    send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.co', ['tachu.salamanca@gmail.com'], fail_silently=False)
+    print instance.property.name
+    '''Se busca la propiedad en la que ocurrio el evento'''
+    property_in_event = Property.objects.get(name=instance.property.name)
+    '''Se busca el celular de uno de los residentes del inmueble'''
+    try:
+        mobile_to_notify = property_in_event.properties_as_resident.get(id=1).mobile_number
+    except UserProfile.DoesNotExist:
+        '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
+        mobile_to_notify = property_in_event.properties_as_owner.get(id=1).mobile_number
+    if instance.is_critical == True:
+        print "entra al evento critico"
+        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
+    if instance.is_fatal == True:
+        print "entra al evento fatal"
+        send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
+        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
