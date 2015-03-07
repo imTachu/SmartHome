@@ -12,6 +12,8 @@ from forms import SignUpForm
 from watchapp.models import ConstructorCompany, Property, UserProfile, Sensor, Event
 from watchapp.serializers import EventSerializer
 from rest_framework import viewsets
+import logging
+log = logging.getLogger(__name__)
 
 ####################### Vistas index o para autenticacion #######################
 
@@ -95,18 +97,56 @@ def users_home(request):
             "request": request,
         })
 
+def render_sensor_status(request):
+    """
+    Esta funcion permite mostrar los datos que se mostraran en la pagina sensorstatus
+        @param request
+        @author German Bernal
+    """      
+    propertyList = propertys_by_User(request)
+    #sensors = property_sensors(request)
+    if request.method == 'POST':
+        sensors = property_sensors(request)        
+        return render(request,"watchapp/sensorstatus.html",{
+                "Sensors":sensors,
+                "propertyList":propertyList
+            })
+    else:
+        return render(request,"watchapp/sensorstatus.html",{
+               "propertyList":propertyList
+            })        
 #@login_required()
-def get_PropertySensors(propertyId):
-    SensorList = []
-    events = Event.objects.filter(property_id=propertyId)
-    for e in events:
-        sensor = Sensor.objects.get(pk=e.sensor_id)
-        if sensor not in SensorList:
-            SensorList.append(sensor)
-    return SensorList
+def property_sensors(request):
+    """
+    Esta funcion permite obtener los sensores por propiedad,
+        @param request
+        @author German Bernal
+    """
+    #sensors = Sensor.objects.filter(property_id=request)
+    #return sensors
+    #log.debug("property_sensors: val: " + request.POST["select_Property"])
+    sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
+    #log.debug("property_sensors " + str(sensors[0].description))
+    return sensors
+    
+    #if request.method == 'POST':
+    #    sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
+    #    log.debug("property_sensors " + str(sensors[0].description))
+    #    return render(request, "watchapp/sensorstatus.html", {
+    #        "Sensors": sensors,
+    #    })
+    #else:
+    #    return render(request, "watchapp/sensorstatus.html", {
+    #        "request": request,
+    #    })
 
-@login_required()
-def get_PropertysByUser(request):
+#@login_required()
+def propertys_by_User(request):
+    """
+    Esta funcion permite obtener las propiedad por usuario.
+        @param request
+        @author German Bernal
+    """    
     propertyList = []
     user = User.objects.filter(username=request.user.username)
     userP = UserProfile.objects.get(user_id=user[0].id)
@@ -118,9 +158,11 @@ def get_PropertysByUser(request):
         property = Property.objects.get(pk=p.id)
         if property not in propertyList:
             propertyList.append(property)
-    return render(request,"watchapp/sensorstatus.html",{ 
-            "propertyList": propertyList, 
-        })
+    #return render(request,"watchapp/sensorstatus.html",{ 
+    #        "propertyList": propertyList, 
+    #    })
+    #log.debug("propertys_by_User " + propertyList[0].name)
+    return propertyList
 
 ####################### Vistas para constructoras #######################
 
@@ -139,7 +181,7 @@ def constructora_home(request):
 
 class EventViewSet(viewsets.ModelViewSet):
     """
-    Esta función es el API endpoint que permite hacer peticiones GET / POST a eventos.
+    Esta funcion es el API endpoint que permite hacer peticiones GET / POST a eventos.
 	     @param viewsets
 		 @author Lorena Salamanca
     """

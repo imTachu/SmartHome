@@ -1,7 +1,11 @@
-{% extends "watchapp/base_master.html" %} {% block content %} {% if form.errors %}
-<p>
-    Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
-{% endif %} {% load url from future %}
+{% extends "watchapp/base.html" %} 
+
+{% block content %} 
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+    {% endif %} 
+{% load url from future %}
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -11,15 +15,18 @@
     <br />
     <br />
     <div class="datagrid" style="width: 90%;">
-        <div>
-	        <label>Inmuebles</label> 
-	        <select id="select_Property" name="select_Property" onchange="">
-		        <option value="0">Selecciona...</option>
-		        {% for p in propertyList %}
-			        <option value="{{ p.id }}">{{ p.name }}</option>
-		        {% endfor %}
-	        </select>
-        </div>
+        <form method="post" action="{% url 'watchapp:render_sensor_status' %}" id="get_property_sensor_by_id">
+        {% csrf_token %}
+            <div>
+    	        <label>Inmuebles</label> 
+    	        <select id="select_Property" name="select_Property" onchange="onchange_property();">
+    		        <option value="0">Selecciona...</option>
+    		        {% for p in propertyList %}
+    			        <option value="{{ p.id }}">{{ p.name }}</option>
+    		        {% endfor %}
+    	        </select>
+            </div>
+        </form>
         <table style="width: 100%;">
             <thead>
                 <tr>
@@ -44,13 +51,14 @@
                                             <td>Estado</td>
                                          </tr>
                                          {% for Sensor in Sensors%}
+
                                          <tr>
-                                            <td>Sensor.code</td>
-                                            <td>Sensor.description</td>
-                                            <td>Sensor.type</td>
-                                            <td>Sensor.location_in_plan</td>
-                                            <td>Sensor.color</td>
-                                            <td>Sensor.status</td>
+                                            <td>{{ Sensor.code }}</td>
+                                            <td>{{Sensor.description}}</td>
+                                            <td>{{Sensor.type}}</td>
+                                            <td>{{Sensor.location_in_plan}}</td>
+                                            <td>{{Sensor.color}}</td>
+                                            <td>{{Sensor.status}}</td>
                                          </tr>
                                          {% endfor %}
                                     </tbody>
@@ -68,6 +76,13 @@
     <br />
     <br />
     </div>
+
+    <script type="text/javascript">
+        function onchange_property(){                
+                document.getElementById("get_property_sensor_by_id").submit();
+        }
+    </script>
 </body>
 </html>
+
 {% endblock %}

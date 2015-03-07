@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             name='Event',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateTimeField()),
+                ('date', models.DateTimeField(auto_now_add=True, verbose_name=b'date')),
                 ('description', models.CharField(max_length=200)),
                 ('value', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('type', models.CharField(max_length=30, choices=[(b'0', b'Disparo de alarma'), (b'1', b'Activar alarma'), (b'3', b'Alerta en sensor'), (b'2', b'Desactivar alarma'), (b'4', b'Cambio actuador')])),
@@ -70,6 +70,7 @@ class Migration(migrations.Migration):
                 ('location_in_plan', models.CharField(max_length=20, null=True)),
                 ('color', models.CharField(max_length=20, null=True)),
                 ('status', models.CharField(max_length=10, choices=[(b'0', b'Encendido'), (b'1', b'Apagado')])),
+                ('property', models.ForeignKey(to='watchapp.Property', null=True)),
             ],
             options={
             },

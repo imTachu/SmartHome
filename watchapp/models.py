@@ -58,6 +58,7 @@ class Sensor(models.Model):
     location_in_plan = models.CharField(max_length=20,null=True)
     color = models.CharField(max_length=20,null=True)
     status = models.CharField(max_length=10, choices=SENSOR_STATUS_CHOICES)
+    property = models.ForeignKey(Property,null=True)
 
     def __unicode__(self):
         return self.description
