@@ -105,7 +105,8 @@ def EventNotifier(sender, instance, **kwargs):
         msg.send()
     if instance.is_fatal == True:
         print "entra al evento fatal"
-html_content = render_to_string('watchapp/email.html')               
+        html_content = render_to_string('watchapp/email.html')               
         msg = EmailMultiAlternatives('Fatal', 'Hola','watchapp.latam@gmail.com', ['juandavidvallejo@gmail.com'])
         msg.attach_alternative(html_content, "text/html")
-        msg.send()        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
+        msg.send()
+        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
