@@ -46,6 +46,53 @@
 <img src={{ selected_property.plan }} alt="Plano del inmueble" style="width:500px;height:400px" >
 </div>
 {% endif %}
+    <br />
+    <br />
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        Sensores
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            {% if Sensors %} 
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Código</td>
+                                            <td>Descripción</td>
+                                            <td>Tipo</td>
+                                            <td>Ubicación</td>
+                                            <td>Color</td>
+                                            <td>Estado</td>
+                                         </tr>
+                                         {% for Sensor in Sensors%}
+
+                                         <tr>
+                                            <td>{{ Sensor.code }}</td>
+                                            <td>{{Sensor.description}}</td>
+                                            <td>{{Sensor.type}}</td>
+                                            <td>{{Sensor.location_in_plan}}</td>
+                                            <td>{{Sensor.color}}</td>
+                                            <td>{{Sensor.status}}</td>
+                                         </tr>
+                                         {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                            <p>
+                                No hay Sensores.</p>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>
 
 <script>

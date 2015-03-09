@@ -66,11 +66,11 @@ def login_success(request):
     dependiendo del Group al que pertenezca el usuario autenticado.
     	@param request
     	@author Lorena Salamanca
-    """
-    if request.user.groups.filter(name="constructoras").exists():
+    """    
+    if request.user.groups.filter(name="constructoras").exists():        
         return HttpResponseRedirect(reverse('watchapp:constructora_home'))
-    elif request.user.groups.filter(name="usuarios").exists():
-		return HttpResponseRedirect(reverse('watchapp:users_home'))
+    elif request.user.groups.filter(name="usuarios").exists():       
+        return HttpResponseRedirect(reverse('watchapp:users_home'))
 
 ####################### Vistas para propietarios / residentes #######################
 
@@ -84,29 +84,34 @@ def users_home(request):
     	@author Lorena Salamanca
     """
     if request.method == 'POST':
+        sensors = []
         try:
             selected_property = Property.objects.get(name=request.POST["select_as_resident"])
+            sensors = property_sensors(request,selected_property.id) 
         except Property.DoesNotExist:
             selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+            log.debug("Id Propiedad: " + str(selected_property.id))
+            sensors = property_sensors(request,selected_property.id) 
         return render(request, 'watchapp/users_home.html', {
         "selected_property": selected_property,
         "request": request,
+        "Sensors":sensors,
         })
     else:
         return render(request, 'watchapp/users_home.html', {
             "request": request,
         })
 
+@login_required()
 def render_sensor_status(request):
     """
     Esta funcion permite mostrar los datos que se mostraran en la pagina sensorstatus
         @param request
         @author German Bernal
     """      
-    propertyList = propertys_by_User(request)
-    #sensors = property_sensors(request)
+    propertyList = propertys_by_User(request)    
     if request.method == 'POST':
-        sensors = property_sensors(request)        
+        sensors = property_sensors(request,request.POST["select_Property"])        
         return render(request,"watchapp/sensorstatus.html",{
                 "Sensors":sensors,
                 "propertyList":propertyList
@@ -115,32 +120,20 @@ def render_sensor_status(request):
         return render(request,"watchapp/sensorstatus.html",{
                "propertyList":propertyList
             })        
-#@login_required()
-def property_sensors(request):
+@login_required()
+def property_sensors(request,property_id):
     """
     Esta funcion permite obtener los sensores por propiedad,
         @param request
         @author German Bernal
     """
-    #sensors = Sensor.objects.filter(property_id=request)
-    #return sensors
-    #log.debug("property_sensors: val: " + request.POST["select_Property"])
-    sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
+    log.debug("property_sensors: val: " + str(property_id))
+    #sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
+    sensors = Sensor.objects.filter(property_id=property_id)
     #log.debug("property_sensors " + str(sensors[0].description))
     return sensors
-    
-    #if request.method == 'POST':
-    #    sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
-    #    log.debug("property_sensors " + str(sensors[0].description))
-    #    return render(request, "watchapp/sensorstatus.html", {
-    #        "Sensors": sensors,
-    #    })
-    #else:
-    #    return render(request, "watchapp/sensorstatus.html", {
-    #        "request": request,
-    #    })
 
-#@login_required()
+@login_required()
 def propertys_by_User(request):
     """
     Esta funcion permite obtener las propiedad por usuario.
