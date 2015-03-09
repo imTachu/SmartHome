@@ -6,7 +6,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 import os
 import requests
 
@@ -98,8 +99,13 @@ def EventNotifier(sender, instance, **kwargs):
         mobile_to_notify = property_in_event.properties_as_owner.get(id=1).mobile_number
     if instance.is_critical == True:
         print "entra al evento critico"
-        send_mail('CRITICO', 'Here is the CRITICAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
+        html_content = render_to_string('watchapp/email.html')               
+        msg = EmailMultiAlternatives('Alerta', 'Hola','watchapp.latam@gmail.com', ['juandavidvallejo@gmail.com'])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
     if instance.is_fatal == True:
         print "entra al evento fatal"
-        send_mail('FATAL', 'Here is the FATAL message.', 'watchapp.latam@gmail.com', ['tachu.salamanca@gmail.com'], fail_silently=False)
-        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
+html_content = render_to_string('watchapp/email.html')               
+        msg = EmailMultiAlternatives('Fatal', 'Hola','watchapp.latam@gmail.com', ['juandavidvallejo@gmail.com'])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()        requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
