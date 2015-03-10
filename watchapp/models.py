@@ -97,16 +97,22 @@ def EventNotifier(sender, instance, **kwargs):
     except UserProfile.DoesNotExist:
         '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
         mobile_to_notify = property_in_event.properties_as_owner.get(id=1).mobile_number
+    '''Se busca el correo de uno de los residentes del inmueble'''
+    try:
+        mail_to_notify = property_in_event.properties_as_resident.get(id=1).user.email
+    except UserProfile.DoesNotExist:
+        '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
+        mail_to_notify = property_in_event.properties_as_owner.get(id=1).user.email
     if instance.is_critical == True:
         print "entra al evento critico"
         html_content = render_to_string('watchapp/email.html')               
-        msg = EmailMultiAlternatives('Alerta', 'Hola','watchapp.latam@gmail.com', ['juandavidvallejo@gmail.com'])
+        msg = EmailMultiAlternatives('Alerta', 'Hola','watchapp.latam@gmail.com', [mail_to_notify])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
     if instance.is_fatal == True:
         print "entra al evento fatal"
         html_content = render_to_string('watchapp/email.html')               
-        msg = EmailMultiAlternatives('Fatal', 'Hola','watchapp.latam@gmail.com', ['juandavidvallejo@gmail.com'])
+        msg = EmailMultiAlternatives('Fatal', 'Hola','watchapp.latam@gmail.com', [mail_to_notify])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
         requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
