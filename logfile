@@ -1,0 +1,4 @@
+[10/Mar/2015 13:18:58] DEBUG [watchapp.views:93] Id Propiedad: 3
+[10/Mar/2015 13:18:58] DEBUG [watchapp.views:130] property_sensors: val: 3
+[10/Mar/2015 13:19:09] DEBUG [watchapp.views:130] property_sensors: val: 5
+[10/Mar/2015 13:19:15] DEBUG [watchapp.views:130] property_sensors: val: 3
