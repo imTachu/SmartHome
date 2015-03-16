@@ -135,29 +135,28 @@
             $(control).css('-moz-box-shadow', '0px 0px 7px 5px white');
             $(control).css('box-shadow', '0px 0px 7px 5px white');	
         }
-        	function setRow(control)
-	{
-		for (var i = 1 ; i <= 400; i++) {
+        function setRow(control)
+	    {
+		  for (var i = 1 ; i <= 400; i++) {
 			$('#tr'+i).css('background', 'transparent');
-		}
+	       }
+           $("#tr"+control.id).css('background', '#6FFF00');
+        }
 
-		$("#tr"+control.id).css('background', '#6FFF00');
-	}
-
-	function onSensor(control)
+	function onSensor(control,color)
 	{
 	 	for (var i = 1 ; i <= 400; i++) {
 		 $('#tr'+i).css('background', 'transparent');
               
 		}
 
-		$("#tr"+control).css('background', '#6FFF00');
- 		$("#"+control).css('border', '2px solid  red');
+		$("#tr"+control).css('background', color);
+ 		$("#"+control).css('border', '2px solid  blue');
 	}
 
-	function leaveSensor(control)
+	function leaveSensor(control,color)
 	{
-           $("#"+control).css('border', '2px solid #6FFF00');
+        $("#"+control).css('border', '2px solid '+color);
 	}
 
         var audio;
@@ -1555,24 +1554,31 @@
                             <td>Descripción</td>
                             <td>Tipo</td>
                             <td>Ubicación</td>
-                            <td>Estado</td>
                         </tr>
                         {% for Sensor in Sensors%}
-                        <tr id="tr{{Sensor.location_in_plan}}" >
-                            <td  onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{ Sensor.code }}</td>
-                            <td  onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.description}}</td>
-                            <td  onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.type}}</td>
-                            <td  onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.location_in_plan}}</td>
-                            <td  onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">
-                            	{% if Sensor.status == "1" %}
-                            		Activo
-                            	{% else %}
-                            		Inactivo
-                            	{% endif %}
-                            </td>
-                        </tr>
+                            {% if Sensor.status == "0" %}
+                                {% with color="#6FFF00"%}                 {% endwith %}
+                            {% else %}
+                                {% with color="red"%}
+                                {% endwith %}
+                            {% endif%}
+                            <tr id="tr{{Sensor.location_in_plan}}" >
+                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{ Sensor.code }}</td>
+                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.description}}</td>
+                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.get_type_display}}</td>
+                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.location_in_plan}}</td>
+                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">
+                                	{{ Sensor.get_status_display }}
+                                </td>
+                            </tr>
                             <script type="text/javascript">
-                                set_sensor({{Sensor.location_in_plan}},'#6FFF00');
+                                set_sensor({{Sensor.location_in_plan}},
+                                    {% if Sensor.status == "0" %}
+                                        '#6FFF00'
+                                    {% else %}
+                                        'red'
+                                    {% endif%}
+                                );
                             </script>
                             {% endfor %}
                         </tbody>
