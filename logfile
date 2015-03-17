@@ -41,3 +41,7 @@
 [17/Mar/2015 05:45:00] DEBUG [watchapp.views:130] property_sensors: val: 1
 [17/Mar/2015 05:50:59] DEBUG [watchapp.views:93] Id Propiedad: 1
 [17/Mar/2015 05:50:59] DEBUG [watchapp.views:130] property_sensors: val: 1
+[17/Mar/2015 15:45:52] DEBUG [watchapp.views:130] property_sensors: val: 5
+[17/Mar/2015 15:48:39] DEBUG [watchapp.views:130] property_sensors: val: 5
+[17/Mar/2015 15:48:49] DEBUG [watchapp.views:130] property_sensors: val: 5
+[17/Mar/2015 15:49:43] DEBUG [watchapp.views:130] property_sensors: val: 5
