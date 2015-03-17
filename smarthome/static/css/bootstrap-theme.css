@@ -9,6 +9,10 @@ background-size: 100% 100%;
     padding-top: 25px;
     margin-bottom: 0;
     position:absolute;
+ border-bottom:0.5px solid #fff;
+-webkit-box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
+-moz-box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
+box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
 }
 
     .navbar-inverse *:focus {

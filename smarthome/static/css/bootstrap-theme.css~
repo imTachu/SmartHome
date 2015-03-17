@@ -2,12 +2,17 @@
 /*         Navigatioin         */
 /*******************************/
 .navbar-inverse {
+    border-radius: 0;
 background: transparent url(Images/backHeader.png) no-repeat;
 background-size: 100% 100%;
     min-height: 80px;
     padding-top: 25px;
     margin-bottom: 0;
     position:absolute;
+ border-bottom:0.5px solid #2E8BC4;
+-webkit-box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
+-moz-box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
+box-shadow: 0px 2px 12px -3px rgba(46,139,196,0.52);
 }
 
     .navbar-inverse *:focus {

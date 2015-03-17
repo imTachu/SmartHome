@@ -238,9 +238,7 @@ table {
         background: #fff!important;
     }
 
-    .navbar {
-        display: none;
-    }
+
 
     .table td, .table th {
         background-color: #fff!important;
@@ -3933,9 +3931,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 
 .navbar {
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;  
+ border-bottom:1px solid #2E8BC4;
 }
 
 @media (min-width:768px) {

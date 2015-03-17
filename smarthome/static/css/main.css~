@@ -1,6 +1,6 @@
 /* Header */
 #head {
-    background: transparent url(Images/bg_header.png) no-repeat;
+    background: #2E8BC4 url(Images/bg_header.png) no-repeat;
     background-size: 100% 100%;
     min-height: 450px;
     text-align: center;
