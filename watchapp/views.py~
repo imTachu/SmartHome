@@ -179,4 +179,4 @@ class EventViewSet(viewsets.ModelViewSet):
 		 @author Lorena Salamanca
    """
    queryset = Event.objects.all()
-_class = EventSerializer
+   serializer_class = EventSerializer
