@@ -1,2 +1,2 @@
 SmartHome/watchapp/migrations
-*.pyc
+*.py[cod]
