@@ -91,28 +91,35 @@ def EventNotifier(sender, instance, **kwargs):
     print instance.property.name
     '''Se busca la propiedad en la que ocurrio el evento'''
     property_in_event = Property.objects.get(name=instance.property.name)
-    '''Se busca el celular de uno de los residentes del inmueble'''
+    address_to_notify = instance.property.address
+    name_to_notify = instance.property.name
+    sensor = instance.sensor.description
+    '''Se busca los datos de uno de los residentes del inmueble'''
     try:
         mobile_to_notify = property_in_event.properties_as_resident.get(id=1).mobile_number
+        mail_to_notify = property_in_event.properties_as_resident.get(id=1).user.email
+        first_name = property_in_event.properties_as_resident.get(id=1).user.first_name
+        last_name = property_in_event.properties_as_resident.get(id=1).user.last_name
+        
     except UserProfile.DoesNotExist:
         '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
         mobile_to_notify = property_in_event.properties_as_owner.get(id=1).mobile_number
-    '''Se busca el correo de uno de los residentes del inmueble'''
-    try:
-        mail_to_notify = property_in_event.properties_as_resident.get(id=1).user.email
-    except UserProfile.DoesNotExist:
-        '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
         mail_to_notify = property_in_event.properties_as_owner.get(id=1).user.email
+        first_name = property_in_event.properties_as_owner.get(id=1).user.first_name
+        last_name = property_in_event.properties_as_owner.get(id=1).user.last_name
+        
     if instance.is_critical == True:
         print "entra al evento critico"
-        html_content = render_to_string('watchapp/email.html')               
-        msg = EmailMultiAlternatives('Alerta', 'Hola','watchapp.latam@gmail.com', [mail_to_notify])
-        msg.attach_alternative(html_content, "text/html")
+        text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
+        html_content = '<img src="http://i58.tinypic.com/2qd8iea.png" height="200"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
+        msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_to_notify])
+        msg.attach_alternative(html_content, 'text/html')
         msg.send()
     if instance.is_fatal == True:
         print "entra al evento fatal"
-        html_content = render_to_string('watchapp/email.html')               
-        msg = EmailMultiAlternatives('Fatal', 'Hola','watchapp.latam@gmail.com', [mail_to_notify])
-        msg.attach_alternative(html_content, "text/html")
+        text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
+        html_content = '<img src="http://i58.tinypic.com/2qd8iea.png"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
+        msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_to_notify])
+        msg.attach_alternative(html_content, 'text/html')
         msg.send()
         requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})
