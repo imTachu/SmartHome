@@ -515,7 +515,7 @@
         "is_staff": false,
         "last_login": "2015-03-18T22:07:00.848Z",
         "groups": [
-            1
+            2
         ],
         "user_permissions": [],
         "password": "pbkdf2_sha256$15000$ds1L6K8ATfRy$rmLYc2juRr1U42On4oBOprriyoXcFHudn6Yng7e17Ec=",
@@ -523,7 +523,7 @@
         "date_joined": "2015-03-18T22:07:00.848Z"
     },
     "model": "auth.user",
-    "pk": 1
+    "pk": 3
 },
 {
     "fields": {
@@ -563,7 +563,7 @@
         "date_joined": "2015-03-18T22:07:22.406Z"
     },
     "model": "auth.user",
-    "pk": 3
+    "pk": 1
 },
 {
     "fields": {
