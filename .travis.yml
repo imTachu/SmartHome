@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.7"
+install:
+  - pip install -r requirements.txt
+script:
+  - nosetests
+addons:
+  postgresql: "9.3"
+before_script:
+  - psql -c 'create database watchapp;' -U postgres
+  - python manage.py syncdb --noinput
