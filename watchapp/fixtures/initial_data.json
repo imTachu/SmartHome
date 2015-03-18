@@ -1,18 +1,102 @@
 [
 {
     "fields": {
-        "mobile_number": "+573202036599",
-        "fixed_phone_extension": 4520,
-        "fixed_phone": 3363636,
-        "user": 3,
-        "address": "Calle 18A 3-12",
-        "contact_name": "German Bernal",
-        "email": "gd.bernal10@uniandes.edu.co",
-        "nit": "41014101-6",
-        "company_name": "Constructora Andes"
+        "model": "logentry",
+        "name": "log entry",
+        "app_label": "admin"
     },
-    "model": "watchapp.constructorcompany",
+    "model": "contenttypes.contenttype",
     "pk": 1
+},
+{
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "constructorcompany",
+        "name": "constructor company",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "property",
+        "name": "property",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "userprofile",
+        "name": "user profile",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "sensor",
+        "name": "sensor",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "model": "event",
+        "name": "event",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
 },
 {
     "fields": {
@@ -71,6 +155,433 @@
 },
 {
     "fields": {
+        "status": "1",
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "color": "green",
+        "location_in_plan": "212",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 1
+},
+{
+    "fields": {
+        "status": "0",
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "color": "green",
+        "location_in_plan": "329",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 2
+},
+{
+    "fields": {
+        "status": "0",
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "color": "green",
+        "location_in_plan": "52",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_constructorcompany",
+        "name": "Can add constructor company",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_constructorcompany",
+        "name": "Can change constructor company",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_constructorcompany",
+        "name": "Can delete constructor company",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_property",
+        "name": "Can add property",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_property",
+        "name": "Can change property",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_property",
+        "name": "Can delete property",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_userprofile",
+        "name": "Can add user profile",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_userprofile",
+        "name": "Can change user profile",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_userprofile",
+        "name": "Can delete user profile",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_sensor",
+        "name": "Can add sensor",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_sensor",
+        "name": "Can change sensor",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_sensor",
+        "name": "Can delete sensor",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "codename": "add_event",
+        "name": "Can add event",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 31
+},
+{
+    "fields": {
+        "codename": "change_event",
+        "name": "Can change event",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 32
+},
+{
+    "fields": {
+        "codename": "delete_event",
+        "name": "Can delete event",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 33
+},
+{
+    "fields": {
+        "name": "usuarios",
+        "permissions": []
+    },
+    "model": "auth.group",
+    "pk": 1
+},
+{
+    "fields": {
+        "name": "constructoras",
+        "permissions": []
+    },
+    "model": "auth.group",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "constructora",
+        "first_name": "German",
+        "last_name": "Bernal",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:00.848Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$ds1L6K8ATfRy$rmLYc2juRr1U42On4oBOprriyoXcFHudn6Yng7e17Ec=",
+        "email": "gdbs887@gmail.com",
+        "date_joined": "2015-03-18T22:07:00.848Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "fredy",
+        "first_name": "Fredy",
+        "last_name": "Wilches",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:14.239Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$iMbs1Yrx2NA3$yerDuaFLy0KLsoCkUQBcXeY5dSgE+6C82Wv2/R4BIGU=",
+        "email": "fredy.wilches@gmail.com",
+        "date_joined": "2015-03-18T22:07:14.239Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "lorena",
+        "first_name": "Lorena",
+        "last_name": "Salamanca",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:22.406Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$xexmwgEbRUi4$+0LVoQkIRIw5rQJZhMslVhL8WQ+NP4sk3v4t0JnxUPI=",
+        "email": "tachu.salamanca@gmail.com",
+        "date_joined": "2015-03-18T22:07:22.406Z"
+    },
+    "model": "auth.user",
+    "pk": 3
+},
+{
+    "fields": {
+        "mobile_number": "+573202036599",
+        "fixed_phone_extension": 4520,
+        "fixed_phone": 3363636,
+        "user": 3,
+        "address": "Calle 18A 3-12",
+        "contact_name": "German Bernal",
+        "email": "gd.bernal10@uniandes.edu.co",
+        "nit": "41014101-6",
+        "company_name": "Constructora Andes"
+    },
+    "model": "watchapp.constructorcompany",
+    "pk": 1
+},
+{
+    "fields": {
         "properties_as_owner": [
             1,
             3
@@ -114,44 +625,5 @@
     },
     "model": "watchapp.userprofile",
     "pk": 3
-},
-{
-    "fields": {
-        "status": "1",
-        "code": "HTC-001",
-        "description": "Sensor puerta ba\u00f1o",
-        "color": "green",
-        "location_in_plan": "212",
-        "property": 4,
-        "type": "1"
-    },
-    "model": "watchapp.sensor",
-    "pk": 2
-},
-{
-    "fields": {
-        "status": "0",
-        "code": "HTC-002",
-        "description": "Sensor puerta principal",
-        "color": "green",
-        "location_in_plan": "329",
-        "property": 4,
-        "type": "2"
-    },
-    "model": "watchapp.sensor",
-    "pk": 5
-},
-{
-    "fields": {
-        "status": "0",
-        "code": "HTC-003",
-        "description": "Sensor puerta balc\u00f3n",
-        "color": "green",
-        "location_in_plan": "52",
-        "property": 4,
-        "type": "2"
-    },
-    "model": "watchapp.sensor",
-    "pk": 6
 }
 ]
