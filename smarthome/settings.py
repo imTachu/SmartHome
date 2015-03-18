@@ -10,7 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+import dj_database_url
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -23,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,16 +64,10 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default':  {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'dc1gs4uaso7vsq',
-        'USER': 'hazenavzfyagbs',
-        'PASSWORD': 'HASO-rgOkCQ71cmdfJVXBnxkDO',
-        'HOST': 'ec2-107-21-104-188.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+DATABASES = {}
+DATABASES['default'] =  dj_database_url.config()
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -94,10 +90,11 @@ STATIC_URL = '/static/'
 import os
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = BASE_DIR
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 
 # Redirect when login is correct.
 LOGIN_REDIRECT_URL = "/watchapp/login_success/"
@@ -109,8 +106,8 @@ LOGIN_URL = '/'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'watchapp.latam@gmail.com'
-EMAIL_HOST_PASSWORD = 'miso4101'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 LOGGING = {
     'version': 1,

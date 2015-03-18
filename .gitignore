@@ -1,2 +1,5 @@
 SmartHome/watchapp/migrations
 *.py[cod]
+.env
+.DS_Store
+smarthome/logfile
