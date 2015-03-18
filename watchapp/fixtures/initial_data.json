@@ -1,6 +1,199 @@
 [
 {
     "fields": {
+        "model": "logentry",
+        "name": "log entry",
+        "app_label": "admin"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+},
+{
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "constructorcompany",
+        "name": "constructor company",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "property",
+        "name": "property",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "userprofile",
+        "name": "user profile",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "sensor",
+        "name": "sensor",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "model": "event",
+        "name": "event",
+        "app_label": "watchapp"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
+},
+{
+    "fields": {
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "constructor_company": 1,
+        "fixed_phone": "5555555",
+        "name": "Edificio Aja, Apto 305",
+        "address": "Carrera 15 79-25"
+    },
+    "model": "watchapp.property",
+    "pk": 1
+},
+{
+    "fields": {
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "constructor_company": 1,
+        "fixed_phone": "4444444",
+        "name": "Edificio Aja, Apto 304",
+        "address": "Carrera 15 79-25"
+    },
+    "model": "watchapp.property",
+    "pk": 2
+},
+{
+    "fields": {
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "constructor_company": 1,
+        "fixed_phone": "3333333",
+        "name": "Edificio Aja, Apto 303",
+        "address": "Carrera 15 79-25"
+    },
+    "model": "watchapp.property",
+    "pk": 3
+},
+{
+    "fields": {
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "constructor_company": 1,
+        "fixed_phone": "2222222",
+        "name": "Edificio Aja, Apto 302",
+        "address": "Carrera 15 79-25"
+    },
+    "model": "watchapp.property",
+    "pk": 4
+},
+{
+    "fields": {
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "constructor_company": 1,
+        "fixed_phone": "1111111",
+        "name": "Edificio Aja, Apto 301",
+        "address": "Carrera 15 79-25"
+    },
+    "model": "watchapp.property",
+    "pk": 5
+},
+{
+    "fields": {
+        "status": "1",
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "color": "green",
+        "location_in_plan": "212",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 1
+},
+{
+    "fields": {
+        "status": "0",
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "color": "green",
+        "location_in_plan": "329",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 2
+},
+{
+    "fields": {
+        "status": "0",
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "color": "green",
+        "location_in_plan": "52",
+        "property": 4,
+        "type": "1"
+    },
+    "model": "watchapp.sensor",
+    "pk": 3
+},
+{
+    "fields": {
         "codename": "add_logentry",
         "name": "Can add log entry",
         "content_type": 1
@@ -295,5 +488,142 @@
     },
     "model": "auth.permission",
     "pk": 33
+},
+{
+    "fields": {
+        "name": "usuarios",
+        "permissions": []
+    },
+    "model": "auth.group",
+    "pk": 1
+},
+{
+    "fields": {
+        "name": "constructoras",
+        "permissions": []
+    },
+    "model": "auth.group",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "constructora",
+        "first_name": "German",
+        "last_name": "Bernal",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:00.848Z",
+        "groups": [
+            2
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$ds1L6K8ATfRy$rmLYc2juRr1U42On4oBOprriyoXcFHudn6Yng7e17Ec=",
+        "email": "gdbs887@gmail.com",
+        "date_joined": "2015-03-18T22:07:00.848Z"
+    },
+    "model": "auth.user",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "fredy",
+        "first_name": "Fredy",
+        "last_name": "Wilches",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:14.239Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$iMbs1Yrx2NA3$yerDuaFLy0KLsoCkUQBcXeY5dSgE+6C82Wv2/R4BIGU=",
+        "email": "fredy.wilches@gmail.com",
+        "date_joined": "2015-03-18T22:07:14.239Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "lorena",
+        "first_name": "Lorena",
+        "last_name": "Salamanca",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-03-18T22:07:22.406Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$xexmwgEbRUi4$+0LVoQkIRIw5rQJZhMslVhL8WQ+NP4sk3v4t0JnxUPI=",
+        "email": "tachu.salamanca@gmail.com",
+        "date_joined": "2015-03-18T22:07:22.406Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "mobile_number": "+573202036599",
+        "fixed_phone_extension": 4520,
+        "fixed_phone": 3363636,
+        "user": 3,
+        "address": "Calle 18A 3-12",
+        "contact_name": "German Bernal",
+        "email": "gd.bernal10@uniandes.edu.co",
+        "nit": "41014101-6",
+        "company_name": "Constructora Andes"
+    },
+    "model": "watchapp.constructorcompany",
+    "pk": 1
+},
+{
+    "fields": {
+        "properties_as_owner": [
+            1,
+            3
+        ],
+        "properties_as_resident": [
+            3,
+            4,
+            5
+        ],
+        "user": 1,
+        "mobile_number": "+573166537244"
+    },
+    "model": "watchapp.userprofile",
+    "pk": 1
+},
+{
+    "fields": {
+        "properties_as_owner": [
+            2,
+            3,
+            4,
+            5
+        ],
+        "properties_as_resident": [
+            1,
+            2,
+            4
+        ],
+        "user": 2,
+        "mobile_number": "+573002146240"
+    },
+    "model": "watchapp.userprofile",
+    "pk": 2
+},
+{
+    "fields": {
+        "properties_as_owner": [],
+        "properties_as_resident": [],
+        "user": 3,
+        "mobile_number": "+573156016907"
+    },
+    "model": "watchapp.userprofile",
+    "pk": 3
 }
 ]
