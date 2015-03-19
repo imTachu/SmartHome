@@ -172,7 +172,7 @@
 {
     "fields": {
         "code": "HTC-001",
-        "description": "Sensor Puerta ba\u00f1o",
+        "description": "Sensor Puerta banho",
         "location_in_plan": "212",
         "value": "1",
         "property": 4,
@@ -211,7 +211,7 @@
 {
     "fields": {
         "code": "HTC-001",
-        "description": "Sensor Puerta ba\u00f1o",
+        "description": "Sensor Puerta banho",
         "location_in_plan": "212",
         "value": "1",
         "property": 1,
@@ -250,7 +250,7 @@
 {
     "fields": {
         "code": "HTC-001",
-        "description": "Sensor Puerta ba\u00f1o",
+        "description": "Sensor Puerta banho",
         "location_in_plan": "212",
         "value": "1",
         "property": 2,
@@ -289,7 +289,7 @@
 {
     "fields": {
         "code": "HTC-001",
-        "description": "Sensor Puerta ba\u00f1o",
+        "description": "Sensor Puerta banho",
         "location_in_plan": "212",
         "value": "1",
         "property": 3,
@@ -328,7 +328,7 @@
 {
     "fields": {
         "code": "HTC-001",
-        "description": "Sensor Puerta ba\u00f1o",
+        "description": "Sensor Puerta banho",
         "location_in_plan": "212",
         "value": "1",
         "property": 5,
