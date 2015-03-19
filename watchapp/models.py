@@ -44,25 +44,24 @@ class UserProfile(models.Model):
 '''Clase para sensores y actuadores'''
 class Sensor(models.Model):
     SENSOR_TYPES_CHOICES = (
-    	('0', 'Sensor digital'),
-    	('1', 'Sensor analogo'),
-    	('2', 'Sensor PWM'),
-    	('3', 'Actuador digital'),
-    	('4', 'Actuador analogo'),
-    	('5', 'Actuador PWM'),
+    	('0', 'Sensor'),
+    	('1', 'Actuador'),
     )
     SENSOR_STATUS_CHOICES = (
-        ('0', 'Encendido'),
-        ('1', 'Apagado'),
+        ('1', 'Off'),
+        ('2', '25%'),
+        ('3', '50%'),
+        ('4', '75%'),
+        ('5', 'On'),
     )
     code = models.CharField(max_length=15)
     description = models.CharField(max_length=60)
     type = models.CharField(max_length=30, choices=SENSOR_TYPES_CHOICES)
     location_in_plan = models.CharField(max_length=20,null=True)
-    color = models.CharField(max_length=20,null=True)
-    status = models.CharField(max_length=10, choices=SENSOR_STATUS_CHOICES)
+    is_discrete = models.BooleanField(default=False)
     property = models.ForeignKey(Property,null=True)
-
+    value = models.CharField(max_length=30, choices=SENSOR_TYPES_CHOICES)
+    
     def __unicode__(self):
         return self.description
 
