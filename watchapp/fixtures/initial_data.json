@@ -100,6 +100,22 @@
 },
 {
     "fields": {
+        "expire_date": "2015-04-01T22:20:55.348Z",
+        "session_data": "NmYxNTM5MjQ4MjVjYTg2YTRlMzIwNWY5MjBkYjY1NDNlNGY0Yzc2YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+    },
+    "model": "sessions.session",
+    "pk": "u7n8qhkxo1n1bdwlrs7hkfs8cnm7xkt6"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-02T18:33:51.562Z",
+        "session_data": "YWJhYmU3MWRkZmI0ZGI5MTZlZGE1OGQ0OWI1NjhlZTJkZGNmNWVjYTp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+    },
+    "model": "sessions.session",
+    "pk": "uqflad8rrwkrw0t7ekaciqzhwmtfht3h"
+},
+{
+    "fields": {
         "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "constructor_company": 1,
         "fixed_phone": "5555555",
@@ -155,42 +171,198 @@
 },
 {
     "fields": {
-        "status": "1",
         "code": "HTC-001",
         "description": "Sensor Puerta ba\u00f1o",
-        "color": "green",
         "location_in_plan": "212",
+        "value": "1",
         "property": 4,
-        "type": "1"
+        "type": "1",
+        "is_discrete": false
     },
     "model": "watchapp.sensor",
     "pk": 1
 },
 {
     "fields": {
-        "status": "0",
         "code": "HTC-002",
         "description": "Sensor Puerta principal",
-        "color": "green",
         "location_in_plan": "329",
+        "value": "1",
         "property": 4,
-        "type": "1"
+        "type": "1",
+        "is_discrete": false
     },
     "model": "watchapp.sensor",
     "pk": 2
 },
 {
     "fields": {
-        "status": "0",
         "code": "HTC-003",
         "description": "Sensor Puerta balc\u00f3n",
-        "color": "green",
         "location_in_plan": "52",
+        "value": "1",
         "property": 4,
-        "type": "1"
+        "type": "1",
+        "is_discrete": false
     },
     "model": "watchapp.sensor",
     "pk": 3
+},
+{
+    "fields": {
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "location_in_plan": "212",
+        "value": "1",
+        "property": 1,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 6
+},
+{
+    "fields": {
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "location_in_plan": "329",
+        "value": "1",
+        "property": 1,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 7
+},
+{
+    "fields": {
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "location_in_plan": "52",
+        "value": "1",
+        "property": 1,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 8
+},
+{
+    "fields": {
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "location_in_plan": "212",
+        "value": "1",
+        "property": 2,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 9
+},
+{
+    "fields": {
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "location_in_plan": "329",
+        "value": "1",
+        "property": 2,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 10
+},
+{
+    "fields": {
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "location_in_plan": "52",
+        "value": "1",
+        "property": 2,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 11
+},
+{
+    "fields": {
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "location_in_plan": "212",
+        "value": "1",
+        "property": 3,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 12
+},
+{
+    "fields": {
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "location_in_plan": "329",
+        "value": "1",
+        "property": 3,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 13
+},
+{
+    "fields": {
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "location_in_plan": "52",
+        "value": "1",
+        "property": 3,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 14
+},
+{
+    "fields": {
+        "code": "HTC-001",
+        "description": "Sensor Puerta ba\u00f1o",
+        "location_in_plan": "212",
+        "value": "1",
+        "property": 5,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 15
+},
+{
+    "fields": {
+        "code": "HTC-002",
+        "description": "Sensor Puerta principal",
+        "location_in_plan": "329",
+        "value": "1",
+        "property": 5,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 16
+},
+{
+    "fields": {
+        "code": "HTC-003",
+        "description": "Sensor Puerta balc\u00f3n",
+        "location_in_plan": "52",
+        "value": "1",
+        "property": 5,
+        "type": "1",
+        "is_discrete": false
+    },
+    "model": "watchapp.sensor",
+    "pk": 17
 },
 {
     "fields": {
@@ -507,23 +679,23 @@
 },
 {
     "fields": {
-        "username": "constructora",
-        "first_name": "German",
-        "last_name": "Bernal",
+        "username": "lorena",
+        "first_name": "Lorena",
+        "last_name": "Salamanca",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-03-18T22:07:00.848Z",
+        "last_login": "2015-03-19T18:33:51.556Z",
         "groups": [
-            2
+            1
         ],
         "user_permissions": [],
-        "password": "pbkdf2_sha256$15000$ds1L6K8ATfRy$rmLYc2juRr1U42On4oBOprriyoXcFHudn6Yng7e17Ec=",
-        "email": "gdbs887@gmail.com",
-        "date_joined": "2015-03-18T22:07:00.848Z"
+        "password": "pbkdf2_sha256$15000$xexmwgEbRUi4$+0LVoQkIRIw5rQJZhMslVhL8WQ+NP4sk3v4t0JnxUPI=",
+        "email": "tachu.salamanca@gmail.com",
+        "date_joined": "2015-03-18T22:07:22.406Z"
     },
     "model": "auth.user",
-    "pk": 3
+    "pk": 1
 },
 {
     "fields": {
@@ -547,23 +719,23 @@
 },
 {
     "fields": {
-        "username": "lorena",
-        "first_name": "Lorena",
-        "last_name": "Salamanca",
+        "username": "constructora",
+        "first_name": "German",
+        "last_name": "Bernal",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-03-18T22:07:22.406Z",
+        "last_login": "2015-03-18T22:07:00.848Z",
         "groups": [
-            1
+            2
         ],
         "user_permissions": [],
-        "password": "pbkdf2_sha256$15000$xexmwgEbRUi4$+0LVoQkIRIw5rQJZhMslVhL8WQ+NP4sk3v4t0JnxUPI=",
-        "email": "tachu.salamanca@gmail.com",
-        "date_joined": "2015-03-18T22:07:22.406Z"
+        "password": "pbkdf2_sha256$15000$ds1L6K8ATfRy$rmLYc2juRr1U42On4oBOprriyoXcFHudn6Yng7e17Ec=",
+        "email": "gdbs887@gmail.com",
+        "date_joined": "2015-03-18T22:07:00.848Z"
     },
     "model": "auth.user",
-    "pk": 1
+    "pk": 3
 },
 {
     "fields": {
