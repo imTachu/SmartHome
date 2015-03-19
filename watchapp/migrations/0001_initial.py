@@ -66,10 +66,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('code', models.CharField(max_length=15)),
                 ('description', models.CharField(max_length=60)),
-                ('type', models.CharField(max_length=30, choices=[(b'0', b'Sensor digital'), (b'1', b'Sensor analogo'), (b'2', b'Sensor PWM'), (b'3', b'Actuador digital'), (b'4', b'Actuador analogo'), (b'5', b'Actuador PWM')])),
+                ('type', models.CharField(max_length=30, choices=[(b'0', b'Sensor'), (b'1', b'Actuador')])),
                 ('location_in_plan', models.CharField(max_length=20, null=True)),
-                ('color', models.CharField(max_length=20, null=True)),
-                ('status', models.CharField(max_length=10, choices=[(b'0', b'Encendido'), (b'1', b'Apagado')])),
+                ('is_discrete', models.BooleanField(default=False)),
+                ('value', models.CharField(max_length=30, choices=[(b'0', b'Sensor'), (b'1', b'Actuador')])),
                 ('property', models.ForeignKey(to='watchapp.Property', null=True)),
             ],
             options={
