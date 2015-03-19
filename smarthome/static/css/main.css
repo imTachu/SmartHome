@@ -44,7 +44,6 @@
         -webkit-box-shadow: inset 0 0 0 3px rgba(255,255,255,.5);
         -moz-box-shadow: inset 0 0 0 3px rgba(255,255,255,.5);
         box-shadow: inset 0 0 0 3px rgba(255,255,255,.5);
-        background: transparent;
     }
 
         #head .btn-default:hover,
@@ -113,16 +112,12 @@
         margin-bottom: 20px;
     }
 
-.h-body {
-}
-
-
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: "Open sans", Helvetica, Arial;
 }
 
-h1, .h1, h2, .h2, h3, .h3 {
+h1, h2, h3 {
     margin-top: 30px;
 }
 
@@ -200,10 +195,6 @@ img {
         width: 340px;
         margin: 0 auto;
     }
-
-/* Main content block */
-.maincontent {
-}
 
 /* Sidebars */
 .sidebar {
