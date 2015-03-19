@@ -10,3 +10,11 @@ addons:
 before_script:
   - psql -c 'create database watchapp;' -U postgres
   - python manage.py syncdb --noinput
+notifications:
+  email:
+    recipients:
+      - dan-esco@uniandes.edu.co
+      - l.salamanca10@uniandes.edu.co
+      - jj.alarcon10@uniandes.edu.co
+    on_success: always
+    on_failure: never
