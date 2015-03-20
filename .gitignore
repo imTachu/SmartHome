@@ -3,3 +3,5 @@ watchapp/migrations
 .env
 .DS_Store
 smarthome/logfile
+README.md
+.travis.yml
