@@ -89,5 +89,16 @@ Antes de realizar el despliegue en Heroku, se hace integración continua con Tra
 
 Cada vez que se haga un "buen push" (es decir, un push que Travis CI apruebe) en el ambiente test, se puede pasar el cambio a prod. Esta notificación la hará Travis CI automaticamente al equipo de operaciones mediante un correo electrónico. Asimismo, tan pronto el equipo de operaciones haga un cambio que Travis CI apruebe en producción, el stakeholder (Jonathan Alarcon) será notificado mediante un correo electrónico.
 
+### Despliegue con cambio en models
+Correr los siguientes comandos para la aplicación de Heroku que corresponda.
+
+`heroku run python manage.py flush -a watchapp-dev`
+
+`heroku pg:reset DATABASE -a watchapp-dev`
+
+`heroku run python manage.py syncdb -a watchapp-dev`
+
+`heroku run python manage.py loaddata watchapp/fixtures/initial_data.json -a watchapp-dev`
+
 ### Datos de prueba
 Login>>> lorena:lorena
