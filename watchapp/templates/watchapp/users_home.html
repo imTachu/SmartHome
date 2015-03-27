@@ -398,6 +398,7 @@
 				{% if selected_property.name %}
                 <form method="get" action="{% url 'watchapp:change_secure_mode' selected_property.id %}" id="change_secure_mode">
                     <div style="float:right;">
+                    <img src="http://www.midashotels.com/new-york-guide/info-icon-white-20x20.gif" title="Al desactivar el modo seguro ya no recibiras notificaciones">
                     <label>Modo seguro</label>
                     {% if selected_property.is_secure_mode %} 
                     <label class="switch switch-green">
