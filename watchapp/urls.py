@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 	url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
 	url(r'^sensorstatus/$', views.render_sensor_status, name='render_sensor_status'),
-	#url(r'^sensorstatus/property_sensors$', views.property_sensors, name='property_sensors'),
+    url(r'^(?P<property_id>\d+)/change_secure_mode/$', views.change_secure_mode, name='change_secure_mode'),
 	url('', include('django.contrib.auth.urls')),
 	
 	#URLs para funcionalidades de usuarios (residente/propietario)
