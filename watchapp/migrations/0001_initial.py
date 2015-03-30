@@ -54,6 +54,7 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=100, null=True)),
                 ('fixed_phone', models.CharField(max_length=15, null=True)),
                 ('plan', models.CharField(max_length=300, null=True)),
+                ('is_secure_mode', models.BooleanField(default=True)),
                 ('constructor_company', models.ForeignKey(to='watchapp.ConstructorCompany', null=True)),
             ],
             options={

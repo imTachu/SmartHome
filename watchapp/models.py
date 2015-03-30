@@ -30,7 +30,8 @@ class Property(models.Model):
     fixed_phone = models.CharField(max_length=15, null=True)
     plan = models.CharField(max_length=300, null=True)
     constructor_company = models.ForeignKey(ConstructorCompany, null=True)
-	
+    is_secure_mode = models.BooleanField(default=True)
+
     def __unicode__(self):
         return self.name
 
@@ -107,14 +108,14 @@ def EventNotifier(sender, instance, **kwargs):
         first_name = property_in_event.properties_as_owner.get(id=1).user.first_name
         last_name = property_in_event.properties_as_owner.get(id=1).user.last_name
         
-    if instance.is_critical == True:
+    if instance.is_critical == True and property_in_event.is_secure_mode == True:
         print "entra al evento critico"
         text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
         html_content = '<img src="http://i58.tinypic.com/2qd8iea.png" height="200"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
         msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_to_notify])
         msg.attach_alternative(html_content, 'text/html')
         msg.send()
-    if instance.is_fatal == True:
+    if instance.is_fatal == True and property_in_event.is_secure_mode == True:
         print "entra al evento fatal"
         text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
         html_content = '<img src="http://i58.tinypic.com/2qd8iea.png"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
