@@ -113,13 +113,14 @@ def users_home(request):
     """
     if request.method == 'POST':
         sensors = []
-        try:
-            selected_property = Property.objects.get(name=request.POST["select_as_resident"])
-            sensors = property_sensors(request,selected_property.id) 
-        except Property.DoesNotExist:
-            selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+        selected_property = ''
+        if request.POST.get('select_as_owner', '') == "0":
+            selected_property = Property.objects.get(name=request.POST.get('select_as_resident', ''))
+            sensors = property_sensors(request,selected_property.id)
+        elif request.POST.get('select_as_resident', '') == "0":
+            selected_property = Property.objects.get(name=request.POST.get('select_as_owner', ''))
             log.debug("Id Propiedad: " + str(selected_property.id))
-            sensors = property_sensors(request,selected_property.id) 
+            sensors = property_sensors(request,selected_property.id)
         return render(request, 'watchapp/users_home.html', {
         "selected_property": selected_property,
         "request": request,
@@ -128,6 +129,30 @@ def users_home(request):
     else:
         return render(request, 'watchapp/users_home.html', {
             "request": request,
+        })
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
+def change_secure_mode(request, property_id):
+    """
+    Esta funcion activa / desactiva el modo seguro de un inmueble
+        @param request
+        @author Lorena Salamanca
+    """
+    if request.method == 'GET':
+        selected_property = Property.objects.get(pk=property_id)
+        if request.GET.get('change_secure_mode_checkbox', ''):
+            selected_property.is_secure_mode = True
+            selected_property.save()
+        else:
+            selected_property.is_secure_mode = False
+            selected_property.save()
+        sensors = property_sensors(request,selected_property.id)
+
+        return render(request, 'watchapp/users_home.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "Sensors":sensors,
         })
 
 @login_required()

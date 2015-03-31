@@ -100,7 +100,7 @@
 },
 {
     "fields": {
-        "expire_date": "2015-04-01T22:20:55.348Z",
+        "expire_date": "2015-04-10T20:58:09.842Z",
         "session_data": "NmYxNTM5MjQ4MjVjYTg2YTRlMzIwNWY5MjBkYjY1NDNlNGY0Yzc2YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
     },
     "model": "sessions.session",
@@ -116,10 +116,11 @@
 },
 {
     "fields": {
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
-        "constructor_company": 1,
-        "fixed_phone": "5555555",
         "name": "Edificio Aja, Apto 305",
+        "constructor_company": 1,
+        "is_secure_mode": true,
+        "fixed_phone": "5555555",
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -127,10 +128,11 @@
 },
 {
     "fields": {
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
-        "constructor_company": 1,
-        "fixed_phone": "4444444",
         "name": "Edificio Aja, Apto 304",
+        "constructor_company": 1,
+        "is_secure_mode": true,
+        "fixed_phone": "4444444",
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -138,10 +140,11 @@
 },
 {
     "fields": {
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
-        "constructor_company": 1,
-        "fixed_phone": "3333333",
         "name": "Edificio Aja, Apto 303",
+        "constructor_company": 1,
+        "is_secure_mode": true,
+        "fixed_phone": "3333333",
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -149,10 +152,11 @@
 },
 {
     "fields": {
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
-        "constructor_company": 1,
-        "fixed_phone": "2222222",
         "name": "Edificio Aja, Apto 302",
+        "constructor_company": 1,
+        "is_secure_mode": false,
+        "fixed_phone": "2222222",
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -160,10 +164,11 @@
 },
 {
     "fields": {
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
-        "constructor_company": 1,
-        "fixed_phone": "1111111",
         "name": "Edificio Aja, Apto 301",
+        "constructor_company": 1,
+        "is_secure_mode": true,
+        "fixed_phone": "1111111",
+        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -685,7 +690,7 @@
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-03-19T18:33:51.556Z",
+        "last_login": "2015-03-27T20:58:09.799Z",
         "groups": [
             1
         ],
@@ -760,8 +765,8 @@
         ],
         "properties_as_resident": [
             3,
-            4,
-            5
+            5,
+            4
         ],
         "user": 1,
         "mobile_number": "+573166537244"
@@ -772,10 +777,10 @@
 {
     "fields": {
         "properties_as_owner": [
-            2,
             3,
-            4,
-            5
+            2,
+            5,
+            4
         ],
         "properties_as_resident": [
             1,
