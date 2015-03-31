@@ -72,6 +72,34 @@ def login_success(request):
     elif request.user.groups.filter(name="usuarios").exists():       
         return HttpResponseRedirect(reverse('watchapp:users_home'))
 
+
+@login_required()
+def sensor_configuration(request):
+    """
+    Esta funcion tiene el contenido del home de usuarios (propietarios / residentes), 
+    se puede acceder despues de la autenticacion de un usuario que este en el Group usuarios
+    	@param request
+    	@author Lorena Salamanca
+    """
+    if request.method == 'POST':
+        sensors = []
+        try:
+            selected_property = Property.objects.get(name=request.POST["select_as_resident"])
+            sensors = property_sensors(request,selected_property.id) 
+        except Property.DoesNotExist:
+            selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+            log.debug("Id Propiedad: " + str(selected_property.id))
+            sensors = property_sensors(request,selected_property.id) 
+        return render(request, 'watchapp/sensor_configuration.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "Sensors":sensors,
+        })
+    else:
+        return render(request, 'watchapp/sensor_configuration.html', {
+            "request": request,
+        })
+
 ####################### Vistas para propietarios / residentes #######################
 
 @login_required()

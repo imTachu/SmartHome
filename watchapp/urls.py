@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 	
 	#URLs para funcionalidades de usuarios (residente/propietario)
     url(r'^users_home/$', views.users_home, name='users_home'),
-	
+url(r'^sensor_configuration/$', views.sensor_configuration, name='sensor_configuration'),
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
 
