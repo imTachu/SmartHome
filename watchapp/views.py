@@ -13,6 +13,8 @@ from watchapp.models import ConstructorCompany, Property, UserProfile, Sensor, E
 from watchapp.serializers import EventSerializer
 from rest_framework import viewsets
 import logging
+from django.views.decorators.csrf import csrf_exempt
+import json
 log = logging.getLogger(__name__)
 
 ####################### Vistas index o para autenticacion #######################
@@ -83,13 +85,9 @@ def sensor_configuration(request):
     """
     if request.method == 'POST':
         sensors = []
-        try:
-            selected_property = Property.objects.get(name=request.POST["select_as_resident"])
-            sensors = property_sensors(request,selected_property.id) 
-        except Property.DoesNotExist:
-            selected_property = Property.objects.get(name=request.POST["select_as_owner"])
-            log.debug("Id Propiedad: " + str(selected_property.id))
-            sensors = property_sensors(request,selected_property.id) 
+	selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+	log.debug("Id Propiedad: " + str(selected_property.id))
+	sensors = property_sensors(request,selected_property.id) 
         return render(request, 'watchapp/sensor_configuration.html', {
         "selected_property": selected_property,
         "request": request,
@@ -99,6 +97,51 @@ def sensor_configuration(request):
         return render(request, 'watchapp/sensor_configuration.html', {
             "request": request,
         })
+
+
+####################### Vistas para crear un sensor en un plano #######################
+
+@login_required()
+@csrf_exempt
+def set_position_ajax(request):
+        response_data = {}
+	print 'Raw Data: "%s"' % request.body
+	data = json.loads(request.body) 
+        sensors = []
+        selected_property = Property.objects.get(name=data['property'])
+        sensor = Sensor(
+		code = data['code'],
+		description = data['description'],
+		type =  data['type'],
+		location_in_plan = data['location_in_plan'],
+		is_discrete = data['location_in_plan'],
+		property = selected_property,
+		value = '0'
+        )
+        sensor.save()
+	sensorUpdate=Sensor.objects.get(pk=sensor.pk)
+        typeSensor =data['code']
+        sensorUpdate.code = typeSensor[0]+'-'+str(sensor.pk);       
+	sensorUpdate.save()
+        response_data['msg'] = 'ok'
+	sensors = property_sensors(request,selected_property.id) 
+	print sensors
+        return render_to_response('watchapp/sensor_configuration.html', {
+        "Sensors":sensors})
+
+
+####################### Vistas para borrar un sensor en un plano #######################
+
+@login_required()
+@csrf_exempt
+def delete_position_ajax(request):
+        response_data = {}
+	print 'Raw Data: "%s"' % request.body
+	data = json.loads(request.body) 
+	sensorUpdate=Sensor.objects.get(pk=data['sensorId'])
+	sensorUpdate.delete()
+        response_data['msg'] = 'ok'
+        return render_to_response('watchapp/sensor_configuration.html')
 
 ####################### Vistas para propietarios / residentes #######################
 

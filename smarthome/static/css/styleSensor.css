@@ -22,9 +22,9 @@
 #drag {
     border: 1px solid rgba(0,0,0,0.75);
     background-color: #f0f0f0;
-    -webkit-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.5);
-    -moz-box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.5);
-    box-shadow: inset 0px 0px 7px 1px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.5);
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
@@ -143,9 +143,6 @@
     }
 
 .plano {
-    background: transparent url(Images/planoBase.png) no-repeat;
-    background-position: center center;
-    background-size: 100% 100%;
     border: 0 none transparent;
     border-collapse: collapse;
     text-align: center;
@@ -227,7 +224,10 @@
     -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
-    min-height: 300px;
+    min-height: 100%;
     min-width: 500px;
-    background-color: white;
+    max-height: 100%;
+    max-width: 500px;
+    background-color: transparent;
+    background-position: center center;
 }

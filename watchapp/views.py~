@@ -13,6 +13,8 @@ from watchapp.models import ConstructorCompany, Property, UserProfile, Sensor, E
 from watchapp.serializers import EventSerializer
 from rest_framework import viewsets
 import logging
+from django.views.decorators.csrf import csrf_exempt
+import json
 log = logging.getLogger(__name__)
 
 ####################### Vistas index o para autenticacion #######################
@@ -83,13 +85,9 @@ def sensor_configuration(request):
     """
     if request.method == 'POST':
         sensors = []
-        try:
-            selected_property = Property.objects.get(name=request.POST["select_as_resident"])
-            sensors = property_sensors(request,selected_property.id) 
-        except Property.DoesNotExist:
-            selected_property = Property.objects.get(name=request.POST["select_as_owner"])
-            log.debug("Id Propiedad: " + str(selected_property.id))
-            sensors = property_sensors(request,selected_property.id) 
+	selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+	log.debug("Id Propiedad: " + str(selected_property.id))
+	sensors = property_sensors(request,selected_property.id) 
         return render(request, 'watchapp/sensor_configuration.html', {
         "selected_property": selected_property,
         "request": request,
@@ -99,6 +97,52 @@ def sensor_configuration(request):
         return render(request, 'watchapp/sensor_configuration.html', {
             "request": request,
         })
+
+
+####################### Vistas para crear un sensor en un plano #######################
+
+@login_required()
+@csrf_exempt
+def set_position_ajax(request):
+        response_data = {}
+	print 'Raw Data: "%s"' % request.body
+	data = json.loads(request.body) 
+        sensors = []
+        selected_property = Property.objects.get(name=data['property'])
+        sensor = Sensor(
+		code = data['code'],
+		description = data['description'],
+		type =  data['type'],
+		location_in_plan = data['location_in_plan'],
+		is_discrete = data['location_in_plan'],
+		property = selected_property,
+		value = '0'
+        )
+        sensor.save()
+	sensorUpdate=Sensor.objects.get(pk=sensor.pk)
+        typeSensor =data['code']
+        sensorUpdate.code = typeSensor[0]+'-'+str(sensor.pk);       
+	sensorUpdate.save()
+        response_data['msg'] = 'ok'
+	sensors = property_sensors(request,selected_property.id) 
+	print sensors
+        return render_to_response('watchapp/sensor_configuration.html', {
+        "Sensors":sensors})
+
+
+####################### Vistas para borrar un sensor en un plano #######################
+
+@login_required()
+@csrf_exempt
+def set_position_ajax(request):
+        response_data = {}
+	print 'Raw Data: "%s"' % request.body
+	data = json.loads(request.body) 
+        sensors = []
+	sensorUpdate=Sensor.objects.get(pk=data['sensorId'])
+	sensorUpdate.delete()
+        response_data['msg'] = 'ok'
+        return render_to_response('watchapp/sensor_configuration.html')
 
 ####################### Vistas para propietarios / residentes #######################
 
@@ -113,13 +157,14 @@ def users_home(request):
     """
     if request.method == 'POST':
         sensors = []
-        try:
-            selected_property = Property.objects.get(name=request.POST["select_as_resident"])
-            sensors = property_sensors(request,selected_property.id) 
-        except Property.DoesNotExist:
-            selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+        selected_property = ''
+        if request.POST.get('select_as_owner', '') == "0":
+            selected_property = Property.objects.get(name=request.POST.get('select_as_resident', ''))
+            sensors = property_sensors(request,selected_property.id)
+        elif request.POST.get('select_as_resident', '') == "0":
+            selected_property = Property.objects.get(name=request.POST.get('select_as_owner', ''))
             log.debug("Id Propiedad: " + str(selected_property.id))
-            sensors = property_sensors(request,selected_property.id) 
+            sensors = property_sensors(request,selected_property.id)
         return render(request, 'watchapp/users_home.html', {
         "selected_property": selected_property,
         "request": request,
@@ -128,6 +173,30 @@ def users_home(request):
     else:
         return render(request, 'watchapp/users_home.html', {
             "request": request,
+        })
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
+def change_secure_mode(request, property_id):
+    """
+    Esta funcion activa / desactiva el modo seguro de un inmueble
+        @param request
+        @author Lorena Salamanca
+    """
+    if request.method == 'GET':
+        selected_property = Property.objects.get(pk=property_id)
+        if request.GET.get('change_secure_mode_checkbox', ''):
+            selected_property.is_secure_mode = True
+            selected_property.save()
+        else:
+            selected_property.is_secure_mode = False
+            selected_property.save()
+        sensors = property_sensors(request,selected_property.id)
+
+        return render(request, 'watchapp/users_home.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "Sensors":sensors,
         })
 
 @login_required()
