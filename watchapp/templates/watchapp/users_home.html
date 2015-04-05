@@ -574,7 +574,7 @@
                                         <td>{{ selected_property.address }}</td>
                                         <td>{{ selected_property.fixed_phone }}</td>
                                         <td>{% if selected_property.name %}
-                                        <form method="get" action="{% url 'watchapp:change_secure_mode' selected_property.id %}" id="change_secure_mode">
+                                        <form method="get" action="{% url 'watchapp:change_secure_mode' selected_property.id asresident%}" id="change_secure_mode">
                                             <div style="float: right;">
                                                 <img src="http://www.midashotels.com/new-york-guide/info-icon-white-20x20.gif" title="Al desactivar el modo seguro ya no recibiras notificaciones">
                                                 <label>Modo seguro</label>
@@ -1905,26 +1905,23 @@
                                 <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.location_in_plan}}</td>
                                 <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">
 
-                                    <form method="get" action="{% url 'watchapp:update_sensor_value' Sensor.property.id asresident %}" id="update_sensor_value">
-                                        <!--{% csrf_token %}-->
-                                        {% if asresident %}
- {{Sensor.get_value_display}}
-                                  {% else %}
-                                   
+                                {% if asresident = "1" or  asresident = 1 %}                                 
                                     {% if Sensor.is_discrete %}
-                                    <input  type="range" name="valor" min="1" max="5" step="1" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" />{{Sensor.get_value_display}}                     
+                                    <input  type="range" name="valor" min="1" max="5" step="1" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" /><label id="val{{Sensor.id}}">{{Sensor.get_value_display}}</label>                   
                                     {% else %}
-                                    <input  type="range" name="valor" min="1" max="5" step="4" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" />{{Sensor.get_value_display}}
+                                    <input  type="range" name="valor" min="1" max="5" step="4" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" /><label id="val{{Sensor.id}}">{{Sensor.get_value_display}}</label>
                                     {% endif %}
-                                  {% endif %}
-                                    </form>
+                                {% else %}
+                                    {{Sensor.get_value_display}}
+                                {% endif %}
+
                                 </td>
                             </tr>
                         <script type="text/javascript">
                             set_sensor('{{Sensor.code}}',{{Sensor.location_in_plan}},
-                                {% if Sensor.value == "5" %}
+                            {% if Sensor.value == "5" %}
                                     '#40FF00'
-                                {% elif Sensor.value == "4" %}
+                            {% elif Sensor.value == "4" %}
                                     '#BFFF00'
                             {% elif Sensor.value == "3" %}
                                 '#FFFF00'
@@ -1996,9 +1993,24 @@
         function update_value(sensor,value){
             $.get('/watchapp/update_sensor/', { sensor_id: sensor,value: value}, 
                  function(data){
-
+                    $("#val" + data.sensor_id).html(data.valueDisplay);
+                    var color = '#FF0000';
+                    switch(data.value){
+                        case "5":
+                            color = '#40FF00';
+                        break;
+                        case "4":
+                            color = '#BFFF00';
+                        break;
+                        case "3":
+                            color = '#FFFF00';
+                        break;
+                        case "2":
+                            color = '#FF8000';
+                        break;
+                    }
+                    set_sensor(data.code,data.location_in_plan,color);
                  });
-            document.getElementById("update_sensor_value").submit();
         }
     </script>
 
