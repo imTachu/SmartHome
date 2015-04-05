@@ -388,7 +388,7 @@
 									{% endfor %}
 								</select>
 							</div>
-                        </form>
+                      </form>
                 	</td>
                 </tr>
                 <tr>
@@ -404,8 +404,6 @@
                     <label class="switch switch-green">
                       <input name="change_secure_mode_checkbox" onchange="change_secure_mode(this)" type="checkbox" class="switch-input" checked>
                     {% else %}
-                    
-                    
                     <label class="switch switch-green">
                       <input name="change_secure_mode_checkbox" onchange="change_secure_mode(this)" type="checkbox" class="switch-input">
                       {% endif %}
@@ -1683,7 +1681,7 @@
             </article>
             <!-- /Plan -->
         </td>
-		<td  style="vertical-align:top;">
+		<td  style="">
             <div>
                 {% if Sensors %} 
                 <table  class="table" >
@@ -1692,30 +1690,43 @@
                             <td><b>Código</b></td>
                             <td><b>Descripción</b></td>
                             <td><b>Tipo</b></td>
-                            <td><b>Ubicación</b></td>
+                            <td><b>Ubicación</b></td>                                                    
+                            <td><b>Valor</td>
                         </tr>
                         {% for Sensor in Sensors%}
-                            {% if Sensor.status == "0" %}
-                                {% with color="#6FFF00"%}                 {% endwith %}
-                            {% else %}
-                                {% with color="red"%}
-                                {% endwith %}
-                            {% endif%}
                             <tr id="tr{{Sensor.location_in_plan}}" >
                                 <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{ Sensor.code }}</td>
                                 <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.description}}</td>
                                 <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.get_type_display}}</td>
                                 <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.location_in_plan}}</td>
-                                <td  onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">
-                                	{{ Sensor.get_status_display }}
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">
+
+                                <form method="get" action="{% url 'watchapp:update_sensor_value' Sensor.property.id asresident %}" id="update_sensor_value">
+                                  <!--{% csrf_token %}-->
+                                  {% if asresident %}
+                                    {% if Sensor.is_discrete %}
+                                    <input id="range_sensor" type="range" name ="valor" min="1" max = "5" step="1" value ="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)"/>{{Sensor.get_value_display}}                     
+                                    {% else %}
+                                    <input id="range_sensor" type="range" name ="valor" min="1" max = "5" step="4" value ="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)"/>{{Sensor.get_value_display}}
+                                    {% endif %}
+                                  {% else %}
+                                    {{Sensor.get_value_display}}
+                                  {% endif %}
+                                </form>
                                 </td>
                             </tr>
                             <script type="text/javascript">
                                 set_sensor({{Sensor.location_in_plan}},
-                                    {% if Sensor.status == "0" %}
-                                        '#6FFF00'
+                                    {% if Sensor.value == "5" %}
+                                        '#40FF00'
+                                    {% elif Sensor.value == "4" %}
+                                        '#BFFF00'
+                                    {% elif Sensor.value == "3" %}
+                                        '#FFFF00'
+                                    {% elif Sensor.value == "2" %}
+                                        '#FF8000'
                                     {% else %}
-                                        'red'
+                                        '#FF0000'
                                     {% endif%}
                                 );
                             </script>
@@ -1772,6 +1783,18 @@
 	}
     function change_secure_mode(element) {
         document.getElementById('change_secure_mode').submit();
+   }
+   function update_value(sensor,value){
+      //$(control).val() = value;
+      //alert( "Id: " + id + " valor: " + value);
+      //document.getElementById("value").value = value;
+      //alert(document.getElementById("value").value);
+      //alert("Sensor_id: " + sensor + " Value: " + value);
+     $.get('/watchapp/update_sensor/', { sensor_id: sensor,value: value}, 
+          function(data){
+
+           });
+      document.getElementById("update_sensor_value").submit();
    }
 </script>
 

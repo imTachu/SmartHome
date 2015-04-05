@@ -86,15 +86,18 @@ def users_home(request):
     if request.method == 'POST':
         sensors = []
         selected_property = ''
+        asresident = False;
         if request.POST.get('select_as_owner', '') == "0":
             selected_property = Property.objects.get(name=request.POST.get('select_as_resident', ''))
             sensors = property_sensors(request,selected_property.id)
+            asresident = True;
         elif request.POST.get('select_as_resident', '') == "0":
             selected_property = Property.objects.get(name=request.POST.get('select_as_owner', ''))
             log.debug("Id Propiedad: " + str(selected_property.id))
             sensors = property_sensors(request,selected_property.id)
         return render(request, 'watchapp/users_home.html', {
         "selected_property": selected_property,
+        "asresident":asresident,
         "request": request,
         "Sensors":sensors,
         })
@@ -181,6 +184,44 @@ def propertys_by_User(request):
     #    })
     #log.debug("propertys_by_User " + propertyList[0].name)
     return propertyList
+
+@login_required()
+def update_sensor(request):
+    """
+    Esta funcion permite actualizar el valor discreto y continuo de un sensor en la base de datos,
+        @param request
+        @author German Bernal
+    """
+    log.debug("update_sensor: val: " + "Entro a update_sensor")
+    if request.method == 'GET':
+        sensor_id = request.GET['sensor_id']
+        log.debug("update_sensor: Sensor val: " + str(sensor_id))
+        value = request.GET['value']
+        log.debug("update_sensor: value val: " + str(value))
+        sensor = Sensor.objects.get(pk=sensor_id)
+        sensor.value = value
+        sensor.save()
+
+@login_required()
+def update_value(request, property_id, asresident):
+    """
+    Esta funcion permite actualizar el valor discreto y continuo de un sensor en el template,
+        @param request
+        @author German Bernal
+    """
+    log.debug("update_value: val: " + "Entro a update_value")
+    log.debug("update_value: Property val: " + str(property_id))
+    log.debug("update_value: asresident val: " + str(asresident))
+    #log.debug("update_value: GET val: " + str(request))
+    if request.method == 'GET':
+        selected_property = Property.objects.get(pk=property_id)
+        sensors = property_sensors(request,selected_property.id)
+        return render(request, 'watchapp/users_home.html', {
+        "selected_property": selected_property,
+        "asresident":asresident,
+        "request": request,
+        "Sensors":sensors,
+        })
 
 ####################### Vistas para constructoras #######################
 
