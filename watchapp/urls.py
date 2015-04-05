@@ -14,17 +14,12 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
 	url(r'^sensorstatus/$', views.render_sensor_status, name='render_sensor_status'),
     url(r'^(?P<property_id>\d+)/change_secure_mode/$', views.change_secure_mode, name='change_secure_mode'),
-	url('', include('django.contrib.auth.urls')),
-	
+	url('', include('django.contrib.auth.urls')),	
 	#URLs para funcionalidades de usuarios (residente/propietario)
     url(r'^users_home/$', views.users_home, name='users_home'),
-<<<<<<< HEAD
         url(r'^sensor_configuration/$', views.sensor_configuration, name='sensor_configuration'),
-=======
 	url(r'^(?P<property_id>\d+)(?P<asresident>[a-zA-Z]+)/users_home/$', views.update_value, name='update_sensor_value'),
 	url(r'^update_sensor/$', views.update_sensor, name='update_sensor'),
-
->>>>>>> 4a378deab2cbd99232f0db8b2e0be45bb523b7a9
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
 	#URL para crear un sensor en un plano
