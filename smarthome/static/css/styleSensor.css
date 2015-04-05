@@ -35,7 +35,6 @@
     background: #109bce url(Images/h.png) no-repeat;
     background-origin: content-box;
     background-position: center center;
-    background-size: contain;
     background-size: 25px 25px;
     border: 0 none transparent;
     border-collapse: collapse;
@@ -54,7 +53,6 @@
     background: #109bce url(Images/t.png) no-repeat;
     background-origin: content-box;
     background-position: center center;
-    background-size: contain;
     background-size: 25px 25px;
     border: 0 none transparent;
     border-collapse: collapse;
