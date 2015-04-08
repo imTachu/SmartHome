@@ -61,7 +61,7 @@ class Sensor(models.Model):
     location_in_plan = models.CharField(max_length=20,null=True)
     is_discrete = models.BooleanField(default=False)
     property = models.ForeignKey(Property,null=True)
-    value = models.CharField(max_length=30, choices=SENSOR_TYPES_CHOICES)
+    value = models.CharField(max_length=30, choices=SENSOR_STATUS_CHOICES)
     
     def __unicode__(self):
         return self.description

@@ -1,0 +1,102 @@
+{% extends "watchapp/base.html" %} 
+
+{% block content %} 
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+{% endif %} 
+{% load url from future %}
+
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/styleSensor.css">
+<script type="text/javascript" src="{{ STATIC_URL }}js/redips-drag-min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/scriptSensor.js"></script>
+
+<br />
+<br />
+   <form method="get" action="{% url 'watchapp:users_home' %}" style="float:right;">
+    {% csrf_token %}
+    <input type="submit" value="Home" class="btn btn-action"/>
+</form>
+<form method="post" action="{% url 'watchapp:get_owner_reports' %}" id="get_property_info_by_name">
+  {% csrf_token %}
+ <fieldset class="planContainer" style='width:25%;'>
+     <legend>Propiedades</legend>
+	<table style='width:100%;'>
+	<tr>
+	<td style='width:50%;'>
+		<div>
+		<label>Inmuebles en los que soy propietario</label>
+		<select id="select_as_owner" name="select_as_owner" onchange="get_property_info_by_name();" class="form-control" style="width: 200px;">
+		<option value="0">Selecciona...</option>
+		{% for each_property_as_owner in request.user.userprofile.properties_as_owner.all %}
+										<option value="{{ each_property_as_owner.name }}">{{ each_property_as_owner.name }}</option>
+		{% endfor %}
+		</select>
+		</div>
+	</td>
+	
+	</tr>
+	</table>
+ </fieldset>
+
+    <br />
+    <div id="drag" style="width: 100%;visibility:hidden;">
+        <table style="width: 100%;">
+            <tr>
+
+                <td style="vertical-align: top;">
+
+       
+<fieldset class="planContainer">
+                        <legend>Eventos de la propiedad</legend>
+ {% if selected_property.name %} 
+<label>{{ selected_property.name }}</label>
+
+<script type="text/javascript">
+$('#select_as_owner option[value="{{ selected_property.name }}"]').prop('selected', 'selected');
+$('#drag').css('visibility', 'visible');
+</script>  
+ {% else %}  
+<script type="text/javascript">
+$('#drag').css('visibility', 'visible');
+</script>  
+{% endif %}  
+<table class="table" id="datatable">
+                                    <tr>
+                                        <td><b>Fecha</b> </td>
+                                        <td><b>Descripcion</b></td>
+                                        <td><b>Tipo de evento</b></td>
+                                        <td><b>Sensor</b></td>
+                                        <td><b>Fue critico?</b></td>
+                                        <td><b>Fue fatal?</b></td>
+                                        <td></td>
+                                    </tr>
+                    {% for event in events%}
+                                <tr>
+                                <td >{{ event.date }}</td>
+                                <td >{{ event.description }}</td>
+                                <td >{{ event.get_type_display }}</td>
+                                <td >{{ event.sensor }}</td>
+                                <td ><input type="checkbox" disabled="disabled"                                            
+                                    {% if event.is_critical %}
+                                                checked
+                                            {% endif %}
+                                            ></td>
+                                <td ><input type="checkbox" disabled="disabled"
+                                                                        {% if event.is_fatal %}
+                                                checked
+                                            {% endif %}
+                                            ></td>
+                        {% endfor %}
+                                                            </tr>
+                                </table>
+
+                    </fieldset>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+{% endblock %}
