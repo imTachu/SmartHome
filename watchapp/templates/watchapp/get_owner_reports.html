@@ -16,7 +16,7 @@
   
 <form method="post" action="{% url 'watchapp:get_owner_reports' %}" id="get_property_info_by_name">
   {% csrf_token %}
- <fieldset class="planContainer">
+ <fieldset class="planContainer" style='width:25%;'>
      <legend>Propiedades</legend>
 	<table style='width:100%;'>
 	<tr>
@@ -31,10 +31,7 @@
 		</select>
 		</div>
 	</td>
-	<td style='width:50%;'>
-<label>Descripción del sensor</label>
-    <input type="text" class="form-control" id="descriptionSensor" required>
-	</td>
+	
 	</tr>
 	</table>
  </fieldset>
@@ -60,56 +57,38 @@ $('#drag').css('visibility', 'visible');
 $('#drag').css('visibility', 'visible');
 </script>  
 {% endif %}  
+<table class="table" id="datatable">
+                                    <tr>
+                                        <td><b>Fecha</b> </td>
+                                        <td><b>Descripcion</b></td>
+                                        <td><b>Tipo de evento</b></td>
+                                        <td><b>Sensor</b></td>
+                                        <td><b>Fue critico?</b></td>
+                                        <td><b>Fue fatal?</b></td>
+                                        <td></td>
+                                    </tr>
                     {% for event in events%}
-<tr id="tr{{Sensor.location_in_plan}}">
-                                <td >{{ event.date }}</td>
-                                <td >{{ event.description}}</td>
-                                <td >{{ event.value}}</td>
-                                <td >{{ event.type}}</td>
-                                
-                                    {% endfor %}
-                    </fieldset>
-
-                </td>
-                <td style="vertical-align: top;">
-                    <!-- table1 -->
-                    <fieldset class="planContainer">
-                        <legend>Eventos de la propiedad</legend>
-                        <table style="width: 100%;">
-                            <tbody>
-                                <!-- clone 2 elements + last element -->
                                 <tr>
-                                    <td style="text-align: center; vertical-align: middle;" class="trashContainer">
-                                        <div class="trash" id="Trash"></div>
-                                    </td>
-                                    <td class="sensor">
-                                        <span><b>LUZ</b></span>
-                                        <div id="l0" class="drag l clone">L</div>
-                                    </td>
-                                    <td class="sensor">
-                                        <span><b>TEMPERATURA</b></span>
-                                        <div id="t0" class="drag t clone">T</div>
-                                    </td>
+                                <td >{{ event.date }}</td>
+                                <td >{{ event.description }}</td>
+                                <td >{{ event.get_type_display }}</td>
+                                <td >{{ event.sensor }}</td>
+                                <td ><input type="checkbox" disabled="disabled"                                            
+                                    {% if event.is_critical %}
+                                                checked
+                                            {% endif %}
+                                            ></td>
+                                <td ><input type="checkbox" disabled="disabled"
+                                                                        {% if event.is_fatal %}
+                                                checked
+                                            {% endif %}
+                                            ></td>
+                        {% endfor %}
+                                                            </tr>
+                                </table>
 
-                                    <td class="sensor">
-                                        <span><b>HUMO</b></span>
-                                        <div id="h0" class="drag h clone">H</div>
-                                    </td>
-
-                                    <td class="sensor">
-                                        <span><b>MOVIMIENTO</b></span>
-                                        <div id="m0" class="drag m clone">M</div>
-                                    </td>
-
-                                    <td class="sensor">
-                                        <span><b>PUERTA</b></span>
-                                        <div id="p0" class="drag p clone">P</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </fieldset>
-                                       
+
                 </td>
             </tr>
         </table>
