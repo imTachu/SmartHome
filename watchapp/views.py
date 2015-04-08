@@ -177,33 +177,48 @@ def users_home(request):
             "request": request,
         })
 
+
 @login_required()
 @user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
-def change_secure_mode(request, property_id, asresident):
+#def change_secure_mode(request, property_id, asresident):
+def change_secure_mode(request):
     """
     Esta funcion activa / desactiva el modo seguro de un inmueble
         @param request
         @author Lorena Salamanca
     """
     if request.method == 'GET':
+        property_id = request.GET['property_id']
+        is_secure_mode = request.GET['is_secure_mode']
         selected_property = Property.objects.get(pk=property_id)
-        if request.GET.get('change_secure_mode_checkbox', ''):
+        log.debug("change_secure_mode: Sensor secure mode Entrada val: " + str(is_secure_mode))
+        #if request.GET.get('change_secure_mode_checkbox', ''):
+        if is_secure_mode == "true" :
             selected_property.is_secure_mode = True
             selected_property.save()
         else:
             selected_property.is_secure_mode = False
             selected_property.save()
-        sensors = property_sensors(request,selected_property.id)
-        log.debug("change_secure_mode: Sensor secure mode val: " + str(selected_property.is_secure_mode))
-        log.debug("change_secure_mode: asresident val: " + str(asresident))
-        return render(request, 'watchapp/users_home.html', {
-        "selected_property": selected_property,
-        "request": request,
-        "Sensors":sensors,
-        "asresident":asresident,
-        })
+        #sensors = property_sensors(request,selected_property.id)
+        log.debug("change_secure_mode: Sensor secure mode Salida val: " + str(selected_property.is_secure_mode))
+        log.debug("change_secure_mode: property_id Salida val: " + str(property_id))
+        #return render(request, 'watchapp/users_home.html', {
+        #"selected_property": selected_property,
+        #"request": request,
+        #"Sensors":sensors,
+        #"asresident":asresident,
+        #})
+        data = {}
+        data["is_secure_mode"] = selected_property.is_secure_mode
+        log.debug("change_secure_mode: Data val: " + str(data))
+        return HttpResponse(
+                json.dumps(data),
+                content_type="application/json"
+            )
+
 
 @login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def render_sensor_status(request):
     """
     Esta funcion permite mostrar los datos que se mostraran en la pagina sensorstatus
@@ -222,6 +237,7 @@ def render_sensor_status(request):
                "propertyList":propertyList
             })        
 @login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def property_sensors(request,property_id):
     """
     Esta funcion permite obtener los sensores por propiedad,
@@ -233,6 +249,7 @@ def property_sensors(request,property_id):
     return sensors
 
 @login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def propertys_by_User(request):
     """
     Esta funcion permite obtener las propiedad por usuario.
@@ -253,6 +270,7 @@ def propertys_by_User(request):
     return propertyList
 
 @login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def update_sensor(request):
     """
     Esta funcion permite actualizar el valor discreto y continuo de un sensor en la base de datos,
@@ -282,6 +300,7 @@ def update_sensor(request):
 
 
 @login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def update_value(request, property_id, asresident):
     """
     Esta funcion permite actualizar el valor discreto y continuo de un sensor en el template,

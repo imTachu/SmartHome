@@ -574,23 +574,21 @@
                                         <td>{{ selected_property.address }}</td>
                                         <td>{{ selected_property.fixed_phone }}</td>
                                         <td>{% if selected_property.name %}
-                                        <form method="get" action="{% url 'watchapp:change_secure_mode' selected_property.id asresident%}" id="change_secure_mode">
+                                        
                                             <div style="float: right;">
                                                 <img src="http://www.midashotels.com/new-york-guide/info-icon-white-20x20.gif" title="Al desactivar el modo seguro ya no recibiras notificaciones">
                                                 <label>Modo seguro</label>
-                                                {% if selected_property.is_secure_mode %} 
-                                        <label class="switch switch-green">
-                                            <input name="change_secure_mode_checkbox" onchange="change_secure_mode(this)" type="checkbox" class="switch-input" checked>
-                                            {% else %}            
-                    
-                                        <label class="switch switch-green">
-                                            <input name="change_secure_mode_checkbox" onchange="change_secure_mode(this)" type="checkbox" class="switch-input">
+                                            <label class="switch switch-green">
+                                            <input id ="change_secure_mode_checkbox" name="change_secure_mode_checkbox" onchange="change_secure_mode(this,{{selected_property.id}})" type="checkbox" class="switch-input"
+                                            {% if selected_property.is_secure_mode %}
+                                                checked
                                             {% endif %}
-                                        <span class="switch-label" data-on="On" data-off="Off"></span>
+                                            >
+                                            <span class="switch-label" data-on="On" data-off="Off"></span>
                                             <span class="switch-handle"></span>
-                                        </label>
+                                            </label>
                                             </div>
-                                        </form>
+                                        
                                         </td>
                                     </tr>
                                 </table>
@@ -1987,8 +1985,13 @@
         function get_property_info_by_name(){
             document.getElementById("get_property_info_by_name").submit();
         }
-        function change_secure_mode(element) {
-            document.getElementById('change_secure_mode').submit();
+        function change_secure_mode(element,property_id) {
+            var is_secure_mode = $(element).is(":checked");            
+            $.get('/watchapp/change_secure_mode/', { property_id: property_id,is_secure_mode: is_secure_mode}, 
+                 function(data){
+                    //alert("llegada: " + data.is_secure_mode);
+                 });
+            //document.getElementById('change_secure_mode').submit();            
         }
         function update_value(sensor,value){
             $.get('/watchapp/update_sensor/', { sensor_id: sensor,value: value}, 
