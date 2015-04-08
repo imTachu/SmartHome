@@ -157,11 +157,11 @@ def users_home(request):
     if request.method == 'POST':
         sensors = []
         selected_property = ''
-        asresident = False;
+        asresident = 0;
         if request.POST.get('select_as_owner', '') == "0":
             selected_property = Property.objects.get(name=request.POST.get('select_as_resident', ''))
             sensors = property_sensors(request,selected_property.id)
-            asresident = True;
+            asresident = 1;
         elif request.POST.get('select_as_resident', '') == "0":
             selected_property = Property.objects.get(name=request.POST.get('select_as_owner', ''))
             log.debug("Id Propiedad: " + str(selected_property.id))
@@ -179,7 +179,7 @@ def users_home(request):
 
 @login_required()
 @user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
-def change_secure_mode(request, property_id):
+def change_secure_mode(request, property_id, asresident):
     """
     Esta funcion activa / desactiva el modo seguro de un inmueble
         @param request
@@ -194,11 +194,13 @@ def change_secure_mode(request, property_id):
             selected_property.is_secure_mode = False
             selected_property.save()
         sensors = property_sensors(request,selected_property.id)
-
+        log.debug("change_secure_mode: Sensor secure mode val: " + str(selected_property.is_secure_mode))
+        log.debug("change_secure_mode: asresident val: " + str(asresident))
         return render(request, 'watchapp/users_home.html', {
         "selected_property": selected_property,
         "request": request,
         "Sensors":sensors,
+        "asresident":asresident,
         })
 
 @login_required()
@@ -227,9 +229,7 @@ def property_sensors(request,property_id):
         @author German Bernal
     """
     log.debug("property_sensors: val: " + str(property_id))
-    #sensors = Sensor.objects.filter(property_id=request.POST["select_Property"])
     sensors = Sensor.objects.filter(property_id=property_id)
-    #log.debug("property_sensors " + str(sensors[0].description))
     return sensors
 
 @login_required()
@@ -250,10 +250,6 @@ def propertys_by_User(request):
         property = Property.objects.get(pk=p.id)
         if property not in propertyList:
             propertyList.append(property)
-    #return render(request,"watchapp/sensorstatus.html",{ 
-    #        "propertyList": propertyList, 
-    #    })
-    #log.debug("propertys_by_User " + propertyList[0].name)
     return propertyList
 
 @login_required()
@@ -272,6 +268,18 @@ def update_sensor(request):
         sensor = Sensor.objects.get(pk=sensor_id)
         sensor.value = value
         sensor.save()
+        data = {}
+        data["sensor_id"] = sensor.id
+        data["code"] = sensor.code
+        data["location_in_plan"] = sensor.location_in_plan
+        data["value"] = sensor.value
+        data["valueDisplay"] = sensor.get_value_display()
+        log.debug("update_sensor: value val: " + str(data))
+        return HttpResponse(
+                json.dumps(data),
+                content_type="application/json"
+            )
+
 
 @login_required()
 def update_value(request, property_id, asresident):
@@ -283,7 +291,6 @@ def update_value(request, property_id, asresident):
     log.debug("update_value: val: " + "Entro a update_value")
     log.debug("update_value: Property val: " + str(property_id))
     log.debug("update_value: asresident val: " + str(asresident))
-    #log.debug("update_value: GET val: " + str(request))
     if request.method == 'GET':
         selected_property = Property.objects.get(pk=property_id)
         sensors = property_sensors(request,selected_property.id)
