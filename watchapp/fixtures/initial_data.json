@@ -100,19 +100,19 @@
 },
 {
     "fields": {
-        "expire_date": "2015-04-22T16:09:14.722Z",
-        "session_data": "OTI4NDY0ZjY0NDA5NTdlMTE5MTYwYTcyZjVlZjg2ZWM2ZTg5ZTI0Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjdhOWI0NDRhOWQwMjg1YmFkZTVhZDk1ZWFhODcwMzdmYmI4MDZjOTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjV9"
-    },
-    "model": "sessions.session",
-    "pk": "4fcmjv3yjcb96hssw5pqip39wh4duxsj"
-},
-{
-    "fields": {
-        "expire_date": "2015-04-22T16:05:08.097Z",
+        "expire_date": "2015-04-22T18:52:00.497Z",
         "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
     },
     "model": "sessions.session",
     "pk": "5pdby57asu67id8004b6ywstu8h6gk83"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-22T19:15:52.604Z",
+        "session_data": "NmYxNTM5MjQ4MjVjYTg2YTRlMzIwNWY5MjBkYjY1NDNlNGY0Yzc2YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+    },
+    "model": "sessions.session",
+    "pk": "e6j4ky4fa7neg5248v4b6fyl5s4ay6sr"
 },
 {
     "fields": {
@@ -124,8 +124,8 @@
 },
 {
     "fields": {
-        "expire_date": "2015-04-21T17:11:01.474Z",
-        "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+        "expire_date": "2015-04-22T16:52:15.876Z",
+        "session_data": "ZjRiYmJlOGJhYmJjNjZkMmZmNWYxZTI1YjIxODExMDVkYzA2YWM3OTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
     },
     "model": "sessions.session",
     "pk": "ji1p22npjikl7nlc4oia0mmccnvnffu6"
@@ -606,6 +606,117 @@
 },
 {
     "fields": {
+        "code": "l-63",
+        "description": "Actuador de Luz",
+        "location_in_plan": "167",
+        "value": "0",
+        "property": 1,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 63
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Movimiento en la habitacion",
+        "sensor": 32,
+        "value": "1.00",
+        "is_critical": true,
+        "date": "2015-04-07T16:42:56.816Z",
+        "is_fatal": false,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 1
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Movimiento en la habitacion",
+        "sensor": 32,
+        "value": "1.00",
+        "is_critical": true,
+        "date": "2015-04-07T16:46:12.621Z",
+        "is_fatal": false,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 2
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Puerta principal abierta",
+        "sensor": 34,
+        "value": "3.00",
+        "is_critical": false,
+        "date": "2015-04-07T17:09:11.900Z",
+        "is_fatal": true,
+        "type": "3"
+    },
+    "model": "watchapp.event",
+    "pk": 3
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Humo en la cocina",
+        "sensor": 35,
+        "value": "3.00",
+        "is_critical": false,
+        "date": "2015-04-05T17:51:31.927Z",
+        "is_fatal": true,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 4
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Humo en la cocina",
+        "sensor": 35,
+        "value": "3.00",
+        "is_critical": false,
+        "date": "2015-04-05T09:51:31.927Z",
+        "is_fatal": true,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 5
+},
+{
+    "fields": {
+        "property": 1,
+        "description": "Movimiento en la habitacion",
+        "sensor": 32,
+        "value": "3.00",
+        "is_critical": true,
+        "date": "2015-04-03T08:32:33.927Z",
+        "is_fatal": false,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 7
+},
+{
+    "fields": {
+        "property": 3,
+        "description": "Humo en la cocina",
+        "sensor": 35,
+        "value": "3.00",
+        "is_critical": false,
+        "date": "2015-04-08T18:42:59.607Z",
+        "is_fatal": true,
+        "type": "0"
+    },
+    "model": "watchapp.event",
+    "pk": 8
+},
+{
+    "fields": {
         "codename": "add_logentry",
         "name": "Can add log entry",
         "content_type": 1
@@ -925,7 +1036,7 @@
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-04-08T16:05:08.093Z",
+        "last_login": "2015-04-08T19:15:52.350Z",
         "groups": [
             1
         ],
