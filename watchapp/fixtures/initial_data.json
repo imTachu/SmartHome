@@ -100,11 +100,51 @@
 },
 {
     "fields": {
-        "expire_date": "2015-04-10T20:58:09.842Z",
-        "session_data": "NmYxNTM5MjQ4MjVjYTg2YTRlMzIwNWY5MjBkYjY1NDNlNGY0Yzc2YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+        "expire_date": "2015-04-22T16:09:14.722Z",
+        "session_data": "OTI4NDY0ZjY0NDA5NTdlMTE5MTYwYTcyZjVlZjg2ZWM2ZTg5ZTI0Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjdhOWI0NDRhOWQwMjg1YmFkZTVhZDk1ZWFhODcwMzdmYmI4MDZjOTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjV9"
     },
     "model": "sessions.session",
-    "pk": "u7n8qhkxo1n1bdwlrs7hkfs8cnm7xkt6"
+    "pk": "4fcmjv3yjcb96hssw5pqip39wh4duxsj"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-22T16:05:08.097Z",
+        "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+    },
+    "model": "sessions.session",
+    "pk": "5pdby57asu67id8004b6ywstu8h6gk83"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-19T09:30:16.444Z",
+        "session_data": "NTM4NjY4YjE0YzM4MWQ1YjlmN2Y2ODBhMTliOWQwYTEyMTY3NjVmYzp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
+    },
+    "model": "sessions.session",
+    "pk": "hq1q0otjmb9cyrhpholzaf97hdv9w45w"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-21T17:11:01.474Z",
+        "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+    },
+    "model": "sessions.session",
+    "pk": "ji1p22npjikl7nlc4oia0mmccnvnffu6"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-22T03:37:24.250Z",
+        "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+    },
+    "model": "sessions.session",
+    "pk": "nskfa07qkpotd9gh2yo7vte8pcs4vglj"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-19T00:44:00.224Z",
+        "session_data": "ZjRiYmJlOGJhYmJjNjZkMmZmNWYxZTI1YjIxODExMDVkYzA2YWM3OTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
+    },
+    "model": "sessions.session",
+    "pk": "sivzm1w18vfp161rwogu6cd3qv151g96"
 },
 {
     "fields": {
@@ -120,7 +160,7 @@
         "constructor_company": 1,
         "is_secure_mode": true,
         "fixed_phone": "5555555",
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -132,7 +172,7 @@
         "constructor_company": 1,
         "is_secure_mode": true,
         "fixed_phone": "4444444",
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -142,9 +182,9 @@
     "fields": {
         "name": "Edificio Aja, Apto 303",
         "constructor_company": 1,
-        "is_secure_mode": true,
+        "is_secure_mode": false,
         "fixed_phone": "3333333",
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -156,7 +196,7 @@
         "constructor_company": 1,
         "is_secure_mode": false,
         "fixed_phone": "2222222",
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -168,7 +208,7 @@
         "constructor_company": 1,
         "is_secure_mode": true,
         "fixed_phone": "1111111",
-        "plan": "http://grupocolviva.com/wp-content/uploads/2013/05/resized_2A1-e1381615727192.jpg",
+        "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
     },
     "model": "watchapp.property",
@@ -176,198 +216,393 @@
 },
 {
     "fields": {
-        "code": "HTC-001",
-        "description": "Sensor Puerta banho",
-        "location_in_plan": "212",
-        "value": "1",
-        "property": 4,
-        "type": "1",
-        "is_discrete": false
+        "code": "m-28",
+        "description": "Sensor de Movimiento",
+        "location_in_plan": "4",
+        "value": "2",
+        "property": 1,
+        "type": "0",
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 1
+    "pk": 32
 },
 {
     "fields": {
-        "code": "HTC-002",
-        "description": "Sensor Puerta principal",
-        "location_in_plan": "329",
-        "value": "1",
-        "property": 4,
-        "type": "1",
-        "is_discrete": false
-    },
-    "model": "watchapp.sensor",
-    "pk": 2
-},
-{
-    "fields": {
-        "code": "HTC-003",
-        "description": "Sensor Puerta balc\u00f3n",
-        "location_in_plan": "52",
-        "value": "1",
-        "property": 4,
-        "type": "1",
-        "is_discrete": false
-    },
-    "model": "watchapp.sensor",
-    "pk": 3
-},
-{
-    "fields": {
-        "code": "HTC-001",
-        "description": "Sensor Puerta banho",
-        "location_in_plan": "212",
+        "code": "l-26",
+        "description": "Actuador de Luz",
+        "location_in_plan": "291",
         "value": "1",
         "property": 1,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 6
+    "pk": 33
 },
 {
     "fields": {
-        "code": "HTC-002",
-        "description": "Sensor Puerta principal",
-        "location_in_plan": "329",
+        "code": "p-21",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "177",
+        "value": "0",
+        "property": 1,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 34
+},
+{
+    "fields": {
+        "code": "h-24",
+        "description": "Sensor de Humo",
+        "location_in_plan": "58",
+        "value": "0",
+        "property": 1,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 35
+},
+{
+    "fields": {
+        "code": "p-21",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "109",
+        "value": "4",
+        "property": 1,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 36
+},
+{
+    "fields": {
+        "code": "t-27",
+        "description": "Actuador de Temperatura",
+        "location_in_plan": "51",
         "value": "1",
         "property": 1,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 7
+    "pk": 37
 },
 {
     "fields": {
-        "code": "HTC-003",
-        "description": "Sensor Puerta balc\u00f3n",
+        "code": "m-28",
+        "description": "Sensor de Movimiento",
+        "location_in_plan": "4",
+        "value": "2",
+        "property": 2,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 38
+},
+{
+    "fields": {
+        "code": "l-26",
+        "description": "Actuador de Luz",
+        "location_in_plan": "292",
+        "value": "2",
+        "property": 2,
+        "type": "2",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 39
+},
+{
+    "fields": {
+        "code": "p-22",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "277",
+        "value": "0",
+        "property": 2,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 40
+},
+{
+    "fields": {
+        "code": "h-24",
+        "description": "Sensor de Humo",
+        "location_in_plan": "58",
+        "value": "0",
+        "property": 2,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 41
+},
+{
+    "fields": {
+        "code": "p-22",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "209",
+        "value": "4",
+        "property": 2,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 42
+},
+{
+    "fields": {
+        "code": "t-27",
+        "description": "Actuador de Temperatura",
         "location_in_plan": "52",
-        "value": "1",
-        "property": 1,
-        "type": "1",
-        "is_discrete": false
-    },
-    "model": "watchapp.sensor",
-    "pk": 8
-},
-{
-    "fields": {
-        "code": "HTC-001",
-        "description": "Sensor Puerta banho",
-        "location_in_plan": "212",
-        "value": "1",
+        "value": "2",
         "property": 2,
-        "type": "1",
-        "is_discrete": false
+        "type": "2",
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 9
+    "pk": 43
 },
 {
     "fields": {
-        "code": "HTC-002",
-        "description": "Sensor Puerta principal",
-        "location_in_plan": "329",
-        "value": "1",
-        "property": 2,
-        "type": "1",
-        "is_discrete": false
+        "code": "m-28",
+        "description": "Sensor de Movimiento",
+        "location_in_plan": "4",
+        "value": "2",
+        "property": 3,
+        "type": "0",
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 10
+    "pk": 44
 },
 {
     "fields": {
-        "code": "HTC-003",
-        "description": "Sensor Puerta balc\u00f3n",
-        "location_in_plan": "52",
-        "value": "1",
-        "property": 2,
-        "type": "1",
-        "is_discrete": false
-    },
-    "model": "watchapp.sensor",
-    "pk": 11
-},
-{
-    "fields": {
-        "code": "HTC-001",
-        "description": "Sensor Puerta banho",
-        "location_in_plan": "212",
-        "value": "1",
+        "code": "l-26",
+        "description": "Actuador de Luz",
+        "location_in_plan": "293",
+        "value": "3",
         "property": 3,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 12
+    "pk": 45
 },
 {
     "fields": {
-        "code": "HTC-002",
-        "description": "Sensor Puerta principal",
-        "location_in_plan": "329",
-        "value": "1",
+        "code": "p-23",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "177",
+        "value": "0",
+        "property": 3,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 46
+},
+{
+    "fields": {
+        "code": "h-24",
+        "description": "Sensor de Humo",
+        "location_in_plan": "58",
+        "value": "0",
+        "property": 3,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 47
+},
+{
+    "fields": {
+        "code": "p-21",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "109",
+        "value": "4",
+        "property": 3,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 48
+},
+{
+    "fields": {
+        "code": "t-27",
+        "description": "Actuador de Temperatura",
+        "location_in_plan": "51",
+        "value": "3",
         "property": 3,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 13
+    "pk": 49
 },
 {
     "fields": {
-        "code": "HTC-003",
-        "description": "Sensor Puerta balc\u00f3n",
-        "location_in_plan": "52",
-        "value": "1",
-        "property": 3,
+        "code": "m-28",
+        "description": "Sensor de Movimiento",
+        "location_in_plan": "4",
+        "value": "2",
+        "property": 4,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 50
+},
+{
+    "fields": {
+        "code": "l-26",
+        "description": "Actuador de Luz",
+        "location_in_plan": "294",
+        "value": "4",
+        "property": 4,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 14
+    "pk": 51
 },
 {
     "fields": {
-        "code": "HTC-001",
-        "description": "Sensor Puerta banho",
-        "location_in_plan": "212",
-        "value": "1",
+        "code": "p-24",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "177",
+        "value": "0",
+        "property": 4,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 52
+},
+{
+    "fields": {
+        "code": "h-24",
+        "description": "Sensor de Humo",
+        "location_in_plan": "58",
+        "value": "0",
+        "property": 4,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 53
+},
+{
+    "fields": {
+        "code": "p-21",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "109",
+        "value": "4",
+        "property": 4,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 54
+},
+{
+    "fields": {
+        "code": "t-27",
+        "description": "Actuador de Temperatura",
+        "location_in_plan": "51",
+        "value": "4",
+        "property": 4,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 55
+},
+{
+    "fields": {
+        "code": "m-28",
+        "description": "Sensor de Movimiento",
+        "location_in_plan": "5",
+        "value": "2",
+        "property": 5,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 56
+},
+{
+    "fields": {
+        "code": "l-26",
+        "description": "Actuador de Luz",
+        "location_in_plan": "295",
+        "value": "5",
         "property": 5,
         "type": "1",
-        "is_discrete": false
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 15
+    "pk": 57
 },
 {
     "fields": {
-        "code": "HTC-002",
-        "description": "Sensor Puerta principal",
-        "location_in_plan": "329",
-        "value": "1",
+        "code": "p-25",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "177",
+        "value": "0",
         "property": 5,
-        "type": "1",
-        "is_discrete": false
+        "type": "0",
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 16
+    "pk": 58
 },
 {
     "fields": {
-        "code": "HTC-003",
-        "description": "Sensor Puerta balc\u00f3n",
-        "location_in_plan": "52",
-        "value": "1",
+        "code": "h-25",
+        "description": "Sensor de Humo",
+        "location_in_plan": "58",
+        "value": "0",
         "property": 5,
-        "type": "1",
-        "is_discrete": false
+        "type": "0",
+        "is_discrete": true
     },
     "model": "watchapp.sensor",
-    "pk": 17
+    "pk": 59
+},
+{
+    "fields": {
+        "code": "p-21",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "109",
+        "value": "1",
+        "property": 5,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 60
+},
+{
+    "fields": {
+        "code": "t-27",
+        "description": "Actuador de Temperatura",
+        "location_in_plan": "51",
+        "value": "5",
+        "property": 5,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 61
 },
 {
     "fields": {
@@ -690,7 +925,7 @@
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-03-27T20:58:09.799Z",
+        "last_login": "2015-04-08T16:05:08.093Z",
         "groups": [
             1
         ],
@@ -744,6 +979,46 @@
 },
 {
     "fields": {
+        "username": "jhonatan",
+        "first_name": "Jhonatan",
+        "last_name": "Alarcon",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-04-08T16:01:33.449Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$znczoXbNqfwe$7+8cQXd1BMfMwto7QJGBh7iEtYyBnERIGQvF4g+9Lno=",
+        "email": "jj.alarcon10@uniandes.edu.co",
+        "date_joined": "2015-04-08T15:57:56.239Z"
+    },
+    "model": "auth.user",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "cesar",
+        "first_name": "Cesar",
+        "last_name": "Forero",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-04-08T16:09:14.468Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$8jpiYfH3XynV$DxSp+v5JXDdiHKKu0gWFR1ljXRklTnvwlu45T5GE4KA=",
+        "email": "ca.forero10@uniandes.edu.co",
+        "date_joined": "2015-04-08T15:58:08.373Z"
+    },
+    "model": "auth.user",
+    "pk": 5
+},
+{
+    "fields": {
         "mobile_number": "+573202036599",
         "fixed_phone_extension": 4520,
         "fixed_phone": 3363636,
@@ -764,9 +1039,9 @@
             3
         ],
         "properties_as_resident": [
-            3,
             5,
-            4
+            4,
+            3
         ],
         "user": 1,
         "mobile_number": "+573166537244"
@@ -777,15 +1052,15 @@
 {
     "fields": {
         "properties_as_owner": [
-            3,
-            2,
             5,
-            4
+            4,
+            2,
+            3
         ],
         "properties_as_resident": [
-            1,
+            4,
             2,
-            4
+            1
         ],
         "user": 2,
         "mobile_number": "+573002146240"
@@ -802,5 +1077,37 @@
     },
     "model": "watchapp.userprofile",
     "pk": 3
+},
+{
+    "fields": {
+        "properties_as_owner": [
+            5,
+            3
+        ],
+        "properties_as_resident": [
+            4,
+            1
+        ],
+        "user": 4,
+        "mobile_number": "+573112540450"
+    },
+    "model": "watchapp.userprofile",
+    "pk": 4
+},
+{
+    "fields": {
+        "properties_as_owner": [
+            5,
+            3
+        ],
+        "properties_as_resident": [
+            5,
+            3
+        ],
+        "user": 5,
+        "mobile_number": "+573133444068"
+    },
+    "model": "watchapp.userprofile",
+    "pk": 5
 }
 ]
