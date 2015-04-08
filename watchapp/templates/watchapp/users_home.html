@@ -519,13 +519,13 @@
 
                             <p>Tú última visita a WatchApp fue {{ user.last_login }} </p>
                         </article>
-                                                <form method="get" action="{% url 'watchapp:sensor_configuration' %}">
+                        <form method="get" action="{% url 'watchapp:sensor_configuration' %}">
                             {% csrf_token %}
                             <label>Para modificar la ubicacion de los sensores de tus propiedades</label>
                             <input type="submit" value="Agregar / Quitar sensores" class="btn btn-action"/>
                         </form>
                         <br/>
-                   <form method="get" action="{% url 'watchapp:get_owner_reports' %}">
+                        <form method="get" action="{% url 'watchapp:get_owner_reports' %}">
                             {% csrf_token %}
                             <label>Para obtener el detalle de los eventos de tus propiedades</label>
                             <input type="submit" value="Ver Reportes" class="btn btn-action"/>

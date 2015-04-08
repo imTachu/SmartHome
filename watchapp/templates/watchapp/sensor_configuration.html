@@ -11,9 +11,15 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/redips-drag-min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/scriptSensor.js"></script>
 
+
+<br />
+     <form method="get" action="{% url 'watchapp:users_home' %}" style="float:right;">
+    {% csrf_token %}
+    <input type="submit" value="Home" class="btn btn-action"/>
+</form>
+
 <br />
 <br />
-  
 <form method="post" action="{% url 'watchapp:sensor_configuration' %}" id="get_property_info_by_name">
   {% csrf_token %}
  <fieldset class="planContainer">
