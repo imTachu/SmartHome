@@ -519,10 +519,17 @@
 
                             <p>Tú última visita a WatchApp fue {{ user.last_login }} </p>
                         </article>
+                                                <form method="get" action="{% url 'watchapp:sensor_configuration' %}">
+                            {% csrf_token %}
+                            <label>Para modificar la ubicacion de los sensores de sus propiedades</label>
+                            <input type="submit" value="Agregar / Quitar sensores" class="btn"/>
+                        </form>
+
                     </td>
+
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 <tr>
                     <td colspan="2">
                         <form method="post" action="{% url 'watchapp:users_home' %}" id="get_property_info_by_name">
@@ -540,6 +547,7 @@
                                         {% endfor %}
                                     </select>
                                 </td>
+
                                 <td></td>
                                 <td style="width: 50%; min-width: 50%;">
                                     <label>&nbsp;&nbsp;Inmuebles en los que soy residente</label>
@@ -1938,8 +1946,7 @@
                                                     {% endif %}
                                                 </div>
                                             </fieldset>
-                        {% else %}
-                    <p>No hay Sensores.</p>
+                        
                         {% endif %}
 
                     </td>
