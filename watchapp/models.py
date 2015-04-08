@@ -83,6 +83,9 @@ class Event(models.Model):
     is_fatal = models.BooleanField(default=False)
     property = models.ForeignKey(Property)
     sensor = models.ForeignKey(Sensor)
+    
+    def __unicode__(self):
+        return self.date
 
 '''Clase receiver que se ejecuta cuando se recibe un POST de evento para envio de notificaciones (email y SMS)'''
 @receiver(post_save, sender=Event)

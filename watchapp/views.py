@@ -368,3 +368,39 @@ def get_owner_reports(request):
         return render(request, 'watchapp/get_owner_reports.html', {
             "request": request,
         })
+
+@login_required()
+def events_views(request):
+    """
+    Esta funcion muestra los eventos por inmueble
+    	@param request
+    	@author Juan Vallejo
+    """
+    if request.method == 'POST':
+        events = []
+	selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+	selected_fecha_inicial = request.POST["fecha_inicial"]
+	selected_fecha_final = request.POST["fecha_final"]
+	log.debug("Id Propiedad: " + str(selected_property.id))
+	events = property_events(request,selected_property.id,selected_fecha_inicial,selected_fecha_final)
+        return render(request, 'watchapp/events_views.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "Events":events,
+        "Selected_fecha_inicial":selected_fecha_inicial,
+        "selected_fecha_final":selected_fecha_final,
+        })
+    else:
+        return render(request, 'watchapp/events_views.html', {
+            "request": request,
+        })
+@login_required()
+def property_events(request,property_id,fecha_inicial,fecha_final):
+    """
+    Esta funcion permite obtener los eventos por inmueble
+        @param request
+        @author Juan Vallejo
+    """
+    log.debug("property_events: val: " + str(property_id))
+    events = Event.objects.filter(property_id=property_id).filter(date__range=[fecha_inicial,fecha_final])
+    return events

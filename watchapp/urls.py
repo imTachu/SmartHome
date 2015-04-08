@@ -27,4 +27,7 @@ urlpatterns = patterns('',
 	#URL para eliminar un sensor en un plano
     url(r'^delete_position_ajax/$', views.delete_position_ajax, name='delete_position_ajax'),
     url('', include('django.contrib.auth.urls')),
+    #URL para consultar eventos por inmueble
+    url(r'^events_views/$', views.events_views, name='events_views'),
+
 )
