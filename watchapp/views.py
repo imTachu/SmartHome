@@ -80,14 +80,14 @@ def sensor_configuration(request):
     """
     Esta funcion tiene el contenido del home de usuarios (propietarios / residentes), 
     se puede acceder despues de la autenticacion de un usuario que este en el Group usuarios
-    	@param request
-    	@author Lorena Salamanca
+        @param request
+        @author Lorena Salamanca
     """
     if request.method == 'POST':
         sensors = []
-	selected_property = Property.objects.get(name=request.POST["select_as_owner"])
-	log.debug("Id Propiedad: " + str(selected_property.id))
-	sensors = property_sensors(request,selected_property.id) 
+        selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+        log.debug("Id Propiedad: " + str(selected_property.id))
+        sensors = property_sensors(request,selected_property.id) 
         return render(request, 'watchapp/sensor_configuration.html', {
         "selected_property": selected_property,
         "request": request,
@@ -343,3 +343,28 @@ class EventViewSet(viewsets.ModelViewSet):
    """
    queryset = Event.objects.all()
    serializer_class = EventSerializer
+
+####################### Vista para rest_framework #######################
+
+@login_required()
+def get_owner_reports(request):
+    """
+    Esta funcion muestra las propiedades del usuario autenticado y le 
+    permite generar reportes de los eventos de sus inmuebles
+        @param request
+        @author Lorena Salamanca
+    """
+    if request.method == 'POST':
+        sensors = []
+        selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+        log.debug("Id Propiedad: " + str(selected_property.id))
+        events = selected_property.event_set.all() 
+        return render(request, 'watchapp/get_owner_reports.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "events":events,
+        })
+    else:
+        return render(request, 'watchapp/get_owner_reports.html', {
+            "request": request,
+        })

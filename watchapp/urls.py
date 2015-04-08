@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 	#URLs para funcionalidades de usuarios (residente/propietario)
     url(r'^users_home/$', views.users_home, name='users_home'),
     url(r'^sensor_configuration/$', views.sensor_configuration, name='sensor_configuration'),
+    url(r'^get_owner_reports/$', views.get_owner_reports, name='get_owner_reports'),
 	url(r'^update_sensor/$', views.update_sensor, name='update_sensor'),
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
