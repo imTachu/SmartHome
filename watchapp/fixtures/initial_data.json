@@ -100,8 +100,8 @@
 },
 {
     "fields": {
-        "expire_date": "2015-04-22T22:36:00.058Z",
-        "session_data": "YjQ5YjU5ODlhNGQ2MjdkYWRhOGU4M2JhNDA4OTUyNzc5MmRhYTU0Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9oYXNoIjoiNGI1NDc4ZGNhZWM3NTM2ZGY0MjcwNWI4ZjZlZTFkMGQ3OGJiOGJjMyJ9"
+        "expire_date": "2015-04-22T23:27:38.396Z",
+        "session_data": "NTM4NjY4YjE0YzM4MWQ1YjlmN2Y2ODBhMTliOWQwYTEyMTY3NjVmYzp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
     },
     "model": "sessions.session",
     "pk": "5pdby57asu67id8004b6ywstu8h6gk83"
@@ -113,6 +113,14 @@
     },
     "model": "sessions.session",
     "pk": "e6j4ky4fa7neg5248v4b6fyl5s4ay6sr"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-22T23:23:38.056Z",
+        "session_data": "NTM4NjY4YjE0YzM4MWQ1YjlmN2Y2ODBhMTliOWQwYTEyMTY3NjVmYzp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
+    },
+    "model": "sessions.session",
+    "pk": "hj7ayz6t12pqh4wio3erm0x19hpmj3iv"
 },
 {
     "fields": {
@@ -129,6 +137,14 @@
     },
     "model": "sessions.session",
     "pk": "ji1p22npjikl7nlc4oia0mmccnvnffu6"
+},
+{
+    "fields": {
+        "expire_date": "2015-04-23T00:02:26.393Z",
+        "session_data": "NTM4NjY4YjE0YzM4MWQ1YjlmN2Y2ODBhMTliOWQwYTEyMTY3NjVmYzp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfaGFzaCI6IjRiNTQ3OGRjYWVjNzUzNmRmNDI3MDViOGY2ZWUxZDBkNzhiYjhiYzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
+    },
+    "model": "sessions.session",
+    "pk": "mbzxh11rxzgohgbezfgjjsgbvmz5i6d6"
 },
 {
     "fields": {
@@ -202,7 +218,7 @@
     "fields": {
         "name": "Edificio Aja, Apto 302",
         "constructor_company": 1,
-        "is_secure_mode": false,
+        "is_secure_mode": true,
         "fixed_phone": "2222222",
         "plan": "http://u.jimdo.com/www50/o/sc0adaf48dd3c1e00/img/if7c260c96478fccb/1338564363/std/distribuci%C3%B3n-apartamento.png",
         "address": "Carrera 15 79-25"
@@ -370,7 +386,7 @@
         "code": "m-28",
         "description": "Sensor de Movimiento",
         "location_in_plan": "4",
-        "value": "2",
+        "value": "3",
         "property": 3,
         "type": "0",
         "is_discrete": true
@@ -406,45 +422,6 @@
 },
 {
     "fields": {
-        "code": "h-24",
-        "description": "Sensor de Humo",
-        "location_in_plan": "58",
-        "value": "1",
-        "property": 3,
-        "type": "0",
-        "is_discrete": true
-    },
-    "model": "watchapp.sensor",
-    "pk": 47
-},
-{
-    "fields": {
-        "code": "p-21",
-        "description": "Sensor de Puertas",
-        "location_in_plan": "109",
-        "value": "4",
-        "property": 3,
-        "type": "0",
-        "is_discrete": true
-    },
-    "model": "watchapp.sensor",
-    "pk": 48
-},
-{
-    "fields": {
-        "code": "t-27",
-        "description": "Actuador de Temperatura",
-        "location_in_plan": "51",
-        "value": "3",
-        "property": 3,
-        "type": "1",
-        "is_discrete": true
-    },
-    "model": "watchapp.sensor",
-    "pk": 49
-},
-{
-    "fields": {
         "code": "m-28",
         "description": "Sensor de Movimiento",
         "location_in_plan": "4",
@@ -468,32 +445,6 @@
     },
     "model": "watchapp.sensor",
     "pk": 51
-},
-{
-    "fields": {
-        "code": "p-24",
-        "description": "Sensor de Puertas",
-        "location_in_plan": "177",
-        "value": "0",
-        "property": 4,
-        "type": "0",
-        "is_discrete": true
-    },
-    "model": "watchapp.sensor",
-    "pk": 52
-},
-{
-    "fields": {
-        "code": "h-24",
-        "description": "Sensor de Humo",
-        "location_in_plan": "58",
-        "value": "0",
-        "property": 4,
-        "type": "0",
-        "is_discrete": true
-    },
-    "model": "watchapp.sensor",
-    "pk": 53
 },
 {
     "fields": {
@@ -663,6 +614,71 @@
     },
     "model": "watchapp.sensor",
     "pk": 70
+},
+{
+    "fields": {
+        "code": "l-71",
+        "description": "Actuador de Luz",
+        "location_in_plan": "218",
+        "value": "0",
+        "property": 1,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 71
+},
+{
+    "fields": {
+        "code": "p-72",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "208",
+        "value": "0",
+        "property": 1,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 72
+},
+{
+    "fields": {
+        "code": "l-74",
+        "description": "Actuador de Luz",
+        "location_in_plan": "27",
+        "value": "0",
+        "property": 3,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 74
+},
+{
+    "fields": {
+        "code": "p-75",
+        "description": "Sensor de Puertas",
+        "location_in_plan": "66",
+        "value": "0",
+        "property": 3,
+        "type": "0",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 75
+},
+{
+    "fields": {
+        "code": "t-78",
+        "description": "Actuador de Temperatura",
+        "location_in_plan": "42",
+        "value": "0",
+        "property": 4,
+        "type": "1",
+        "is_discrete": true
+    },
+    "model": "watchapp.sensor",
+    "pk": 78
 },
 {
     "fields": {
@@ -1055,7 +1071,7 @@
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-04-08T22:36:00.045Z",
+        "last_login": "2015-04-09T00:02:26.384Z",
         "groups": [
             1
         ],
@@ -1165,14 +1181,14 @@
 {
     "fields": {
         "properties_as_owner": [
-            4,
             1,
-            3
+            3,
+            4
         ],
         "properties_as_resident": [
             5,
-            4,
-            3
+            3,
+            4
         ],
         "user": 1,
         "mobile_number": "+573166537244"
@@ -1188,9 +1204,9 @@
             3
         ],
         "properties_as_resident": [
-            4,
             2,
-            1
+            1,
+            4
         ],
         "user": 2,
         "mobile_number": "+573002146240"
@@ -1215,8 +1231,8 @@
             3
         ],
         "properties_as_resident": [
-            4,
-            1
+            1,
+            4
         ],
         "user": 4,
         "mobile_number": "+573112540450"
