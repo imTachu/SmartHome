@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(max_length=30, choices=[(b'0', b'Sensor'), (b'1', b'Actuador')])),
                 ('location_in_plan', models.CharField(max_length=20, null=True)),
                 ('is_discrete', models.BooleanField(default=False)),
-                ('value', models.CharField(max_length=30, choices=[(b'0', b'Sensor'), (b'1', b'Actuador')])),
+                ('value', models.CharField(max_length=30, choices=[(b'1', b'Off'), (b'2', b'25%'), (b'3', b'50%'), (b'4', b'75%'), (b'5', b'On')])),
                 ('property', models.ForeignKey(to='watchapp.Property', null=True)),
             ],
             options={

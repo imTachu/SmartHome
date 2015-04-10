@@ -13,7 +13,6 @@ before_script:
 notifications:
   email:
     recipients:
-      - dan-esco@uniandes.edu.co
       - l.salamanca10@uniandes.edu.co
       - jj.alarcon10@uniandes.edu.co
     on_success: always
