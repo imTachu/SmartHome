@@ -19,13 +19,14 @@ redips.init = function () {
     // initialization
     rd.init();
     // elements can be dropped only to the empty table cells
-    rd.dropMode = 'single';
+    rd.dropMode = 'overwrite';
     // shift DIV elements with animation
     rd.shift.animation = true;
     // disabled elements will have opacity effect
     rd.style.opacityDisabled = 50;
     // set hover color
     rd.hover.colorTd = 'transparent';
+    rd.hover.borderTd = '2px solid red';
     // confirm DIV element delete action
     //rd.trash.question = 'Esta seguro de eliminar el sensor?';
     // event handler invoked before DIV element is dropped to the cell
@@ -40,10 +41,7 @@ redips.init = function () {
         // pos[4] - source row index
         // pos[5] - source cell (column) index
         var pos = rd.getPosition();
-
-        //Agregamos un sensor
         if (pos[0] == '1') {
-            var positionOld = (pos[4] + 1) * (pos[5] + 1)
             var position = 0;
 
             if (pos[1] == 0) {
@@ -53,8 +51,6 @@ redips.init = function () {
                 position = (pos[1] * 20) + (pos[2] + 1)
             }
 
-            // display element positions
-            //alert("drop" + position + ', c ' + (pos[2]+ 1) + ', r ' + (pos[1]) );
             /*is_discrete true: 1 /false: 0*/
             var is_discrete = 0;
             var typeSensor = rd.obj.id.substring(0, 1);
@@ -87,20 +83,35 @@ redips.init = function () {
                 is_discrete = 1;
             }
 
-            //alert(type);
+            // how to test TD if cell is occupied
+
+            var sensorTB = $("#planoTabla");
+            var sensorTD = sensorTB.find('td[id="' + position + '"]');
+            var d = sensorTD.html();
+
+     
+
             add_sensor(rd.obj.id, description, position, type, is_discrete);
-            $('#select_as_owner option[value="' + $("#select_as_owner").val() + '"]').prop('selected', 'selected').change();
             $('#descriptionSensor').val('');
 
+            //Borramos un sensor arrastrado en la misma tabla del plano
+            if (pos[3] == '1') {
+
+                var position = 0;
+
+                if (pos[4] == 0) {
+                    position = pos[5] + 1;
+                }
+                else {
+                    position = (pos[4] * 20) + (pos[5] + 1)
+                }
+
+                delete_sensor(position);
+                $('#tableDataSensor tbody #tr' + position).remove();
+                //rd.deleteObject(rd.obj);
+            }
         }
-
     };
-
-    // delete DIV element in event.dropped() event handler
-    rd.event.finish = function () {
-        //rd.deleteObject(rd.obj);
-        //alert('finish');
-    }
 
     rd.event.deleted = function () {
         var pos = rd.getPosition();
@@ -112,39 +123,30 @@ redips.init = function () {
         else {
             position = (pos[4] * 20) + (pos[5] + 1)
         }
-
-        delete_sensor(rd.obj.id);
-        $('#select_as_owner option[value="' + $("#select_as_owner").val() + '"]').prop('selected', 'selected').change();
+        delete_sensor(position);
+        $('#tableDataSensor tbody #tr' + position).remove();
     };
 
     rd.event.droppedBefore = function (targetCell) {
-        //alert(targetCell.id + " " + rd.obj.id);
-        // test if target cell is occupied and set reference to the dragged DIV element
+        // get target and source position (method returns positions as array)
+        // pos[0] - target table index
+        // pos[1] - target row index
+        // pos[2] - target cell (column) index
+        // pos[3] - source table index
+        // pos[4] - source row index
+        // pos[5] - source cell (column) index
         var empty = rd.emptyCell(targetCell, 'test');
-        // if target cell is not empty
-        if (!empty) {
-            //rd.deleteObject(rd.obj);
-            //alert(rd.obj.innerHTML);
-            // open dialog should be wrapped in setTimeout because of
-            // removeChild and return false below
-            // remove dragged DIV from from DOM (node still exists in memory)
-            //rd.obj.parentNode.removeChild(rd.obj);
 
-            // this will disable DIV elements in target cell (DIV element will be somehow marked)
-            // rd.enableDrag(false, targetCell);
-            // return false (deleted DIV will not be returned to source cell)
+        if (!empty) {
             return false;
         }
     };
+
     // add counter to cloned element name
     // (after cloned DIV element is dropped to the table)
     rd.event.cloned = function () {
         // increase counter
         counter++;
-        // append to the DIV element name
-        //textboxdescripcion
-        //rd.obj.innerHTML = $('#textboxdescripcion').val() +" "+ counter;
-        // rd.obj.innerHTML += $('#textboxdescripcion').val();
     };
     // in the moment when DIV element is moved, clonedDIV will be set
     rd.event.moved = function (cloned) {
@@ -220,6 +222,24 @@ function add_sensor(code, description, location_in_plan, type, is_discrete) {
         contentType: "application/json;charset=utf-8",
         async: 'true',
         success: function (data) {
+            //alert(data.code);
+            //set_sensor(data.location_in_plan,  data.code, data.sensor_id);
+
+            var type = 'Actuador';
+            if (data.type == 0) {
+                type = 'Sensor';
+            }
+
+            var dataHTML = '    <tr id="tr' + data.location_in_plan + '">' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.code + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.description + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' +
+            type
+
+            + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.location_in_plan + '</td>' +
+               ' </tr>';
+            $('#tableDataSensor tbody').append(dataHTML);
 
         },
         error: function (xhr, errmsg, err) {
@@ -228,13 +248,17 @@ function add_sensor(code, description, location_in_plan, type, is_discrete) {
     });
 }
 
-function delete_sensor(code) {
-    var id = code.split('-');
+function delete_sensor(location_in_plan) {
+
+    var dataSensor = {
+        property: $("#select_as_owner").val(),
+        location_in_plan: location_in_plan
+    };
 
     $.ajax({
         url: "/watchapp/delete_position_ajax/", // the endpoint
         type: "DELETE", // http method
-        data: JSON.stringify({ sensorId: id[1] }), // data sent with the delete request
+        data: JSON.stringify(dataSensor), // data sent with the delete request
         contentType: "application/json;charset=utf-8",
         async: 'true',
         success: function (data) {
@@ -260,10 +284,9 @@ function getCookie(c_name) {
     return "";
 }
 
-function setRow(control)
-{
+function setRow(control) {
     for (var i = 1 ; i <= 400; i++) {
-        $('#tr'+i).css('background', 'transparent');
+        $('#tr' + i).css('background', 'transparent');
     }
-    $("#tr"+control.id).css('background', '#109bce');
+    $("#tr" + control.id).css('background', '#109bce');
 }

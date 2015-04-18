@@ -1,16 +1,46 @@
 from django.test import TestCase
 from watchapp.models import Property
-import csv
-import os
-import logging
-from watchapp import views
+import csv, os
+"""
+class CSVLoadingTests(TestCase):
 
-log = logging.getLogger(__name__)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    def test_attached_file_is_csv(self):
+	'''
+	Prueba para verificar que el archivo seleccionado es un .csv
+	'''
+        file = '/csv/test.csv'
+        fileName, fileExtension = os.path.splitext(file)
+        self.assertEqual(fileExtension.lower(), '.csv')
+		
+	def test_attached_file_is_csv(self):
+    '''
+    Prueba para verificar que el archivo seleccionado es un .csv
+    '''
+        file = '/csv/test.csv'
+        fileName, fileExtension = os.path.splitext(file)
+        self.assertEqual(fileExtension.lower(), '.csv')
+	
+    def test_csv_is_not_empty(self):
+	'''
+	Prueba para verificar que el archivo .csv no este vacio
+	'''
+        file = 'attendees1.csv'
+        f = open(file, 'rt')
+        csv_reader = csv.reader(f)
+        row_count = len(list(csv_reader))
+        self.assertNotEqual(row_count, 0)
 
-# Create your tests here.
-#API
-
+    def test_csv_size_is_less_than_100k(self):
+	'''
+	Prueba para verificar que el archivo .csv no pese mas de 100KB
+	'''
+        file = '/csv/test.csv'
+        file_size = os.path.getsize(file)
+        self.assertLessEqual(file_size, 100000)
+"""
+	
+		
+		
 '''
 
 class Request:
