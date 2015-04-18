@@ -222,6 +222,9 @@ function add_sensor(code, description, location_in_plan, type, is_discrete) {
         contentType: "application/json;charset=utf-8",
         async: 'true',
         success: function (data) {
+            //alert(data.code);
+            //set_sensor(data.location_in_plan,  data.code, data.sensor_id);
+
             var type = 'Actuador';
             if (data.type == 0) {
                 type = 'Sensor';

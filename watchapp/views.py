@@ -15,6 +15,17 @@ from rest_framework import viewsets
 import logging
 from django.views.decorators.csrf import csrf_exempt
 import json
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+from django.template import RequestContext
+from django.template.loader import render_to_string
+import logging
+import sys
+import datetime
+from django.core import serializers
+
+
 log = logging.getLogger(__name__)
 
 ####################### Vistas index o para autenticacion #######################
@@ -144,12 +155,8 @@ def delete_position_ajax(request):
         response_data = {}
 	data = json.loads(request.body) 
         selected_property = Property.objects.get(name=data['property'])
-	print 'Raw Data: "%s"' % request.body
-	print selected_property 
-	data = json.loads(request.body) 
 	sensorUpdate=Sensor.objects.get(location_in_plan = data['location_in_plan'], property = selected_property)
 	sensorUpdate.delete()
-	print 'Delete ok'
         response_data['msg'] = 'ok'
         return HttpResponse(
                 json.dumps(data),
@@ -339,11 +346,13 @@ class EventViewSet(viewsets.ModelViewSet):
    queryset = Event.objects.all()
    serializer_class = EventSerializer
 
+####################### Inicio Vistas para el reporte de los eventos del inmueble del propietario #######################
+
 @login_required()
 @user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
 def rpt_owner_property(request):
     """
-    Vista temporal mockups
+    Vista Para inicializar la pagina del reporte de eventos del propietarioa
     	@param request
     	@author Ricardo Restrepo
     """    
@@ -351,3 +360,133 @@ def rpt_owner_property(request):
         return render(request, 'watchapp/rpt_owner_property.html', { "request": request, })
     elif request.user.groups.filter(name="constructoras").exists():       
         return HttpResponse("No tiene permisos de acceso.")
+
+def generate_pdf(html):
+    """
+    Funcion para generar el archivo PDF y devolverlo mediante HttpResponse
+    	@param request
+    	@author Ricardo Restrepo
+    """ 
+    result = StringIO.StringIO()
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('Error al generar el PDF: %s' % cgi.escape(html))
+
+@login_required()
+@csrf_exempt
+def get_report_owner_property(request):
+    """
+    Funcion para crear el archivo generar el pdf del reporte de eventos del propietario
+	Requisitos:
+	http://django.es/blog/generar-pdfs-con-django-y-pisa/
+	easy_install pisa
+        sudo pip install html5lib
+        sudo pip install pyPDF
+    	@param request
+    	@author Ricardo Restrepo
+    """   
+    # Array de eventos
+    events = []
+    #Parametros json enviados por ajax
+    data = json.loads(request.body) 
+    print data['dateInit']
+    pData=""
+
+    if data['property']=='0':
+        # Consultamos todos los inmuebles de un propietario
+        properties = request.user.userprofile.properties_as_owner.all()
+        # Consultamos todos los eventos de todos los inmuebles de un propietario
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+	pData="Todas"
+    else:
+        # Consultamos la propiedad
+        selected_property = Property.objects.get(name=data['property'])  
+	pData=data['property']
+        # Consultamos los eventos de la propiedad
+        events = Event.objects.filter(property_id=selected_property.id,date__range=[data['dateInit'], data['dateFinal']])
+
+
+    if(len(events)==0): return HttpResponse("0")
+
+    # Recuperamos el html del template del reporte
+    html = render_to_string('watchapp/template_rpt_owner_property.html', {'pagesize':'A4', 'Events':events, 'property':str(pData), 'dateInit':str(data['dateInit']).split(' ')[0],'dateFinal':str(data['dateFinal']).split(' ')[0] }, context_instance=RequestContext(request))
+    # Convertimos el html  a pdf    
+    return generate_pdf(html)
+
+class PisaHandler(logging.Handler):
+    """
+    Funcion para controlar excepciones de la libreria de PISA PDF
+    	@param request
+    	@author Ricardo Restrepo
+    """  
+    def emit(self, record):
+        print >> sys.stderr, record
+
+logging.getLogger("ho.pisa").addHandler(PisaHandler())
+
+def generate_pdf(html):
+    """
+    Funcion para generar el archivo PDF y devolverlo mediante HttpResponse
+    	@param request
+    	@author Ricardo Restrepo
+    """ 
+    result = StringIO.StringIO()
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('Error al generar el PDF: %s' % cgi.escape(html))
+
+@login_required()
+@csrf_exempt
+def get_event_owner_property(request):
+    """
+    Funcion para consultar los de eventos inmueble del propietario
+    	@param request
+    	@author Ricardo Restrepo
+    """   
+    # Array de eventos
+    events = []
+    #Parametros json enviados por ajax
+    data = json.loads(request.body) 
+
+    if data['property']=='0':
+        # Consultamos todos los inmuebles de un propietario
+        properties = request.user.userprofile.properties_as_owner.all()
+        # Consultamos todos los eventos de todos los inmuebles de un propietario
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+    else:
+        # Consultamos la propiedad
+        selected_property = Property.objects.get(name=data['property'])  
+        # Consultamos los eventos de la propiedad
+        events = Event.objects.filter(property_id=selected_property.id,date__range=[data['dateInit'], data['dateFinal']])
+
+    if(len(events)==0): 
+        return HttpResponse("0")
+    else:
+	# Collecion de eventos
+	dataEvents=[]
+	# Recorremos todos los eventos
+	for e in events:
+                dataE = {}	
+		dataE["date"] = str(e.date.date())
+		dataE["description"] = str(e.description)
+		dataE["type"] = str(e.get_type_display())
+		if (e.is_critical): 
+		     dataE["is_critical"] = "Si" 
+		else: 
+		     dataE["is_critical"] ="No"
+		if (e.is_fatal): 
+		     dataE["is_fatal"] = "Si" 
+		else: 
+		     dataE["is_fatal"] = "No"
+		dataE["property"] = e.property.name
+		dataE["sensor"] = str(e.sensor.description)
+		# Agregamos el evento a la coleccion
+		dataEvents.append(dataE)
+	# Retornamos los eventos en formato JSON
+        return HttpResponse(
+                json.dumps(dataEvents),
+                content_type="application/json"
+            )
+####################### Fin Vistas para el reporte de los eventos del inmueble del propietario #######################

@@ -112,3 +112,9 @@ function get_report_data() {
         }
     });
 }
+
+$( document ).ready(function() {
+    $("#dateFinal").on('changeDate', function(e) {
+alert("ok");
+});
+});
