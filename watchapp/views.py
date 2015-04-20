@@ -425,18 +425,6 @@ class PisaHandler(logging.Handler):
 
 logging.getLogger("ho.pisa").addHandler(PisaHandler())
 
-def generate_pdf(html):
-    """
-    Funcion para generar el archivo PDF y devolverlo mediante HttpResponse
-    	@param request
-    	@author Ricardo Restrepo
-    """ 
-    result = StringIO.StringIO()
-    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return HttpResponse('Error al generar el PDF: %s' % cgi.escape(html))
-
 @login_required()
 @csrf_exempt
 def get_event_owner_property(request):
