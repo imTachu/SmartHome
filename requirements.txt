@@ -11,10 +11,11 @@ psycopg2==2.6
 requests==2.5.1
 static3==0.5.1
 colorama==0.3.3
-html5lib==0.999
 pisa==3.0.33
-pyPdf==1.13
 six==1.9.0
-Pillow==2.8.1
-reportlab==3.1.44
 xhtml2pdf==0.0.6
+Pillow>=2.0.0
+html5lib>=0.90
+httplib2==0.7.6
+pyPdf2==1.19
+reportlab==2.5
