@@ -525,7 +525,7 @@
                             <input type="submit" value="Agregar / Quitar sensores" class="btn btn-action"/>
                         </form>
                         <br/>
-                        <form method="get" >
+                        <form method="get" action="{% url 'watchapp:get_owner_reports' %}">
                             {% csrf_token %}
                             <label>Para obtener el detalle de los eventos de tus propiedades</label>
                             <input type="submit" value="Ver Reportes" class="btn btn-action"/>
