@@ -108,7 +108,6 @@ redips.init = function () {
 
                 delete_sensor(position);
                 $('#tableDataSensor tbody #tr' + position).remove();
-                //rd.deleteObject(rd.obj);
             }
         }
     };
@@ -195,7 +194,7 @@ function set_sensor(positionSensor, code, sensorId) {
 
         var sensorTB = $("#planoTabla");
         var sensorTD = sensorTB.find('td[id="' + positionSensor + '"]')
-        sensorTD.html('<div style="border-style: solid; cursor: move;" id="' + styleCode + '-' + sensorId + '" class="drag ' + styleCode + '">' + styleCode.toUpperCase() + '</div>');
+        sensorTD.html('<div style="border-style: solid; cursor: default;" id="' + styleCode + '-' + sensorId + '" class="drag ' + styleCode + '">' + styleCode.toUpperCase() + '</div>');
 
 
     }
@@ -240,7 +239,7 @@ function add_sensor(code, description, location_in_plan, type, is_discrete) {
 
         },
         error: function (xhr, errmsg, err) {
-            //alert(errmsg);// provide a bit more info about the error to the console
+ 
         }
     });
 }
@@ -262,7 +261,7 @@ function delete_sensor(location_in_plan) {
 
         },
         error: function (xhr, errmsg, err) {
-            //alert(errmsg);// provide a bit more info about the error to the console
+           
         }
     });
 }

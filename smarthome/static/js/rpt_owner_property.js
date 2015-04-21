@@ -44,7 +44,8 @@ function get_report() {
             }
         },
         error: function (xhr, errmsg, err) {
-            alert(errmsg);
+                $("#divRpt").css('display', 'block');
+		$('#tableEvents tbody').html("");
         }
     });
 }
@@ -108,7 +109,8 @@ function get_report_data() {
             }
         },
         error: function (xhr, errmsg, err) {
-            alert(errmsg);
+                $("#divRpt").css('display', 'block');
+		$('#tableEvents tbody').html("");
         }
     });
 }
