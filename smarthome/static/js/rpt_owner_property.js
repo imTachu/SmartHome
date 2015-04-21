@@ -32,7 +32,7 @@ function get_report() {
         data: JSON.stringify(dataFilter),//Datos
         async: 'true',
         success: function (data) {
-            if (data == '0') {
+            if (data === '0') {
                 //Si no se encuentran registros se muestra el div de información
                 $("#divRpt").css('display', 'block');
             }
@@ -84,7 +84,7 @@ function get_report_data() {
         data: JSON.stringify(dataFilter),//Datos
         async: 'true',
         success: function (data) {
-            if (data == '0') {
+            if (data === '0') {
                 //Si no se encuentran registros se muestra el div de información
                 $("#divRpt").css('display', 'block');
 		$('#tableEvents tbody').html("");
