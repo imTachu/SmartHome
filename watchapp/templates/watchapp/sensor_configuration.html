@@ -43,15 +43,20 @@
     <table style="width: 100%;">
         <tr>
 
-            <td style="vertical-align: top;">
+            <td style="vertical-align: top;margin:0 auto; padding:0; ">
                 <div id="drag" style="width: 100%; visibility: hidden;">
                     <fieldset class="planContainer">
-                        <legend>Plano de la propiedad</legend>
+                        <legend>Sensores disponibles para agregar</legend>
+<div class="alert alert-info" role="alert" id="divRpt">
+<strong>► Agregar Sensor:</strong> Arrastre un sensor al plano.<br/>
+<strong>► Borrar Sensor:</strong> Arrastre un sensor del plano a la caneca de la basura.<br/>
+<strong>► Actualizar posición:</strong> Arrastre un sensor a la nueva posición del plano.<br/>
+
                         <table style="width: 100%;">
                             <tbody>
                                 <!-- clone 2 elements + last element -->
                                 <tr>
-                                    <td style="text-align: center; vertical-align: middle;" class="trashContainer">
+                                    <td style="text-align: center; vertical-align: middle;background-color:white;" class="trashContainer">
                                         <div class="trash" id="Trash"></div>
                                     </td>
                                     <td class="sensor">
@@ -80,6 +85,7 @@
                                 </tr>
                             </tbody>
                         </table>
+</div>
                     </fieldset>
 
                     <fieldset class="planContainer">
@@ -96,7 +102,7 @@
                             $('#drag').css('visibility', 'visible');
                         </script>
                         {% endif %}  
-                    <div class="divPlano" style="background: transparent url({{ selected_property.plan }}) no-repeat; background-size: 100% 100%; text-align: center;">
+                    <div class="divPlano" style="background: transparent url({{ selected_property.plan }}) no-repeat; background-size: 100% 100%; text-align: center;margin: 0 auto;">
                         <table class="plano" id="planoTabla">
                             <tbody>
                                 <tr>

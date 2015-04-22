@@ -6,41 +6,38 @@
 {% endif %}
  {% load url from future %}
  
-<!DOCTYPE html>
-<html>
-<head>
+
     <style>
         .tdPlano {
             width: 25px;
             height: 25px;
             border: 0 none transparent;
-		max-height: 25px;
-		max-width: 25px;
+            max-height: 25px;
+            max-width: 25px;
             padding: 0;
             background-color: transparent;
         }
 
         .buttonPlano {
-		color: transparent;
-		width: 25px;
-		height: 25px;
-		border: 0 none transparent;
-		padding: 0;
-		background-color: transparent;
-		font-size: 6.8pt;
-		font-weight: 600;
-		text-align: center;
-		border-radius: 100px 100px 100px 100px;
-		-moz-border-radius: 100px 100px 100px 100px;
-		-webkit-border-radius: 100px 100px 100px 100px;
-		background-origin: content-box;
-		background-position: center center;
-		background-size: 25px 25px;
-		border: 0 none transparent;
-		border-collapse: collapse;
-		max-height: 25px;
-		max-width: 25px;
-
+            color: transparent;
+            width: 25px;
+            height: 25px;
+            border: 0 none transparent;
+            padding: 0;
+            background-color: transparent;
+            font-size: 6.8pt;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 100px 100px 100px 100px;
+            -moz-border-radius: 100px 100px 100px 100px;
+            -webkit-border-radius: 100px 100px 100px 100px;
+            background-origin: content-box;
+            background-position: center center;
+            background-size: 25px 25px;
+            border: 0 none transparent;
+            border-collapse: collapse;
+            max-height: 25px;
+            max-width: 25px;
         }
 
         .noBorder {
@@ -270,109 +267,93 @@
         }
 
 
-.h {
-    background: transparent url({{ STATIC_URL }}css/Images/h.png) no-repeat;
-    background-origin: content-box;
-    background-position: center center;
-    background-size: 25px 25px;
-    border: 0 none transparent;
-    border-collapse: collapse;
-    max-height: 25px;
-    max-width: 25px;
-}
+        .h {
+            background: transparent url({{ STATIC_URL;
+        }
+
+        }
+        css/Images/h.png) no-repeat; background-origin: content-box; background-position: center center; background-size: 25px 25px; border: 0 none transparent; border-collapse: collapse; max-height: 25px; max-width: 25px;
+        }
 
 
-.t {
-    background: transparent url({{ STATIC_URL }}css/Images/t.png) no-repeat;
-    background-origin: content-box;
-    background-position: center center;
-    background-size: 25px 25px;
-    border: 0 none transparent;
-    border-collapse: collapse;
-    max-height: 25px;
-    max-width: 25px;
-}
+        .t {
+            background: transparent url({{ STATIC_URL;
+        }
 
-/* orange objects */
-.l {
-    background: transparent url({{ STATIC_URL }}css/Images/l.png) no-repeat;
-    background-origin: content-box;
-    background-position: center center;
-    background-size: 25px 25px;
-    border: 0 none transparent;
-    border-collapse: collapse;
-    max-height: 25px;
-    max-width: 25px;
-}
+        }
+        css/Images/t.png) no-repeat; background-origin: content-box; background-position: center center; background-size: 25px 25px; border: 0 none transparent; border-collapse: collapse; max-height: 25px; max-width: 25px;
+        }
 
-.m {
-    background:transparent url({{ STATIC_URL }}css/Images/m.png) no-repeat;
-    background-origin: content-box;
-    background-position: center center;
-    background-size: 25px 25px;
-    border: 0 none transparent;
-    border-collapse: collapse;
-    max-height: 25px;
-    max-width: 25px;
-}
+        /* orange objects */
+        .l {
+            background: transparent url({{ STATIC_URL;
+        }
 
-.p {
-    background: transparent url({{ STATIC_URL }}css/Images/p.png) no-repeat;
-    background-origin: content-box;
-    background-position: center center;
-    background-size: 25px 25px;
-    border: 0 none transparent;
-    border-collapse: collapse;
-    max-height: 25px;
-    max-width: 25px;  
-}
+        }
+        css/Images/l.png) no-repeat; background-origin: content-box; background-position: center center; background-size: 25px 25px; border: 0 none transparent; border-collapse: collapse; max-height: 25px; max-width: 25px;
+        }
 
-.drag {
-    cursor: move;
-    margin: auto;
-    background-color: transparent;
-    text-align: center;
-    font-size: 8pt; /* needed for cloned object */
-    width: 25px;
-    height: 25px;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: transparent;
-    border-collapse: collapse;
-}
+        .m {
+            background: transparent url({{ STATIC_URL;
+        }
 
-.sensor {
-    width: 90px;
-    height: 50px;
-    display: inline-block;
-    padding-top: 6px;
-    margin-left: auto;
-    margin-right: auto;
-    left: 30px;
-    cursor: pointer;
-    border: none;
-    background:transparent;
-    border-radius: 5px;
-    box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #07526e, 0px 5px 3px #999;
-    text-align: center;
-}
+        }
+        css/Images/m.png) no-repeat; background-origin: content-box; background-position: center center; background-size: 25px 25px; border: 0 none transparent; border-collapse: collapse; max-height: 25px; max-width: 25px;
+        }
 
-    .sensor span {
-        display: inline-block;
-        font-family: Arial, "Helvetica", sans-serif;
-        font-size: 10px;
-        font-weight: bold;
-        color: #fff;
-        text-decoration: none;
-        text-transform: uppercase;
-        text-align: center;
-        text-shadow: 1px 1px 0px #07526e;
-        position: relative;
-        cursor: pointer;
-        border: none;
-    }
+        .p {
+            background: transparent url({{ STATIC_URL;
+        }
 
+        }
+        css/Images/p.png) no-repeat; background-origin: content-box; background-position: center center; background-size: 25px 25px; border: 0 none transparent; border-collapse: collapse; max-height: 25px; max-width: 25px;
+        }
+
+        .drag {
+            cursor: move;
+            margin: auto;
+            background-color: transparent;
+            text-align: center;
+            font-size: 8pt; /* needed for cloned object */
+            width: 25px;
+            height: 25px;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: transparent;
+            border-collapse: collapse;
+        }
+
+        .sensor {
+            width: 90px;
+            height: 50px;
+            display: inline-block;
+            padding-top: 6px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 30px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            border-radius: 5px;
+            box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #07526e, 0px 5px 3px #999;
+            text-align: center;
+        }
+
+            .sensor span {
+                display: inline-block;
+                font-family: Arial, "Helvetica", sans-serif;
+                font-size: 10px;
+                font-weight: bold;
+                color: #fff;
+                text-decoration: none;
+                text-transform: uppercase;
+                text-align: center;
+                text-shadow: 1px 1px 0px #07526e;
+                position: relative;
+                cursor: pointer;
+                border: none;
+            }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -383,27 +364,25 @@
         function set_sensor(code, idcontrol,color) {
 
             isSensor=1;
-            var control= '#'+idcontrol;        
-            setInterval(function () {
-                $(control).fadeOut(1500).fadeIn(1500);
-            }, 100);
+            var control= '#'+idcontrol;       
 
-        var typeSensor = code.substring(0, 1);
-        if (typeSensor == 'p') {
-		$(control).css('background-image', 'url({{ STATIC_URL }}css/Images/p.png)');
-        }
-        else if (typeSensor == 'm') {
-		$(control).css('background-image', 'url({{ STATIC_URL }}css/Images/m.png)');
-        }
-        else if (typeSensor == 'h') {
-		$(control).css('background-image', 'url({{ STATIC_URL }}css/Images/h.png)');
-        }
-        else if (typeSensor == 't') {
-		$(control).css('background-image', 'url({{ STATIC_URL }}css/Images/t.png)');
-        }
-        else if (typeSensor == 'l') {
-		$(control).css('background-image', 'url({{ STATIC_URL }}css/Images/l.png)');
-        }
+
+            var typeSensor = code.substring(0, 1);
+            if (typeSensor == 'p') {
+                $(control).css('background-image', 'url({{ STATIC_URL }}css/Images/p.png)');
+            }
+            else if (typeSensor == 'm') {
+                $(control).css('background-image', 'url({{ STATIC_URL }}css/Images/m.png)');
+            }
+            else if (typeSensor == 'h') {
+                $(control).css('background-image', 'url({{ STATIC_URL }}css/Images/h.png)');
+            }
+            else if (typeSensor == 't') {
+                $(control).css('background-image', 'url({{ STATIC_URL }}css/Images/t.png)');
+            }
+            else if (typeSensor == 'l') {
+                $(control).css('background-image', 'url({{ STATIC_URL }}css/Images/l.png)');
+            }
 
             $(control).val(idcontrol);
             $(control).css('background-color', color);
@@ -419,21 +398,23 @@
             }
             $("#tr"+control.id).css('background', '#109bce');
         }
+        var intervalId;
 
-        function onSensor(control,color)
+        function onSensor(control)
+        {       
+            for (var i = 1 ; i <= 400; i++) {
+                $('#tr'+i).css('background', 'transparent');
+                $('#'+i).css('border', '0 none transparent');
+            }
+            $("#"+control).css('border', '5px solid  blue');
+        }
+
+        function leaveSensor(control)
         {
             for (var i = 1 ; i <= 400; i++) {
                 $('#tr'+i).css('background', 'transparent');
-              
+                $('#'+i).css('border', '0 none transparent');
             }
-
-            $("#tr"+control).css('background', color);
-            $("#"+control).css('border', '2px solid  blue');
-        }
-
-        function leaveSensor(control,color)
-        {
-            $("#"+control).css('border', '2px solid '+color);
         }
 
         var audio;
@@ -504,8 +485,7 @@
             audio.prop("muted", !audio.prop("muted"));
         }
     </script>
-</head>
-<body>
+
     <div class="datagrid" style="width: 90%;">
         <table style="width: 100%;">
             <thead>
@@ -525,7 +505,7 @@
                             <input type="submit" value="Agregar / Quitar sensores" class="btn btn-action"/>
                         </form>
                         <br/>
-                        <form method="get" >
+                        <form method="get" action="{% url 'watchapp:get_owner_reports' %}">
                             {% csrf_token %}
                             <label>Para obtener el detalle de los eventos de tus propiedades</label>
                             <input type="submit" value="Ver Reportes" class="btn btn-action"/>
@@ -601,12 +581,14 @@
                                             <span class="switch-handle"></span>
                                             </label>
                                             </div>
-                                        
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 </table>
                             </fieldset>
                         </div>
+                     
+                        {% if selected_property.name %}
                    <fieldset class="planContainer">
                         <legend>Plano de la propiedad</legend>
                         <table style="width: 100%;">
@@ -1894,13 +1876,12 @@
                         {% endif %}
             <!-- /Plan -->
                     </td>
-                    <td style="vertical-align: top; height: 100%; min-height: 100%;">{% if Sensors %} 
+                    <td style="vertical-align: top; height: 100%; min-height: 100%;width:40%;">
                                             <fieldset class="planContainer" style="height: 100%; min-height: 100%;">
                                                 <legend>Sensores</legend>
                                                 <div style="height: 100%; min-height: 100%;">
                                                     {% if Sensors %} 
                 <table class="table">
-                    <tbody>
                         <tr>
                             <td><b>Código</b></td>
                             <td><b>Descripción</b></td>
@@ -1910,17 +1891,17 @@
                         </tr>
                         {% for Sensor in Sensors%}
                             <tr id="tr{{Sensor.location_in_plan}}">
-                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{ Sensor.code }}</td>
-                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.description}}</td>
-                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.get_type_display}}</td>
-                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">{{Sensor.location_in_plan}}</td>
-                                <td onmouseover="onSensor({{Sensor.location_in_plan}},{{color}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}},{{color}});">
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{ Sensor.code }}</td>
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.description}}</td>
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.get_type_display}}</td>
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">{{Sensor.location_in_plan}}</td>
+                                <td onmouseover="onSensor({{Sensor.location_in_plan}});" onmouseleave="leaveSensor({{Sensor.location_in_plan}});">
 
                                 {% if asresident = "1" or  asresident = 1 %}                                 
                                     {% if Sensor.is_discrete %}
                                     <input  type="range" name="valor" min="1" max="5" step="1" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" /><label id="val{{Sensor.id}}">{{Sensor.get_value_display}}</label>                   
                                     {% else %}
-                                    <input  type="range" name="valor" min="1" max="5" step="4" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" /><label id="val{{Sensor.id}}">{{Sensor.get_value_display}}</label>
+                                    <input  type="range" name="valor" min="1" max="5" step="4" value="{{ Sensor.value }}" onchange="update_value({{Sensor.id}},value)" /><label id="Label1">{{Sensor.get_value_display}}</label>
                                     {% endif %}
                                 {% else %}
                                     {{Sensor.get_value_display}}
@@ -1944,7 +1925,6 @@
                         );
                         </script>
                         {% endfor %}
-                    </tbody>
                 </table>
                                                     {% else %}
                     <p>No hay Sensores.</p>
@@ -1952,7 +1932,7 @@
                                                 </div>
                                             </fieldset>
                         
-                        {% endif %}
+                
 
                     </td>
                 </tr>
@@ -2001,36 +1981,33 @@
             var is_secure_mode = $(element).is(":checked");            
             $.get('/watchapp/change_secure_mode/', { property_id: property_id,is_secure_mode: is_secure_mode}, 
                  function(data){
-                    //alert("llegada: " + data.is_secure_mode);
+                     //alert("llegada: " + data.is_secure_mode);
                  });
             //document.getElementById('change_secure_mode').submit();            
         }
         function update_value(sensor,value){
             $.get('/watchapp/update_sensor/', { sensor_id: sensor,value: value}, 
                  function(data){
-                    $("#val" + data.sensor_id).html(data.valueDisplay);
-                    var color = '#FF0000';
-                    switch(data.value){
-                        case "5":
-                            color = '#40FF00';
-                        break;
-                        case "4":
-                            color = '#BFFF00';
-                        break;
-                        case "3":
-                            color = '#FFFF00';
-                        break;
-                        case "2":
-                            color = '#FF8000';
-                        break;
-                    }
-                    set_sensor(data.code,data.location_in_plan,color);
+                     $("#val" + data.sensor_id).html(data.valueDisplay);
+                     var color = '#FF0000';
+                     switch(data.value){
+                         case "5":
+                             color = '#40FF00';
+                             break;
+                         case "4":
+                             color = '#BFFF00';
+                             break;
+                         case "3":
+                             color = '#FFFF00';
+                             break;
+                         case "2":
+                             color = '#FF8000';
+                             break;
+                     }
+                     set_sensor(data.code,data.location_in_plan,color);
                  });
         }
     </script>
-
-</body>
-</html>
 
 
 {% endblock %}

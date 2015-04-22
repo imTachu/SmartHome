@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 	url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
 	url(r'^sensorstatus/$', views.render_sensor_status, name='render_sensor_status'),
+    url(r'^get_owner_reports/$', views.get_owner_reports, name='get_owner_reports'),
     url(r'^(?P<property_id>\d+)(?P<asresident>[a-zA-Z0-9]+)/change_secure_mode/$', views.change_secure_mode, name='change_secure_mode'),
 	#URLs para funcionalidades de usuarios (residente/propietario)
     url(r'^users_home/$', views.users_home, name='users_home'),
@@ -32,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^get_report_owner_property/$', views.get_report_owner_property, name='get_report_owner_property'),
     # URL para consultar los datos del reporte de eventos de los inmuebles de un propietario
     url(r'^get_event_owner_property/$', views.get_event_owner_property, name='get_event_owner_property'),
-    #url(r'^rpt_admin_all_property/$', views.rpt_admin_all_property, name='rpt_admin_all_property'),
+    url(r'^rpt_admin_all_property/$', views.rpt_admin_all_property, name='rpt_admin_all_property'),
     #url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
     #url(r'^update_profile/$', views.update_profile, name='update_profile'),
 )

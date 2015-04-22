@@ -1,9 +1,5 @@
 /* make drag container visible */
 /* drag objects (DIV inside table cells) */
-div
-{
-cursor:default;
-}
 .drag {
     margin: auto;
     background-color: #f0f0f0;
