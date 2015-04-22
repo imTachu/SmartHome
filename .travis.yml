@@ -16,5 +16,6 @@ notifications:
       - l.salamanca10@uniandes.edu.co
       - jj.alarcon10@uniandes.edu.co
       - dan-esco@uniandes.edu.co
+      - ca.forero10@uniandes.edu.co
     on_success: always
     on_failure: never
