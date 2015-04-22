@@ -13,10 +13,6 @@
 
 <br />
 <br />
-   <form method="get" action="{% url 'watchapp:users_home' %}" style="float:right;">
-    {% csrf_token %}
-    <input type="submit" value="Home" class="btn btn-action"/>
-</form>
 <form method="post" action="{% url 'watchapp:get_owner_reports' %}" id="get_property_info_by_name">
   {% csrf_token %}
  <fieldset class="planContainer" style='width:25%;'>
@@ -29,7 +25,7 @@
 		<select id="select_as_owner" name="select_as_owner" onchange="get_property_info_by_name();" class="form-control" style="width: 200px;">
 		<option value="0">Selecciona...</option>
 		{% for each_property_as_owner in request.user.userprofile.properties_as_owner.all %}
-										<option value="{{ each_property_as_owner.name }}">{{ each_property_as_owner.name }}</option>
+		<option value="{{ each_property_as_owner.name }}">{{ each_property_as_owner.name }}</option>
 		{% endfor %}
 		</select>
 		</div>

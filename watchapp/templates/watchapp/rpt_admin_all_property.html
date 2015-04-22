@@ -1,0 +1,184 @@
+{% extends "watchapp/base.html" %} 
+
+{% block content %} 
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+{% endif %} 
+{% load url from future %}
+
+<!-- DatePicker http://tarruda.github.io/bootstrap-datetimepicker/ -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/styleSensor.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.css" media="screen">
+<br />
+<br />
+<fieldset class="planContainer">
+    <legend class="legendData">Sprint 3 -  HU(WAT - 7)</legend>
+    <p>
+Como Administrador Constructora, yo quiero consultar los eventos de todos los inmuebles de una constructora de forma que el sistema genere información relevante y actualizada acerca de los incidentes de seguridad de dichos inmuebles
+    </p>
+</fieldset>
+<fieldset class="planContainer">
+    <legend class="legendData">Eventos de todos los inmuebles de la constructora</legend>
+    <table>
+        <tr>
+            <td style="width: 30px;"></td>
+            <td style="width: 30px;"></td>
+            <td>
+                <label>Fecha Inicial</label>
+                <div id="datetimepickerInit">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" style="height: 30px;" onkeypress="return false;" id="dateInit" class="form-control"></input>
+                            </td>
+                            <td>
+                                <span class="add-on" style="height: 30px;">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 30px;"></td>
+            <td>
+                <label>Fecha Final</label>
+                <div id="datetimepickerFinal">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" style="height: 30px;" onkeypress="return false;" id="dateFinal" class="form-control"></input>
+                            </td>
+                            <td>
+                                <span class="add-on" style="height: 30px;">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 30px;"></td>
+            <td>
+                <br />
+                <input type="submit" value="Consultar" class="btn btn-action" />
+            </td>
+            <td style="width: 30px;"></td>
+            <td style="width: 30px;">
+                <br />
+                <input type="submit" value="Descargar Reporte" class="btn btn-action" />
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset class="planContainer" style="height: 100%; min-height: 100%;">
+    <legend class="legendData">Reporte de Eventos</legend>
+    <div style="height: 100%; min-height: 100%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><b>Fecha</b></td>
+                    <td><b>Descripción</b></td>
+		    <td><b>Tipo</b></td>
+                    <td><b>¿Critico?</b></td>
+                    <td><b>¿Fatal?</b></td>
+                    <td><b>Propiedad</b></td>
+                    <td><b>Sensor</b></td>
+					<td><b>Residente</b></td>
+                </tr>
+            </thead>
+            <tbody style="overflow-y: auto; height: 100px;">
+                <tr>
+                    <td>2015-12-04</td>
+                    <td>Humo en el inmueble</td>
+                    <td>Disparo alarma</td>
+                    <td>Si</td>
+                    <td>Si</td>
+                    <td>Casa 205</td>
+                    <td>Humo</td>
+					<td>Lorena Salamanca</td>
+                </tr>
+                <tr>
+                    <td>2015-10-04</td>
+                    <td>Movimiento en el inmueble</td>
+                    <td>Alerta en Sensor</td>
+                    <td>Si</td>
+                    <td>No</td>
+                    <td>Casa 106</td>
+                    <td>Movimiento</td>
+					<td>Lorena Salamanca</td>
+                </tr>
+                <tr>
+                    <td>2015-09-04</td>
+                    <td>Encendido automático de luces</td>
+                    <td>Alerta en Sensor</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Casa 208</td>
+                    <td>Luz</td>
+					<td>German Bernal</td>
+                </tr>
+                <tr>
+                    <td>2015-15-04</td>
+                    <td>Apertura de ventana</td>
+                    <td>Cambio actuador</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Casa 205</td>
+                    <td>Actuador Ventanas</td>
+					<td>Ricardo Restrepo</td>
+                </tr>
+                <tr>
+                    <td>2015-15-04</td>
+                    <td>Humo en el inmueble</td>
+                    <td>Alerta en sensor</td>
+                    <td>Si</td>
+                    <td>No</td>
+                    <td>Casa 205</td>
+                    <td>Humo</td>
+					<td>Lorena Salamanca</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '-' + dd + '-' + mm;
+        $('#dateInit').val(today);
+        $('#dateFinal').val(today);
+
+    });
+
+
+
+
+
+    $('#datetimepickerInit').datetimepicker({
+        format: 'yyyy-MM-dd',
+        pickTime: false
+    });
+
+    $('#datetimepickerFinal').datetimepicker({
+        format: 'yyyy-MM-dd',
+        pickTime: false
+    });
+
+</script>
+
+{% endblock %}

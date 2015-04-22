@@ -1,7 +1,6 @@
 /* make drag container visible */
 /* drag objects (DIV inside table cells) */
 .drag {
-    cursor: move;
     margin: auto;
     background-color: #f0f0f0;
     text-align: center;
@@ -164,7 +163,6 @@
     margin-left: auto;
     margin-right: auto;
     left: 30px;
-    cursor: pointer;
     border: none;
     background: #109bce;
     background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
@@ -184,7 +182,6 @@
         text-align: center;
         text-shadow: 1px 1px 0px #07526e;
         position: relative;
-        cursor: pointer;
         border: none;
     }
 
@@ -196,7 +193,6 @@
     margin-left: auto;
     margin-right: auto;
     left: 30px;
-    cursor: pointer;
     border: none;
     background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
     border-radius: 5px;
@@ -229,3 +225,52 @@
     background-color: transparent;
     background-position: center center;
 }
+.legendData {   
+    display: initial;
+    width: auto;
+    padding: 10px;
+    margin-bottom: 0;
+    font-size: 21px;
+    line-height: 40px;
+    color: #333;
+   
+    border-bottom: 1px solid transparent;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("Images/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+  .add-on {
+        width: auto;
+        min-width: 16px;
+        padding: 4px 5px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        text-align: center;
+        text-shadow: 0 1px 0 #fff;
+        background-color: #eee;
+        border: 1px solid #ccc;
+    vertical-align: top;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+ margin-right: -1px;
+    float:left;
+    }
+.icon-time {
+    background-position: -48px -24px;
+}
+.icon-calendar {
+    background-position: -192px -120px;
+}
+
