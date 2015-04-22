@@ -333,8 +333,20 @@ def constructora_home(request):
     	@param request
     	@author Lorena Salamanca
     """
-    return HttpResponse("Usuario constructora autenticado")
+    return render(request, 'watchapp/constructora_home.html', {
+        "request": request,
+    })
 
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def rpt_admin_all_property(request):
+    """
+    Vista temporal mockups
+        @param request
+        @author Ricardo Restrepo
+    """        
+    return render(request, 'watchapp/rpt_admin_all_property.html', { "request": request, })
+    
 ####################### Vista para rest_framework #######################
 
 class EventViewSet(viewsets.ModelViewSet):

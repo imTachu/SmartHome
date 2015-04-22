@@ -1,0 +1,32 @@
+{% extends "watchapp/base.html" %}
+ 
+{% block content %}
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+{% endif %}
+ {% load url from future %}
+ 
+    <div class="datagrid" style="width: 90%;">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <td colspan="2">
+                        <article class="col-sm-8 maincontent">
+                            <header class="page-header">
+                                <h1 class="page-title">Bienvenido Constructora!</h1>
+                            </header>
+                            <p>Bienvenido <strong>{{ user.first_name }} {{ user.last_name }}</strong>,</p>
+
+                            <p>Tú última visita a WatchApp fue {{ user.last_login }} </p>
+                        </article>
+                    </td>
+                </tr>
+            </thead>
+            
+<tbody> 
+                        </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+{% endblock %}
