@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 	url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
 	url(r'^sensorstatus/$', views.render_sensor_status, name='render_sensor_status'),
+    url(r'^get_owner_reports/$', views.get_owner_reports, name='get_owner_reports'),
     url(r'^(?P<property_id>\d+)(?P<asresident>[a-zA-Z0-9]+)/change_secure_mode/$', views.change_secure_mode, name='change_secure_mode'),
 	#URLs para funcionalidades de usuarios (residente/propietario)
     url(r'^users_home/$', views.users_home, name='users_home'),
