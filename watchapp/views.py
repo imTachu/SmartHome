@@ -333,8 +333,20 @@ def constructora_home(request):
     	@param request
     	@author Lorena Salamanca
     """
-    return HttpResponse("Usuario constructora autenticado")
+    return render(request, 'watchapp/constructora_home.html', {
+        "request": request,
+    })
 
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def rpt_admin_all_property(request):
+    """
+    Vista temporal mockups
+        @param request
+        @author Ricardo Restrepo
+    """        
+    return render(request, 'watchapp/rpt_admin_all_property.html', { "request": request, })
+    
 ####################### Vista para rest_framework #######################
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -478,3 +490,27 @@ def get_event_owner_property(request):
                 content_type="application/json"
             )
 ####################### Fin Vistas para el reporte de los eventos del inmueble del propietario #######################
+
+
+@login_required()
+def get_owner_reports(request):
+    """
+    Esta funcion muestra las propiedades del usuario autenticado y le 
+    permite generar reportes de los eventos de sus inmuebles
+        @param request
+        @author Lorena Salamanca
+    """
+    if request.method == 'POST':
+        sensors = []
+        selected_property = Property.objects.get(name=request.POST["select_as_owner"])
+        log.debug("Id Propiedad: " + str(selected_property.id))
+        events = selected_property.event_set.all() 
+        return render(request, 'watchapp/get_owner_reports.html', {
+        "selected_property": selected_property,
+        "request": request,
+        "events":events,
+        })
+    else:
+        return render(request, 'watchapp/get_owner_reports.html', {
+            "request": request,
+        })
