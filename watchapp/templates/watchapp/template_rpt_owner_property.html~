@@ -64,11 +64,11 @@ table.sample td {
     <tr>
         <td>
 <br/>
-<b>Propiedad: {{ property }}</b>
+<b>Propiedad:</b> {{ property }}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Fecha Inicial: {{ dateInit }}</b>
+<b>Fecha Inicial:</b> {{ dateInit }}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Fecha Final: {{ dateFinal }}</b>
+<b>Fecha Final:</b> {{ dateFinal }}
 
          <h3 style="text-decoration:underline;">Eventos</h3>
                 <table  class="sample">
@@ -87,7 +87,7 @@ table.sample td {
    {% for Event in Events%}
                         <tr>
                             <td>{{ Event.date }}</td>
-                            <td>{{ Event.description }}</td>
+                            <td>{{ Event.description.encode('utf8') }}</td>
                             <td>{{ Event.get_type_display }}</td>
                             <td>
                                     {% if Event.is_critical%}
@@ -103,8 +103,8 @@ table.sample td {
 					 No
                                     {% endif %}
 </td>
-                            <td>{{ Event.property.name}}</td>
-                            <td>{{ Event.sensor.description }}</td>
+                            <td>{{ Event.property.name.encode('utf8')}}</td>
+                            <td>{{ Event.sensor.description.encode('utf8') }}</td>
                         </tr>
   {% endfor %}
                     </tbody>
