@@ -56,7 +56,7 @@ table.sample td {
     </tr>
     <tr>
         <td>
-            <h1>Reporte de los Eventos de Mis Inmuebles</h1>
+            <h1>Eventos de todos los inmuebles de la constructora</h1>
             <hr />
         </td>
     </tr>
@@ -76,7 +76,7 @@ table.sample td {
                 <tr>
                     <td><b>Fecha</b></td>
                     <td><b>Descripción</b></td>
-		    <td><b>Tipo</b></td>
+					<td><b>Tipo</b></td>
                     <td><b>¿Critico?</b></td>
                     <td><b>¿Fatal?</b></td>
                     <td><b>Propiedad</b></td>
@@ -87,7 +87,7 @@ table.sample td {
    {% for Event in Events%}
                         <tr>
                             <td>{{ Event.date }}</td>
-                            <td>{{ Event.description.encode('utf8') }}</td>
+                            <td>{{ Event.description }}</td>
                             <td>{{ Event.get_type_display }}</td>
                             <td>
                                     {% if Event.is_critical%}
@@ -103,8 +103,8 @@ table.sample td {
 					 No
                                     {% endif %}
 </td>
-                            <td>{{ Event.property.name.encode('utf8')}}</td>
-                            <td>{{ Event.sensor.description.encode('utf8') }}</td>
+                            <td>{{ Event.property.name }}</td>
+                            <td>{{ Event.sensor.description }}</td>
                         </tr>
   {% endfor %}
                     </tbody>
