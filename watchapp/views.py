@@ -547,8 +547,8 @@ def get_report_admin_all_property(request):
         pData=data['event_type']
         if data['event_type']=='0': pData = 'Disparo de alarma'
         if data['event_type']=='1': pData = 'Activar alarma'
-        if data['event_type']=='2': pData = 'Alerta en sensor'
-        if data['event_type']=='3': pData = 'Desactivar alarma'
+        if data['event_type']=='2': pData = 'Desactivar alarma'
+        if data['event_type']=='3': pData = 'Alerta en sensor'
         if data['event_type']=='4': pData = 'Cambio actuador'
 	
     if(len(events)==0): return HttpResponse("0")
