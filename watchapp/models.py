@@ -96,17 +96,17 @@ def EventNotifier(sender, instance, **kwargs):
     sensor = instance.sensor.description
     '''Se busca los datos de uno de los residentes del inmueble'''
     try:
-        mobile_to_notify = property_in_event.properties_as_resident.get(id=1).mobile_number
-        mail_to_notify = property_in_event.properties_as_resident.get(id=1).user.email
-        first_name = property_in_event.properties_as_resident.get(id=1).user.first_name
-        last_name = property_in_event.properties_as_resident.get(id=1).user.last_name
+        mobile_to_notify = property_in_event.properties_as_owner.all()[0].mobile_number
+        mail_to_notify = property_in_event.properties_as_owner.all()[0].user.email
+        first_name = property_in_event.properties_as_owner.all()[0].user.first_name
+        last_name = property_in_event.properties_as_owner.all()[0].user.last_name
         
     except UserProfile.DoesNotExist:
         '''Si el inmueble no tiene residentes registrados, se busca el primer duenho'''
-        mobile_to_notify = property_in_event.properties_as_owner.get(id=1).mobile_number
-        mail_to_notify = property_in_event.properties_as_owner.get(id=1).user.email
-        first_name = property_in_event.properties_as_owner.get(id=1).user.first_name
-        last_name = property_in_event.properties_as_owner.get(id=1).user.last_name
+        mobile_to_notify = property_in_event.properties_as_resident.all()[0].mobile_number
+        mail_to_notify = property_in_event.properties_as_resident.all()[0].user.email
+        first_name = property_in_event.properties_as_resident.all()[0].user.first_name
+        last_name = property_in_event.properties_as_resident.all()[0].user.last_name
         
     if instance.is_critical == True and property_in_event.is_secure_mode == True:
         print "entra al evento critico"

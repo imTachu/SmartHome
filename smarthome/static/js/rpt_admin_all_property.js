@@ -19,14 +19,14 @@ function get_report() {
 
     //Captura los fitros del reporte en formato json
     var dataFilter = {
-        property: $("#select_as_owner").val(),
+		event_type: $("#event_type").val(),
         dateInit: $("#dateInit").val() + ' 00:00:00-05',
         dateFinal: $("#dateFinal").val() + ' 23:59:59-05',
     };
 
     //Consume el método que genera el reporte
     $.ajax({
-        url: "/watchapp/get_report_owner_property/", // Endpoint
+        url: "/watchapp/get_report_admin_all_property/", // Endpoint
         type: "POST", // Método http
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(dataFilter),//Datos
@@ -71,19 +71,20 @@ function get_report_data() {
 
     //Captura los fitros del reporte en formato json
     var dataFilter = {
-        property: $("#select_as_owner").val(),
+		event_type: $("#event_type").val(),
         dateInit: $("#dateInit").val() + ' 00:00:00-05',
         dateFinal: $("#dateFinal").val() + ' 23:59:59-05',
     };
 
     //Consume el método que genera el reporte
     $.ajax({
-        url: "/watchapp/get_event_owner_property/", // Endpoint
+        url: "/watchapp/get_event_admin_all_property/", // Endpoint
         type: "POST", // Método http
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(dataFilter),//Datos
         async: 'true',
         success: function (data) {
+		console.log(data)
             if (data === '0') {
                 //Si no se encuentran registros se muestra el div de información
                 $("#divRpt").css('display', 'block');
@@ -93,16 +94,18 @@ function get_report_data() {
                 //Oculta el div de información
                 $("#divRpt").css('display', 'none');
 		$('#tableEvents tbody').html("");
-
+				console.log(data.length)
                 for (var i = 0; i < data.length; i++) {
+					console.log(data[i].date)
                     var e = "<tr>" +
                     "<td>" + data[i].date + "</td>" +
-                    "<td>" + data[i].description + "</td>" +
                     "<td>" + data[i].type + "</td>" +
+                    "<td>" + data[i].description + "</td>" +
                     "<td>" + data[i].is_critical + "</td>" +
                     "<td>" + data[i].is_fatal + "</td>" +
                     "<td>" + data[i].property + "</td>" +
                     "<td>" + data[i].sensor + "</td>" +
+                    "<td>" + data[i].propietario + "</td>" +
                     "</tr>";
                     $('#tableEvents tbody').append(e);
                 }
