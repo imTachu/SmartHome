@@ -565,8 +565,14 @@ def get_event_admin_all_property(request):
     data = json.loads(request.body) 
     constructora = ConstructorCompany.objects.get(user_id=request.user.userprofile.id)
     properties = Property.objects.filter(constructor_company_id=constructora.id)
-    # Consultamos todos los eventos de todos los inmuebles de un propietario
-    events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+    if data['event_type']=='-1':
+        print 'event type igual a 0'
+        # Consultamos todos los eventos de todos los inmuebles de un propietario
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+    else:
+        print 'event type dif 0'
+        # Consultamos la propiedad
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']], type=data['event_type'])
 
     if(len(events)==0): 
         return HttpResponse("0")

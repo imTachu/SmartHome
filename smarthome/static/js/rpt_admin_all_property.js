@@ -19,6 +19,7 @@ function get_report() {
 
     //Captura los fitros del reporte en formato json
     var dataFilter = {
+		event_type: $("#event_type").val(),
         dateInit: $("#dateInit").val() + ' 00:00:00-05',
         dateFinal: $("#dateFinal").val() + ' 23:59:59-05',
     };
@@ -70,6 +71,7 @@ function get_report_data() {
 
     //Captura los fitros del reporte en formato json
     var dataFilter = {
+		event_type: $("#event_type").val(),
         dateInit: $("#dateInit").val() + ' 00:00:00-05',
         dateFinal: $("#dateFinal").val() + ' 23:59:59-05',
     };
