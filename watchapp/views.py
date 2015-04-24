@@ -570,7 +570,7 @@ def get_report_admin_all_property(request):
         	dataE["is_fatal"] = "No"
         dataE["property"] = e.property.name.encode('utf8')
         dataE["sensor"] = str(e.sensor.description.encode('utf8'))
-        dataE["propietario"] = str(e.property.properties_as_owner.get(id=1).user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.get(id=1).user.last_name.encode('utf8'))
+        dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
         # Agregamos el evento a la coleccion
         dataEvents.append(dataE)
     # Recuperamos el html del template del reporte
@@ -624,7 +624,7 @@ def get_event_admin_all_property(request):
 		     dataE["is_fatal"] = "No"
 		dataE["property"] = e.property.name.encode('utf8')
 		dataE["sensor"] = str(e.sensor.description.encode('utf8'))
-		dataE["propietario"] = str(e.property.properties_as_owner.get(id=1).user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.get(id=1).user.last_name.encode('utf8'))
+		dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
 		# Agregamos el evento a la coleccion
 		dataEvents.append(dataE)
 	# Retornamos los eventos en formato JSON
