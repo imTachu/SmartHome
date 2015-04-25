@@ -84,6 +84,8 @@
 <fieldset class="planContainer" style="height: 100%; min-height: 100%;">
     <legend class="legendData">Reporte de Eventos</legend>
     <div style="height: 100%; min-height: 100%;">
+		<img src="https://apps4.mineco.gob.pe/registro1/images/loading.gif" alt="Smiley face" height="100" width="100" id="loading_popup" 
+			style ="display: block; margin: 0 auto;">
         <table class="table" id="tableEvents">
             <thead>
                 <tr>
@@ -106,7 +108,7 @@
 
     //Inicializamos los valores de las fecha
     $(document).ready(function () {
-
+		$("#loading_popup").hide();
         //Fecha del Sistema
         var today = new Date();
 //Día del sistema

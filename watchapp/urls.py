@@ -37,6 +37,7 @@ urlpatterns = patterns('',
     url(r'^rpt_admin_all_property/$', views.rpt_admin_all_property, name='rpt_admin_all_property'),
     url(r'^rpt_admin_all_property_by_owner/$', views.rpt_admin_all_property_by_owner, name='rpt_admin_all_property_by_owner'),
     url(r'^get_event_admin_all_property_by_owner/$', views.get_event_admin_all_property_by_owner, name='get_event_admin_all_property_by_owner'),
+    url(r'^get_report_admin_all_property_by_owner/$', views.get_report_admin_all_property_by_owner, name='get_report_admin_all_property_by_owner'),
     #url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
     #url(r'^update_profile/$', views.update_profile, name='update_profile'),
 )

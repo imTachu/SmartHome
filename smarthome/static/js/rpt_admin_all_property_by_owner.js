@@ -26,7 +26,7 @@ function get_report() {
 
     //Consume el método que genera el reporte
     $.ajax({
-        url: "/watchapp/get_event_admin_all_property_by_owner/", // Endpoint
+        url: "/watchapp/get_report_admin_all_property_by_owner/", // Endpoint
         type: "POST", // Método http
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(dataFilter),//Datos
@@ -75,7 +75,7 @@ function get_report_data() {
         dateInit: $("#dateInit").val() + ' 00:00:00-05',
         dateFinal: $("#dateFinal").val() + ' 23:59:59-05',
     };
-
+	$("#loading_popup").show();
     //Consume el método que genera el reporte
     $.ajax({
         url: "/watchapp/get_event_admin_all_property_by_owner/", // Endpoint
@@ -84,6 +84,7 @@ function get_report_data() {
         data: JSON.stringify(dataFilter),//Datos
         async: 'true',
         success: function (data) {
+		$("#loading_popup").hide();
 		console.log(data)
             if (data === '0') {
                 //Si no se encuentran registros se muestra el div de información

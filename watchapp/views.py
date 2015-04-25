@@ -698,7 +698,7 @@ def get_event_admin_all_property_by_owner(request):
 		     dataE["is_fatal"] = "No"
 		dataE["property"] = e.property.name.encode('utf8')
 		dataE["sensor"] = str(e.sensor.description.encode('utf8'))
-		if data['owners_select']=='0': dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
+		if data['owners_select']=='0' : dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
 		else : dataE["propietario"] = data['owners_select']
 		# Agregamos el evento a la coleccion
 		dataEvents.append(dataE)
@@ -707,3 +707,61 @@ def get_event_admin_all_property_by_owner(request):
                 json.dumps(dataEvents),
                 content_type="application/json"
             )
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+@csrf_exempt
+def get_report_admin_all_property_by_owner(request):
+    """
+    Funcion que consulta los eventos de la constructora y genera el pdf 
+    	@param request
+    	@author Lorena Salamanca
+    """   
+    # Array de eventos
+    events = []
+    #Parametros json enviados por ajax
+    data = json.loads(request.body) 
+    pData=""
+
+    # Consultamos todos los inmuebles de un propietario
+    constructora = ConstructorCompany.objects.get(user_id=request.user.userprofile.id)
+    properties = Property.objects.filter(constructor_company_id=constructora.id)
+    if data['owners_select']=='0':
+        properties = Property.objects.filter(constructor_company_id=constructora.id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+        pData = "Todos"
+    else:
+        owner_name= data['owners_select'].split( );
+        owner_id = User.objects.get(first_name=owner_name[0])
+        properties = Property.objects.filter(constructor_company_id=constructora.id, properties_as_owner=owner_id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+        pData=data['owners_select']
+	
+    if(len(events)==0): return HttpResponse("0")
+    # Collecion de eventos
+    dataEvents=[]
+    # Recorremos todos los eventos
+    for e in events:
+        dataE = {}	
+        dataE["date"] = str(e.date.date())
+        dataE["type"] = str(e.get_type_display())
+        dataE["description"] = str(e.description.encode('utf8'))
+        if (e.is_critical): 
+        	dataE["is_critical"] = "Si" 
+        else: 
+        	dataE["is_critical"] ="No"
+        if (e.is_fatal): 
+        	dataE["is_fatal"] = "Si" 
+        else: 
+        	dataE["is_fatal"] = "No"
+        dataE["property"] = e.property.name.encode('utf8')
+        dataE["sensor"] = str(e.sensor.description.encode('utf8'))
+        if data['owners_select']=='0' : dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
+        else : dataE["propietario"] = data['owners_select']
+        # Agregamos el evento a la coleccion
+        dataEvents.append(dataE)
+    # Recuperamos el html del template del reporte
+    print "va a invocar el pdf"
+    html = render_to_string('watchapp/template_rpt_admin_all_property_by_owner.html', {'pagesize':'A4', 'events':dataEvents, 'event_type':str(pData), 'dateInit':str(data['dateInit']).split(' ')[0],'dateFinal':str(data['dateFinal']).split(' ')[0] }, context_instance=RequestContext(request))
+    # Convertimos el html  a pdf    
+    return generate_pdf(html)
