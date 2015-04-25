@@ -55,7 +55,7 @@
           <ul class="dropdown-menu" role="menu">            
  {% for g in request.user.groups.all %}
 	{% if g.name == 'constructoras' %}
-            <li><a href="/watchapp/rpt_admin_property/">Reporte de Eventos por Propietario</a></li>
+            <li><a href="/watchapp/rpt_admin_all_property_by_owner/">Reporte de Eventos por Propietario</a></li>
             <li class="divider"></li>
             <li><a href="/watchapp/rpt_admin_all_property/">Reporte de Todos los Eventos de la Constructora</a></li>
             <li class="divider"></li>
