@@ -20,8 +20,21 @@
   <br>
   <br>
   <tr>
-    <td>{{ first_name }} {{ last_name }} tu inmueble en la dirección {{ address_to_notify }} {{ name_to_notify }} se encuentra en <font color="red">peligro</font>. Se ha activado <strong>{{ sensor }}</strong></td>
+    <td>{{ constructora.company_name }}: El inmueble {{ address_to_notify }} {{ name_to_notify }} se encuentra en <font color="red">peligro</font>:</td>
   </tr>
-  <table>
+  <br>
+  <tr>
+      <td><strong>Residente: </strong>{{ first_name }} {{ last_name }}</td>
+  </tr>
+  <tr>
+      <td><strong>Alerta: </strong>{{ sensor }}</td>
+  </tr>
+  <tr>
+      <td><strong>Email: </strong>{{ mail_to_notify }}</td>
+  </tr>
+  <tr>
+      <td><strong>Celular: </strong>{{ mobile_to_notify }}</td>
+  </tr>
+</table>
 </body>
 </html>
