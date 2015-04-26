@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 	url(r'^update_sensor/$', views.update_sensor, name='update_sensor'),
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
+    url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
+    url(r'^process_file/$', views.process_file, name='process_file'),
 	#URL para crear un sensor en un plano
     url(r'^set_position_ajax/$', views.set_position_ajax, name='set_position_ajax'),
 	#URL para eliminar un sensor en un plano

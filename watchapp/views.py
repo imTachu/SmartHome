@@ -24,6 +24,7 @@ import logging
 import sys
 import datetime
 from django.core import serializers
+import csv
 
 
 log = logging.getLogger(__name__)
@@ -514,6 +515,104 @@ def rpt_admin_all_property(request):
         @author Ricardo Restrepo
     """        
     return render(request, 'watchapp/rpt_admin_all_property.html', { "request": request, })
+
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def admin_file_upload(request):
+    """
+    Vista temporal mockups
+        @param request
+        @author Ricardo Restrepo
+    """ 
+    log.debug("admin_file_upload: entro!! ")
+    if request.user.groups.filter(name="constructoras").exists():
+        return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+    elif request.user.groups.filter(name="usuarios").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def process_file(request):
+    """
+    Esta funcion procesa el archivo que contiene las propiedades a configurar
+        @param request
+        @author German Bernal
+    """ 
+    log.debug("process_file: entro!! ")
+    if request.user.groups.filter(name="constructoras").exists():
+        #return HttpResponse("Entro a la funcion.")
+        log.debug("process_file: entro if ")
+        log.debug("process_file: entro if: Request: " + str(request))
+        log.debug("process_file: entro if: Files " + str(request.FILES))
+        response_data = {}
+        response_data["valid"] = True;
+        for key in request.FILES:
+            log.debug("process_file: file: " + key)
+            log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
+            row_count = sum(1 for row in request.FILES[key])
+            valid_structure = validate_data_structure(request.FILES[key],4)
+            isvalid = True if row_count > 0 and valid_structure else False
+            if isvalid:
+                res = uploadres = upload_propertys(request.FILES[key])
+                if res["upload_status"] == "failed":
+                    response_data["valid"] = False;
+                response_data["message"] = res["message"]
+            else:
+                response_data["valid"] = False;
+                if not valid_structure > 0:
+                    response_data["message"] = "El archivo tiene una estructura no valida!!"
+                elif not row_count > 0:
+                    response_data["message"] = "El archivo no tiene datos"
+                break
+        #return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+        return HttpResponse(
+                json.dumps(response_data),
+                content_type="application/json"
+            )
+    elif request.user.groups.filter(name="usuarios").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+
+def upload_propertys(file):
+    result = {}
+    property_inserted = False
+    property_exists = False
+    reader = csv.reader(file, delimiter = ',')
+    for row in reader:
+        log.debug("upload_propertys: row: " + str(row))
+        prop = Property.objects.filter(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+        log.debug("upload_propertys: prop count: " + str(len(prop)))
+        if len(prop) == 0:
+            property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+            property.save()
+            property_inserted = True
+        else:
+            property_exists = True
+    file.close()
+    if property_inserted and not property_exists:
+        result["upload_status"] = "complete";
+        result["message"] = "Propiedades registradas.";
+    elif property_inserted and property_exists:
+        result["upload_status"] = "partial";
+        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas.";
+    else:
+        result["upload_status"] = "failed";
+        result["message"] = "Las propiedades ya estan registradas en el sistema.";
+    return result
+
+def validate_data_structure(file,col_count):
+    isvalid = True
+    reader = csv.reader(file, delimiter = ',')
+    for row in reader:
+        log.debug("validate_structure_data: row: " + str(row))
+        log.debug("validate_structure_data: row count: " + str(len(row)))
+        if len(row) != col_count:
+            isvalid = False
+            break
+        #isvalid = True if row.length > 0 else False
+    #file.close()
+    return isvalid
+
 
 ####################### Reportes para Constructora #######################
 		
