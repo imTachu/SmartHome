@@ -606,11 +606,9 @@ def validate_data_structure(file,col_count):
     for row in reader:
         log.debug("validate_structure_data: row: " + str(row))
         log.debug("validate_structure_data: row count: " + str(len(row)))
-        if len(row) != col_count:
+        if len(row) < col_count:
             isvalid = False
             break
-        #isvalid = True if row.length > 0 else False
-    #file.close()
     return isvalid
 
 
