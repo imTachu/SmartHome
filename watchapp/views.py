@@ -632,3 +632,21 @@ def get_event_admin_all_property(request):
                 json.dumps(dataEvents),
                 content_type="application/json"
             )
+
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
+def update_profile(request):
+    """
+    Vista temporal mockups
+    	@param request
+    	@author Fredy Wilches
+    """    
+    #user = User.objects.filter(username=request.user.username)
+    #userP = UserProfile.objects.get(user_id=user.id)
+
+    if request.user.groups.filter(name="usuarios").exists():        
+        return render(request, 'watchapp/update_profile.html', { "request": request, })
+    elif request.user.groups.filter(name="constructoras").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+

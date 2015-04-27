@@ -37,5 +37,5 @@ urlpatterns = patterns('',
     url(r'^get_event_admin_all_property/$', views.get_event_admin_all_property, name='get_event_admin_all_property'),
     url(r'^rpt_admin_all_property/$', views.rpt_admin_all_property, name='rpt_admin_all_property'),
     #url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
-    #url(r'^update_profile/$', views.update_profile, name='update_profile'),
+    url(r'^update_profile/$', views.update_profile, name='update_profile'),
 )
