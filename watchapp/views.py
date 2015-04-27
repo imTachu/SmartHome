@@ -587,10 +587,7 @@ def upload_propertys(file):
             userP = UserProfile.objects.get(user_id=user[0].id)
             property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
             property.save()
-            if row[4] == 'r':
-                userP.properties_as_resident.add(property);
-            elif row[4] == 'o':
-                userP.properties_as_owner.add(property);
+            userP.properties_as_owner.add(property);
             property_inserted = True
         else:
             property_exists = True
