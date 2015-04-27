@@ -1,0 +1,72 @@
+{% extends "watchapp/base.html" %} 
+
+{% block content %} 
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+{% endif %} 
+{% load url from future %}
+
+<!-- DatePicker http://tarruda.github.io/bootstrap-datetimepicker/ -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/styleSensor.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/fileinput.css" media="screen">
+<script src="{{ STATIC_URL }}js/fileinput.js"></script>
+<br />
+<br />
+<fieldset class="planContainer">
+    <legend class="legendData">Importar Archivo de Inmueble</legend>
+    <form enctype="multipart/form-data">
+        {% csrf_token %}
+        <input id="file-0" class="file" type="file" multiple data-min-file-count="1" data-show-upload="false" data-show-caption="true">
+        <br>
+        <div id="status"></div>
+        <button type="button" class="btn btn-primary" onclick="upload_files();" >Guardar Inmuebles</button>
+    </form>
+</fieldset>
+<script>
+    $("#file-0").fileinput({
+        'allowedFileExtensions': ['csv'],
+	browseClass: "btn btn-primary",
+	browseLabel: "Carga archivo",
+	removeClass: "btn btn-primary",
+	removeLabel: "Borrar",
+    });
+
+    function upload_files(){
+        var files = $("#file-0")[0].files;
+        var csrf_token = $('input[name="csrfmiddlewaretoken"]');
+        var ctrlId = "status";
+        //alert(files.length);
+        if(files.length > 0){
+            var formData = new FormData();
+            //alert(files[0]);
+            //alert($(csrf_token).val());
+            formData.append("property_file", files[0]);
+            var uploadServerSideScriptPath = "/watchapp/process_file/";
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", uploadServerSideScriptPath, true);
+            xhr.upload.addEventListener('progress', function (e) {
+                //$('#' + ctrlId).html("<img width='15px' height='15px' src='../../../Util/Images/ajax-loader_trans.gif' alt='Procesando...' /><span style='color: Orange'>Cargando...</span>");
+                $('#' + ctrlId).html("<span style='color: blue'>Cargando...</span>");
+            });
+            xhr.addEventListener("readystatechange", function (e) {                
+                if (this.readyState === 4 & this.status == 200) {
+                    //alert(this.response);
+                    //alert(JSON.parse(this.response).valid);
+                    var response = JSON.parse(this.response);
+                    $(".close").trigger("click");                                 
+                    $('#' + ctrlId).fadeIn("slow", function () {
+                        $('#' + ctrlId).html("<span style='color: " + (response.valid ? "green" : "red") + "'>" + response.message + "</span>");
+                        $('#' + ctrlId).fadeOut(3000);                               
+                    });
+                }
+                else if(this.status == 500){
+                    $('#' + ctrlId).html("<span style='color: Red'>Error</span>");
+                    $('#' + ctrlId).fadeIn("slow", function () { });
+                }            
+            });
+            xhr.setRequestHeader("X-CSRFToken", $(csrf_token).val());
+            xhr.send(formData);
+        }
+    }
+</script>
+{% endblock %}
