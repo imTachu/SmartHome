@@ -551,7 +551,7 @@ def process_file(request):
             log.debug("process_file: file: " + key)
             log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
             row_count = sum(1 for row in request.FILES[key])
-            valid_structure = validate_data_structure(request.FILES[key],4)
+            valid_structure = validate_data_structure(request.FILES[key],5)
             isvalid = True if row_count > 0 and valid_structure else False
             if isvalid:
                 res = uploadres = upload_propertys(request.FILES[key])
@@ -583,8 +583,14 @@ def upload_propertys(file):
         prop = Property.objects.filter(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
         log.debug("upload_propertys: prop count: " + str(len(prop)))
         if len(prop) == 0:
+            user = User.objects.filter(username=row[4])
+            userP = UserProfile.objects.get(user_id=user[0].id)
             property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
             property.save()
+            if row[4] == 'r':
+                userP.properties_as_resident.add(property);
+            elif row[4] == 'o':
+                userP.properties_as_owner.add(property);
             property_inserted = True
         else:
             property_exists = True
