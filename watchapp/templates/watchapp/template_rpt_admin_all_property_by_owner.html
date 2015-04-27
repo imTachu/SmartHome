@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<style>
+			.header
+			{
+			background-color:red;
+			height:200px;
+			background-image: url(/css/Images/logo.png);
+			}
+
+					</style>
+					<style type="text/css">
+			table.sample {
+				border-width: 1px;
+				border-spacing: 2px;
+				border-style: outset;
+				border-color: gray;
+				border-collapse: separate;
+				background-color: white;
+			}
+			table.sample th {
+				border-width: 1px;
+				padding: 1px;
+				border-style: inset;
+				border-color: gray;
+				background-color: white;
+				-moz-border-radius: ;
+			}
+			table.sample td {
+				border-width: 1px;
+				padding: 1px;
+				border-style: inset;
+				border-color: gray;
+				background-color: white;
+				-moz-border-radius: ;
+			}
+		</style>
+
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	</head>    
+	<body>
+		<table >
+			<tr>
+				<td  style="text-align: right; font-weight: bold; font-size: 28pt; color: gray;">
+					<span>WatchApp</span>
+				</td>
+			</tr>
+			<tr>
+				<td  style="text-align: right; color: gray;">
+					<strong>Generado por {{ user.first_name }} {{ user.last_name }} el {%now "Y/m/d"%}</strong>
+					<br/></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<h1>Eventos de la constructora por propietario</h1>
+					<hr />
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<br/>
+					<b>Propietario:</b> {{ event_type }}
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>Fecha Inicial:</b> {{ dateInit }}
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>Fecha Final:</b> {{ dateFinal }}
+					<h3 style="text-decoration:underline;">Eventos</h3>
+					<table class="sample">
+						<thead>
+							<tr>
+								<td><b>Fecha</b></td>
+								<td><b>Tipo</b></td>
+								<td><b>Descripcion</b></td>
+								<td><b>Critico?</b></td>
+								<td><b>Fatal?</b></td>
+								<td><b>Propiedad</b></td>
+								<td><b>Sensor</b></td>
+								<td><b>Propietario</b></td>
+							</tr>
+						</thead>
+						<tbody>
+						{% for Event in events%}
+							<tr>
+								<td>{{ Event.date }}</td>
+								<td>{{ Event.type }}</td>
+								<td>{{ Event.description }}</td>
+								<td>{{ Event.is_critical }}</td>
+								<td>{{ Event.is_fatal }}</td>
+								<td>{{ Event.property }}</td>
+								<td>{{ Event.sensor }}</td>
+								<td>{{ Event.propietario }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</table> 
+	</body>
+</html>

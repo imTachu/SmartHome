@@ -1,0 +1,149 @@
+{% extends "watchapp/base.html" %} 
+
+{% block content %} 
+    {% if form.errors %}
+        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+{% endif %} 
+{% load url from future %}
+
+<!-- DatePicker http://tarruda.github.io/bootstrap-datetimepicker/ -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/styleSensor.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.css" media="screen">
+<script type="text/javascript" src="{{ STATIC_URL }}js/rpt_admin_all_property_by_owner.js"></script>
+<br />
+<br />
+<div class="alert alert-danger" role="alert" id="divAlert" style="display:none;"><strong>La fecha final debe ser mayor o igual que la fecha inicial.</strong></div>
+<div class="alert alert-info" role="alert" id="divRpt" style="display:none;"><strong>No se han registrados eventos.</strong></div>
+<fieldset class="planContainer">
+    <legend class="legendData">Eventos de eventos por propietario</legend>
+    <table>
+        <tr>
+            <td style="width: 30px;"></td>
+			    <td>
+                <label>Propietarios</label>
+				<select id="owners_select" name="owners_select"  class="form-control" style="width: 200px;" onchange="$('#tableEvents tbody').html('');get_report_data();">
+                    <option value="0">Todos</option>
+                    {% for owner in owners %}
+						<option value="{{ owner }}">{{ owner }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td style="width: 30px;"></td>
+            <td>
+                <label>Fecha Inicial</label>
+                <div id="datetimepickerInit">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" style="height: 30px;" onkeypress="return false;" id="dateInit" class="form-control" onchange="$('#tableEvents tbody').html('');"></input>
+                            </td>
+                            <td>
+                                <span class="add-on" style="height: 30px;">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 30px;"></td>
+            <td>
+                <label>Fecha Final</label>
+                <div id="datetimepickerFinal">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" style="height: 30px;" onkeypress="return false;" id="dateFinal" class="form-control" onchange="$('#tableEvents tbody').html('');"></input>
+                            </td>
+                            <td>
+                                <span class="add-on" style="height: 30px;">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 30px;"></td>
+            <td>
+                <br />
+                <input type="submit" value="Consultar" class="btn btn-action" onclick="get_report_data();"/>
+            </td>
+            <td style="width: 30px;"></td>
+            <td style="width: 30px;">
+                <br />
+                            {% csrf_token %}
+                <input type="submit" value="Descargar Reporte" class="btn btn-action" onclick="get_report_data();get_report();"/>
+ 
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset class="planContainer" style="height: 100%; min-height: 100%;">
+    <legend class="legendData">Reporte de Eventos</legend>
+    <div style="height: 100%; min-height: 100%;">
+		<img src="https://apps4.mineco.gob.pe/registro1/images/loading.gif" alt="Smiley face" height="100" width="100" id="loading_popup" 
+			style ="display: block; margin: 0 auto;">
+        <table class="table" id="tableEvents">
+            <thead>
+                <tr>
+                    <td><b>Fecha</b></td>
+					<td><b>Tipo</b></td>
+                    <td><b>Descripcion</b></td>
+                    <td><b>Critico?</b></td>
+                    <td><b>Fatal?</b></td>
+                    <td><b>Propiedad</b></td>
+                    <td><b>Sensor</b></td>
+					<td><b>Propietario</b></td>
+                </tr>
+            </thead>
+            <tbody style="overflow-y: auto; height: 100px;" id="bodyEvents">
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+<script type="text/javascript">
+
+    //Inicializamos los valores de las fecha
+    $(document).ready(function () {
+		$("#loading_popup").hide();
+        //Fecha del Sistema
+        var today = new Date();
+//Día del sistema
+        var dd = today.getDate();
+//Mes del sistema
+        var mm = today.getMonth() + 1;
+//Año del sistema
+        var yyyy = today.getFullYear();
+//Prefijo del formato del día
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+//Prefijo del formato del mes
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+//Formato de la fecha
+        today = yyyy + '-' + mm + '-' + dd;
+//Asignamos los valores iniciales
+        $('#dateInit').val(today);
+        $('#dateFinal').val(today);
+
+    });
+
+
+    $('#datetimepickerInit').datetimepicker({
+        format: 'yyyy-MM-dd',
+        pickTime: false
+    });
+
+    $('#datetimepickerFinal').datetimepicker({
+        format: 'yyyy-MM-dd',
+        pickTime: false
+    });
+
+</script>
+
+{% endblock %}
