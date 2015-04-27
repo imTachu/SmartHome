@@ -24,6 +24,7 @@ import logging
 import sys
 import datetime
 from django.core import serializers
+import csv
 
 
 log = logging.getLogger(__name__)
@@ -322,31 +323,6 @@ def update_value(request, property_id, asresident):
         "Sensors":sensors,
         })
 
-####################### Vistas para constructoras #######################
-
-@login_required()
-@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
-def constructora_home(request):
-    """
-    Esta funcion tiene el contenido del home de constructoras, 
-    se puede acceder despues de la autenticacion de un usuario que este en el Group constructoras
-    	@param request
-    	@author Lorena Salamanca
-    """
-    return render(request, 'watchapp/constructora_home.html', {
-        "request": request,
-    })
-
-@login_required()
-@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
-def rpt_admin_all_property(request):
-    """
-    Vista temporal mockups
-        @param request
-        @author Ricardo Restrepo
-    """        
-    return render(request, 'watchapp/rpt_admin_all_property.html', { "request": request, })
-    
 ####################### Vista para rest_framework #######################
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -515,7 +491,130 @@ def get_owner_reports(request):
             "request": request,
         })
 
-		
+####################### Vistas para constructoras #######################
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def constructora_home(request):
+    """
+    Esta funcion tiene el contenido del home de constructoras, 
+    se puede acceder despues de la autenticacion de un usuario que este en el Group constructoras
+    	@param request
+    	@author Lorena Salamanca
+    """
+    return render(request, 'watchapp/constructora_home.html', {
+        "request": request,
+    })
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def rpt_admin_all_property(request):
+    """
+    Vista temporal mockups
+        @param request
+        @author Ricardo Restrepo
+    """        
+    return render(request, 'watchapp/rpt_admin_all_property.html', { "request": request, })
+
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def admin_file_upload(request):
+    """
+    Vista temporal mockups
+        @param request
+        @author Ricardo Restrepo
+    """ 
+    log.debug("admin_file_upload: entro!! ")
+    if request.user.groups.filter(name="constructoras").exists():
+        return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+    elif request.user.groups.filter(name="usuarios").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def process_file(request):
+    """
+    Esta funcion procesa el archivo que contiene las propiedades a configurar
+        @param request
+        @author German Bernal
+    """ 
+    log.debug("process_file: entro!! ")
+    if request.user.groups.filter(name="constructoras").exists():
+        #return HttpResponse("Entro a la funcion.")
+        log.debug("process_file: entro if ")
+        log.debug("process_file: entro if: Request: " + str(request))
+        log.debug("process_file: entro if: Files " + str(request.FILES))
+        response_data = {}
+        response_data["valid"] = True;
+        for key in request.FILES:
+            log.debug("process_file: file: " + key)
+            log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
+            row_count = sum(1 for row in request.FILES[key])
+            valid_structure = validate_data_structure(request.FILES[key],5)
+            isvalid = True if row_count > 0 and valid_structure else False
+            if isvalid:
+                res = uploadres = upload_propertys(request.FILES[key])
+                if res["upload_status"] == "failed":
+                    response_data["valid"] = False;
+                response_data["message"] = res["message"]
+            else:
+                response_data["valid"] = False;
+                if not valid_structure > 0:
+                    response_data["message"] = "El archivo tiene una estructura no valida!!"
+                elif not row_count > 0:
+                    response_data["message"] = "El archivo no tiene datos"
+                break
+        #return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+        return HttpResponse(
+                json.dumps(response_data),
+                content_type="application/json"
+            )
+    elif request.user.groups.filter(name="usuarios").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+
+def upload_propertys(file):
+    result = {}
+    property_inserted = False
+    property_exists = False
+    reader = csv.reader(file, delimiter = ',')
+    for row in reader:
+        log.debug("upload_propertys: row: " + str(row))
+        prop = Property.objects.filter(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+        log.debug("upload_propertys: prop count: " + str(len(prop)))
+        if len(prop) == 0:
+            user = User.objects.filter(username=row[4])
+            userP = UserProfile.objects.get(user_id=user[0].id)
+            property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+            property.save()
+            userP.properties_as_owner.add(property);
+            property_inserted = True
+        else:
+            property_exists = True
+    file.close()
+    if property_inserted and not property_exists:
+        result["upload_status"] = "complete";
+        result["message"] = "Propiedades registradas.";
+    elif property_inserted and property_exists:
+        result["upload_status"] = "partial";
+        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas.";
+    else:
+        result["upload_status"] = "failed";
+        result["message"] = "Las propiedades ya estan registradas en el sistema.";
+    return result
+
+def validate_data_structure(file,col_count):
+    isvalid = True
+    reader = csv.reader(file, delimiter = ',')
+    for row in reader:
+        log.debug("validate_structure_data: row: " + str(row))
+        log.debug("validate_structure_data: row count: " + str(len(row)))
+        if len(row) < col_count:
+            isvalid = False
+            break
+    return isvalid
+
+
 ####################### Reportes para Constructora #######################
 		
 @login_required()
@@ -632,3 +731,155 @@ def get_event_admin_all_property(request):
                 json.dumps(dataEvents),
                 content_type="application/json"
             )
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='usuarios').exists(), login_url='/watchapp/login/')
+def update_profile(request):
+    """
+    Vista temporal mockups
+    	@param request
+    	@author Fredy Wilches
+    """    
+    #user = User.objects.filter(username=request.user.username)
+    #userP = UserProfile.objects.get(user_id=user.id)
+
+    if request.user.groups.filter(name="usuarios").exists():        
+        return render(request, 'watchapp/update_profile.html', { "request": request, })
+    elif request.user.groups.filter(name="constructoras").exists():       
+        return HttpResponse("No tiene permisos de acceso.")
+
+
+####################### Reporte Todos los eventos de la constructora por propietario #######################
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+def rpt_admin_all_property_by_owner(request):
+    """
+    Vista reporte todos los eventos de la constructora por propietario
+        @param request
+        @author Lorena Salamanca
+    """        
+    constructora = ConstructorCompany.objects.get(user_id=request.user.userprofile.id)
+    properties = Property.objects.filter(constructor_company_id=constructora.id)
+    owners = []
+    for p in properties:
+        p1 = p.properties_as_owner.all()
+        for pr in p1:
+            dataE = pr.user.first_name + " " + pr.user.last_name
+            owners.append(dataE)
+    owners_set = list(set(owners))
+    return render(request, 'watchapp/rpt_admin_all_property_by_owner.html', { "request": request, "owners": owners_set, })
+	
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+@csrf_exempt
+def get_event_admin_all_property_by_owner(request):
+    """
+    Funcion que consulta los eventos de la constructora por propietario y mostrarlos en pantalla
+    	@param request
+    	@author Ricardo Restrepo
+    """   
+    # Array de eventos
+    events = []
+    #Parametros json enviados por ajax
+    data = json.loads(request.body) 
+    constructora = ConstructorCompany.objects.get(user_id=request.user.userprofile.id)
+    print data['owners_select']
+    if data['owners_select']=='0':
+        properties = Property.objects.filter(constructor_company_id=constructora.id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+    else:
+        owner_name= data['owners_select'].split( );
+        owner_id = User.objects.get(first_name=owner_name[0])
+        properties = Property.objects.filter(constructor_company_id=constructora.id, properties_as_owner=owner_id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+
+    if(len(events)==0): 
+        return HttpResponse("0")
+    else:
+	# Collecion de eventos
+	dataEvents=[]
+	# Recorremos todos los eventos
+	for e in events:
+		dataE = {}	
+		dataE["date"] = str(e.date.date())
+		dataE["type"] = str(e.get_type_display())
+		dataE["description"] = str(e.description.encode('utf8'))
+		if (e.is_critical): 
+		     dataE["is_critical"] = "Si" 
+		else: 
+		     dataE["is_critical"] ="No"
+		if (e.is_fatal): 
+		     dataE["is_fatal"] = "Si" 
+		else: 
+		     dataE["is_fatal"] = "No"
+		dataE["property"] = e.property.name.encode('utf8')
+		dataE["sensor"] = str(e.sensor.description.encode('utf8'))
+		if data['owners_select']=='0' : dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
+		else : dataE["propietario"] = data['owners_select']
+		# Agregamos el evento a la coleccion
+		dataEvents.append(dataE)
+	    # Retornamos los eventos en formato JSON
+        return HttpResponse(
+                json.dumps(dataEvents),
+                content_type="application/json"
+            )
+
+@login_required()
+@user_passes_test(lambda u: u.groups.filter(name='constructoras').exists(), login_url='/watchapp/login/')
+@csrf_exempt
+def get_report_admin_all_property_by_owner(request):
+    """
+    Funcion que consulta los eventos de la constructora y genera el pdf 
+    	@param request
+    	@author Lorena Salamanca
+    """   
+    # Array de eventos
+    events = []
+    #Parametros json enviados por ajax
+    data = json.loads(request.body) 
+    pData=""
+
+    # Consultamos todos los inmuebles de un propietario
+    constructora = ConstructorCompany.objects.get(user_id=request.user.userprofile.id)
+    properties = Property.objects.filter(constructor_company_id=constructora.id)
+    if data['owners_select']=='0':
+        properties = Property.objects.filter(constructor_company_id=constructora.id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+        pData = "Todos"
+    else:
+        owner_name= data['owners_select'].split( );
+        owner_id = User.objects.get(first_name=owner_name[0])
+        properties = Property.objects.filter(constructor_company_id=constructora.id, properties_as_owner=owner_id)
+        events = Event.objects.filter(property__in=properties, date__range=[data['dateInit'], data['dateFinal']])
+        pData=data['owners_select']
+	
+    if(len(events)==0): return HttpResponse("0")
+    # Collecion de eventos
+    dataEvents=[]
+    # Recorremos todos los eventos
+    for e in events:
+        dataE = {}	
+        dataE["date"] = str(e.date.date())
+        dataE["type"] = str(e.get_type_display())
+        dataE["description"] = str(e.description.encode('utf8'))
+        if (e.is_critical): 
+        	dataE["is_critical"] = "Si" 
+        else: 
+        	dataE["is_critical"] ="No"
+        if (e.is_fatal): 
+        	dataE["is_fatal"] = "Si" 
+        else: 
+        	dataE["is_fatal"] = "No"
+        dataE["property"] = e.property.name.encode('utf8')
+        dataE["sensor"] = str(e.sensor.description.encode('utf8'))
+        if data['owners_select']=='0' : dataE["propietario"] = str(e.property.properties_as_owner.all()[0].user.first_name.encode('utf8')) + ' ' + str(e.property.properties_as_owner.all()[0].user.last_name.encode('utf8'))
+        else : dataE["propietario"] = data['owners_select']
+        # Agregamos el evento a la coleccion
+        dataEvents.append(dataE)
+    # Recuperamos el html del template del reporte
+    print "va a invocar el pdf"
+    html = render_to_string('watchapp/template_rpt_admin_all_property_by_owner.html', {'pagesize':'A4', 'events':dataEvents, 'event_type':str(pData), 'dateInit':str(data['dateInit']).split(' ')[0],'dateFinal':str(data['dateFinal']).split(' ')[0] }, context_instance=RequestContext(request))
+    # Convertimos el html  a pdf    
+    return generate_pdf(html)
+

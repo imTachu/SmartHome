@@ -94,6 +94,8 @@ def EventNotifier(sender, instance, **kwargs):
     address_to_notify = instance.property.address
     name_to_notify = instance.property.name
     sensor = instance.sensor.description
+    mail_constructora =  Property.objects.get(name=instance.property.name).constructor_company.email
+    constructora =  Property.objects.get(name=instance.property.name).constructor_company
     '''Se busca los datos de uno de los residentes del inmueble'''
     try:
         mobile_to_notify = property_in_event.properties_as_owner.all()[0].mobile_number
@@ -110,16 +112,25 @@ def EventNotifier(sender, instance, **kwargs):
         
     if instance.is_critical == True and property_in_event.is_secure_mode == True:
         print "entra al evento critico"
-        text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
-        html_content = '<img src="http://i58.tinypic.com/2qd8iea.png" height="200"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
-        msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_to_notify])
+        text_content = ''
+        html_content = render_to_string('watchapp/email.html', {'address_to_notify':address_to_notify, 'name_to_notify':name_to_notify, 'first_name':first_name, 'last_name':last_name, 'sensor': sensor})
+        html_content_constructora = render_to_string('watchapp/email_constructora.html', {'constructora': constructora, 'address_to_notify':address_to_notify, 'name_to_notify':name_to_notify, 'first_name':first_name, 'last_name':last_name, 'sensor': sensor, 'mobile_to_notify':mobile_to_notify, 'mail_to_notify':mail_to_notify})
+        msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_constructora])
         msg.attach_alternative(html_content, 'text/html')
         msg.send()
+        msg_constructora = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content_constructora,'watchapp.latam@gmail.com', [mail_constructora])
+        msg_constructora.attach_alternative(html_content_constructora, 'text/html')
+        msg_constructora.send()
+        
     if instance.is_fatal == True and property_in_event.is_secure_mode == True:
         print "entra al evento fatal"
-        text_content = first_name + ' ' + last_name + ' tu inmueble en la direccion ' +  address_to_notify + ' ' + name_to_notify + ' se encuentra en peligro. Se ha activado el ' + sensor
-        html_content = '<img src="http://i58.tinypic.com/2qd8iea.png"><br><img src="http://callen-lorde.org/graphics/2014/05/alert-icon.png"><br> <aling = "center">%s'%(text_content)
+        text_content = ''
+        html_content = render_to_string('watchapp/email.html', {'address_to_notify':address_to_notify, 'name_to_notify':name_to_notify, 'first_name':first_name, 'last_name':last_name, 'sensor': sensor})
+        html_content_constructora = render_to_string('watchapp/email_constructora.html', {'constructora': constructora, 'address_to_notify':address_to_notify, 'name_to_notify':name_to_notify, 'first_name':first_name, 'last_name':last_name, 'sensor': sensor, 'mobile_to_notify':mobile_to_notify, 'mail_to_notify':mail_to_notify})
         msg = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content,'watchapp.latam@gmail.com', [mail_to_notify])
         msg.attach_alternative(html_content, 'text/html')
         msg.send()
+        msg_constructora = EmailMultiAlternatives('Alerta en el inmueble ' + address_to_notify + ' ' + name_to_notify, html_content_constructora,'watchapp.latam@gmail.com', [mail_constructora])
+        msg_constructora.attach_alternative(html_content_constructora, 'text/html')
+        msg_constructora.send()
         requests.post(os.environ['BLOWERIO_URL'] + '/messages', data={'to': mobile_to_notify, 'message': 'ATENCION: Alerta fatal: ' + instance.description + ' del inmueble: ' + instance.property.name + '. Mensaje de: Watchapp'})

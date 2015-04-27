@@ -21,12 +21,13 @@ urlpatterns = patterns('',
 	url(r'^update_sensor/$', views.update_sensor, name='update_sensor'),
 	#URLs para funcionalidades de constructoras    
 	url(r'^constructora_home/$', views.constructora_home, name='constructora_home'),
+    url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
+    url(r'^process_file/$', views.process_file, name='process_file'),
 	#URL para crear un sensor en un plano
     url(r'^set_position_ajax/$', views.set_position_ajax, name='set_position_ajax'),
 	#URL para eliminar un sensor en un plano
     url(r'^delete_position_ajax/$', views.delete_position_ajax, name='delete_position_ajax'),
     url('', include('django.contrib.auth.urls')),
-    #url(r'^rpt_admin_property/$', views.rpt_admin_property, name='rpt_admin_property'),
     # URL- Reporte de eventos de los inmuebles de un propietario
     url(r'^rpt_owner_property/$', views.rpt_owner_property, name='rpt_owner_property'),
     # URL para generar en PDF el reporte de eventos de los inmuebles de un propietario
@@ -36,6 +37,9 @@ urlpatterns = patterns('',
     url(r'^get_event_owner_property/$', views.get_event_owner_property, name='get_event_owner_property'),
     url(r'^get_event_admin_all_property/$', views.get_event_admin_all_property, name='get_event_admin_all_property'),
     url(r'^rpt_admin_all_property/$', views.rpt_admin_all_property, name='rpt_admin_all_property'),
+    url(r'^rpt_admin_all_property_by_owner/$', views.rpt_admin_all_property_by_owner, name='rpt_admin_all_property_by_owner'),
+    url(r'^get_event_admin_all_property_by_owner/$', views.get_event_admin_all_property_by_owner, name='get_event_admin_all_property_by_owner'),
+    url(r'^get_report_admin_all_property_by_owner/$', views.get_report_admin_all_property_by_owner, name='get_report_admin_all_property_by_owner'),
     #url(r'^admin_file_upload/$', views.admin_file_upload, name='admin_file_upload'),
-    #url(r'^update_profile/$', views.update_profile, name='update_profile'),
+    url(r'^update_profile/$', views.update_profile, name='update_profile'),
 )
