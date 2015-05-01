@@ -35,23 +35,17 @@
         var files = $("#file-0")[0].files;
         var csrf_token = $('input[name="csrfmiddlewaretoken"]');
         var ctrlId = "status";
-        //alert(files.length);
         if(files.length > 0){
             var formData = new FormData();
-            //alert(files[0]);
-            //alert($(csrf_token).val());
             formData.append("property_file", files[0]);
             var uploadServerSideScriptPath = "/watchapp/process_file/";
             var xhr = new XMLHttpRequest();
             xhr.open("POST", uploadServerSideScriptPath, true);
             xhr.upload.addEventListener('progress', function (e) {
-                //$('#' + ctrlId).html("<img width='15px' height='15px' src='../../../Util/Images/ajax-loader_trans.gif' alt='Procesando...' /><span style='color: Orange'>Cargando...</span>");
                 $('#' + ctrlId).html("<span style='color: blue'>Cargando...</span>");
             });
             xhr.addEventListener("readystatechange", function (e) {                
                 if (this.readyState === 4 & this.status == 200) {
-                    //alert(this.response);
-                    //alert(JSON.parse(this.response).valid);
                     var response = JSON.parse(this.response);
                     $(".close").trigger("click");                                 
                     $('#' + ctrlId).fadeIn("slow", function () {
@@ -60,6 +54,7 @@
                     });
                 }
                 else if(this.status == 500){
+                    alert(this.response);
                     $('#' + ctrlId).html("<span style='color: Red'>" + this.responseText + "</span>");
                     $('#' + ctrlId).fadeIn("slow", function () { });
                 }            

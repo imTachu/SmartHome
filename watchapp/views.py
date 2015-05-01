@@ -539,56 +539,72 @@ def process_file(request):
         @param request
         @author German Bernal
     """ 
-    log.debug("process_file: entro!! ")
-    if request.user.groups.filter(name="constructoras").exists():
-        #return HttpResponse("Entro a la funcion.")
-        log.debug("process_file: entro if ")
-        log.debug("process_file: entro if: Request: " + str(request))
-        log.debug("process_file: entro if: Files " + str(request.FILES))
-        response_data = {}
-        response_data["valid"] = True;
-        for key in request.FILES:
-            log.debug("process_file: file: " + key)
-            log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
-            row_count = sum(1 for row in request.FILES[key])
-            valid_structure = validate_data_structure(request.FILES[key],5)
-            isvalid = True if row_count > 0 and valid_structure else False
-            if isvalid:
-                res = uploadres = upload_propertys(request.FILES[key])
-                if res["upload_status"] == "failed":
+    response_data = {}
+    response_data["valid"] = True;
+    try:
+        log.debug("process_file: entro!! ")
+        if request.user.groups.filter(name="constructoras").exists():
+            #return HttpResponse("Entro a la funcion.")
+            log.debug("process_file: entro if ")
+            log.debug("process_file: entro if: Request: " + str(request))
+            log.debug("process_file: entro if: Files " + str(request.FILES))
+            for key in request.FILES:
+                log.debug("process_file: file: " + key)
+                log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
+                row_count = sum(1 for row in request.FILES[key])
+                valid_structure = validate_data_structure(request.FILES[key],5)
+                isvalid = True if row_count > 0 and valid_structure else False
+                if isvalid:
+                    res = uploadres = upload_propertys(request.FILES[key])
+                    if res["upload_status"] == "failed":
+                        response_data["valid"] = False;
+                    response_data["message"] = res["message"]
+                else:
                     response_data["valid"] = False;
-                response_data["message"] = res["message"]
-            else:
-                response_data["valid"] = False;
-                if not valid_structure > 0:
-                    response_data["message"] = "El archivo tiene una estructura no valida!!"
-                elif not row_count > 0:
-                    response_data["message"] = "El archivo no tiene datos"
-                break
-        #return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+                    if not valid_structure > 0:
+                        response_data["message"] = "El archivo tiene una estructura no valida!!"
+                    elif not row_count > 0:
+                        response_data["message"] = "El archivo no tiene datos"
+                    break
+            return HttpResponse(
+                    json.dumps(response_data),
+                    content_type="application/json"
+                )
+        elif request.user.groups.filter(name="usuarios").exists():       
+            return HttpResponse("No tiene permisos de acceso.")
+    except Exception as inst:
+        log.debug("process_file: error: " + str(inst))
+        response_data["message"] = str(inst)
+        response_data["valid"] = False;
         return HttpResponse(
                 json.dumps(response_data),
-                content_type="application/json"
-            )
-    elif request.user.groups.filter(name="usuarios").exists():       
-        return HttpResponse("No tiene permisos de acceso.")
+                    content_type="application/json"
+                )
+
 
 def upload_propertys(file):
+    """
+    Esta funcion crea las propiedades de un archivo
+        @param request
+        @author German Bernal
+    """ 
     result = {}
     property_inserted = False
     property_exists = False
     reader = csv.reader(file, delimiter = ',')
     for row in reader:
         log.debug("upload_propertys: row: " + str(row))
-        prop = Property.objects.filter(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+        log.debug("upload_propertys: row - len: " + str(len(row)))
+        prop = Property.objects.filter(name = row[0].strip(),address = row[1].strip(), fixed_phone = row[2].strip(),plan =row[3].strip())
         log.debug("upload_propertys: prop count: " + str(len(prop)))
         if len(prop) == 0:
-            user = User.objects.filter(username=row[4])
-            userP = UserProfile.objects.get(user_id=user[0].id)
-            property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
-            property.save()
-            userP.properties_as_owner.add(property);
-            property_inserted = True
+            user = User.objects.filter(username=row[4].strip())
+            if len(user) > 0: 
+                property = Property(name = row[0].strip(),address = row[1].strip(), fixed_phone = row[2].strip(),plan =row[3].strip())
+                property.save()
+                userP = UserProfile.objects.get(user_id=user[0].id)
+                userP.properties_as_owner.add(property);
+                property_inserted = True
         else:
             property_exists = True
     file.close()
@@ -597,13 +613,18 @@ def upload_propertys(file):
         result["message"] = "Propiedades registradas.";
     elif property_inserted and property_exists:
         result["upload_status"] = "partial";
-        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas.";
+        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas o el propietario no existe";
     else:
         result["upload_status"] = "failed";
-        result["message"] = "Las propiedades ya estan registradas en el sistema.";
+        result["message"] = "Las propiedades ya estan registradas en el sistema o los propietarios no estan registrados";
     return result
 
 def validate_data_structure(file,col_count):
+    """
+    Esta funcion valida la estructura de un archivo
+        @param request
+        @author German Bernal
+    """ 
     isvalid = True
     reader = csv.reader(file, delimiter = ',')
     for row in reader:
