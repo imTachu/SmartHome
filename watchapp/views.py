@@ -771,6 +771,7 @@ def update_profile(request):
 		userP.mobile_number=form.cleaned_data['mobile_number']
 		u=user[0]
 		u.email=form.cleaned_data['email']
+		u.set_password(form.cleaned_data['password'])
 		f=request.FILES['file']
 		print(f)
 		with open('smarthome/static/images/'+f.name, 'wb+') as destination:
@@ -785,7 +786,6 @@ def update_profile(request):
 	data = {'mobile_number' : userP.mobile_number,
 		'email' : user[0].email}
 	form=ProfileForm(data)
-	
 
 	return render(request, 'watchapp/update_profile.html', { "form": form})
 

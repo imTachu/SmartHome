@@ -14,5 +14,6 @@ class SignUpForm(ModelForm):
 class ProfileForm(forms.Form):
 	mobile_number = forms.CharField(label='Celular', max_length=15, required=True)
 	email = forms.EmailField(label='Correo', required=True)
+	password = forms.CharField(label='Contrasena', required=True, widget=forms.PasswordInput)
 	file = forms.ImageField(label='Foto', required=True)
 
