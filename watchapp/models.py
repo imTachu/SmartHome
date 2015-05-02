@@ -39,6 +39,7 @@ class Property(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     mobile_number = models.CharField(max_length=15)
+    photo = models.CharField(max_length=200, null=True)
     properties_as_resident = models.ManyToManyField(Property, related_name="properties_as_resident")
     properties_as_owner = models.ManyToManyField(Property, related_name="properties_as_owner")
 

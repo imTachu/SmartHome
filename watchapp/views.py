@@ -25,7 +25,8 @@ import sys
 import datetime
 from django.core import serializers
 import csv
-
+from forms import ProfileForm
+from django.core.mail import send_mail
 
 log = logging.getLogger(__name__)
 
@@ -740,11 +741,36 @@ def update_profile(request):
     	@param request
     	@author Fredy Wilches
     """    
-    #user = User.objects.filter(username=request.user.username)
-    #userP = UserProfile.objects.get(user_id=user.id)
+    user = User.objects.filter(username=request.user.username)
+    userP = UserProfile.objects.get(user_id=user[0].id)
+
+    if request.method == 'POST':
+	form=ProfileForm(request.POST, request.FILES)
+	if form.is_valid():
+		userP.mobile_number=form.cleaned_data['mobile_number']
+		u=user[0]
+		u.email=form.cleaned_data['email']
+		f=request.FILES['file']
+		print(f)
+		with open('smarthome/static/images/'+f.name, 'wb+') as destination:
+			for chunk in f.chunks():
+				destination.write(chunk)
+		userP.photo=f.name
+		userP.save()
+		u.save()
+		#send_mail('Usuario Actualizado', 'Datos nuevos<p>'+'test', 'fredy.wilches@gmail.com', [user[0].email], False, 'fredy.wilches@gmail.com', 'pwd')
+		return render(request, 'watchapp/update_profile.html', { "request": request, "form": form})	
+    else:
+	data = {'mobile_number' : userP.mobile_number,
+		'email' : user[0].email}
+	form=ProfileForm(data)
+	
+
+	return render(request, 'watchapp/update_profile.html', { "form": form})
+
 
     if request.user.groups.filter(name="usuarios").exists():        
-        return render(request, 'watchapp/update_profile.html', { "request": request, })
+        return render(request, 'watchapp/update_profile.html', { "request": request, "form": form})
     elif request.user.groups.filter(name="constructoras").exists():       
         return HttpResponse("No tiene permisos de acceso.")
 
@@ -883,3 +909,8 @@ def get_report_admin_all_property_by_owner(request):
     # Convertimos el html  a pdf    
     return generate_pdf(html)
 
+def handle_uploaded_file(f, id):
+	print(f.name)
+	with open('smarthome/static/images/fredy.jpg', 'wb+') as destination:
+		for chunk in f.chunks():
+			destination.write(chunk)
