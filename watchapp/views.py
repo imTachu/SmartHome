@@ -773,7 +773,7 @@ def update_profile(request):
 		u.email=form.cleaned_data['email']
 		u.set_password(form.cleaned_data['password'])
 		f=request.FILES['file']
-		print(f)
+		#print(f)
 		with open('smarthome/static/images/'+f.name, 'wb+') as destination:
 			for chunk in f.chunks():
 				destination.write(chunk)
@@ -781,17 +781,17 @@ def update_profile(request):
 		userP.save()
 		u.save()
 		#send_mail('Usuario Actualizado', 'Datos nuevos<p>'+'test', 'fredy.wilches@gmail.com', [user[0].email], False, 'fredy.wilches@gmail.com', 'pwd')
-		return render(request, 'watchapp/update_profile.html', { "request": request, "form": form})	
+		return render(request, 'watchapp/update_profile.html', { "request": request, "form": form, "actualizado":True})	
     else:
 	data = {'mobile_number' : userP.mobile_number,
 		'email' : user[0].email}
 	form=ProfileForm(data)
 
-	return render(request, 'watchapp/update_profile.html', { "form": form})
+	return render(request, 'watchapp/update_profile.html', { "form": form, "actualizado":False})
 
 
     if request.user.groups.filter(name="usuarios").exists():        
-        return render(request, 'watchapp/update_profile.html', { "request": request, "form": form})
+        return render(request, 'watchapp/update_profile.html', { "request": request, "form": form, "actualizado":False})
     elif request.user.groups.filter(name="constructoras").exists():       
         return HttpResponse("No tiene permisos de acceso.")
 
