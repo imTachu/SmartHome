@@ -2,7 +2,7 @@
 
 {% block content %} 
     {% if form.errors %}
-        <p>Usuario y/o contraseña errados. Por favor intenta nuevamente.</p>
+        <p></p>
 {% endif %} 
 {% load url from future %}
 <style>
@@ -18,12 +18,19 @@ width: 100px
 <script src="{{ STATIC_URL }}js/fileinput.js"></script>
 <br />
 <br />
-<fieldset class="planContainer">
+{% if actualizado %}
+	<div class="alert-info">Perfil actualizado!!!</div>
+{% endif %}
+<!--fieldset class="planContainer">
     <legend class="legendData">Sprint 3 -  HU(WAT - 10)</legend>
     <p>
 Como desarrollador, yo permito a los usuarios actualizar la información de su perfil (contraseña, email, número de celular, foto) de forma que un usuario tenga su información personal actualizada para recibir notificaciones.
     </p>
-</fieldset>
+</fieldset-->
+
+  <form method="post" enctype="multipart/form-data" action="{% url 'watchapp:update_profile' %}">
+        {% csrf_token %}
+
 <fieldset class="planContainer">
     <legend class="legendData">Actualizar Perfil</legend>
             <div style="width: 100%; margin: 0; text-align: center;">
@@ -38,29 +45,13 @@ Como desarrollador, yo permito a los usuarios actualizar la información de su p
                 <tr>
 <td  style="width: 50px;" ></td>
                     <td style="height: 100px; width: 200px;">
-<img src="{{ STATIC_URL }}css/Images/profile.png" alt="WatchApp" style="background-size: cover;height: 100px; width: 100px;">
-                        <input id="file-0" class="file" accept="image/*" type="file" multiple data-min-file-count="1" data-show-upload="false" data-show-caption="true" >
+<img src="{{ STATIC_URL }}images/{{user.userprofile.photo}}" alt="WatchApp" style="background-size: cover;height: 100px; width: 100px;">
+                        <!--input id="file-0" class="file" accept="image/*" type="file" multiple data-min-file-count="1" data-show-upload="false" data-show-caption="true" -->
                     </td>
 		    <td  style="width: 50px;"></td>
                     <td>
                         <table>
-
-                            <tr>
-                                <td></td>
-                                <td style="text-align:right;">Email: </td>
-                                <td></td>
-                                <td style="width: 200px;">
-                                    <input type="email" id="email" value="{{ user.email }}" /></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style="text-align:right;">Teléfono Móvil: </td>
-                                <td></td>
-                                <td style="width: 200px;">
-                                    <input type="text" id="mobile" value="{{ user.userprofile.mobile_number }}" /></td>
-                                <td></td>
-                            </tr>
+				{{ form.as_table }}
                           <tr>
                                 <td style="width: 200px;" colspan="5">
 
@@ -73,6 +64,9 @@ Como desarrollador, yo permito a los usuarios actualizar la información de su p
             </table>
         </div>
 </fieldset>
+
+</form>
+
 <script>
     $("#file-0").fileinput({
         'allowedFileExtensions': ["jpg", "gif", "png"],

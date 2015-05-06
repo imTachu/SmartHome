@@ -11,6 +11,46 @@ var redips = {},		// redips container
 	clonedDIV = false,	// cloned flag set in event.moved
 	lastCell;			// reference to the last cell in table
 
+function add_sensor(code, description, location_in_plan, type, is_discrete) {
+
+    var dataSensor = {
+        property: $("#select_as_owner").val(),
+        code: code,
+        description: description,
+        type: type,
+        location_in_plan: location_in_plan,
+        is_discrete: is_discrete
+    };
+
+    $.ajax({
+        url: "/watchapp/set_position_ajax/", // the endpoint
+        type: "POST", // http method
+        data: JSON.stringify(dataSensor), // data sent with the delete request
+        contentType: "application/json;charset=utf-8",
+        async: 'true',
+        success: function (data) {
+            var type = 'Actuador';
+            if (data.type == 0) {
+                type = 'Sensor';
+            }
+
+            var dataHTML = '    <tr id="tr' + data.location_in_plan + '">' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.code + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.description + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' +
+            type
+
+            + '</td>' +
+                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.location_in_plan + '</td>' +
+               ' </tr>';
+            $('#tableDataSensor tbody').append(dataHTML);
+
+        },
+        error: function (xhr, errmsg, err) {
+ 
+        }
+    });
+}
 
 // redips initialization
 redips.init = function () {
@@ -201,47 +241,6 @@ function set_sensor(positionSensor, code, sensorId) {
     catch (ex) {
         alert(ex.message);
     }
-}
-
-function add_sensor(code, description, location_in_plan, type, is_discrete) {
-
-    var dataSensor = {
-        property: $("#select_as_owner").val(),
-        code: code,
-        description: description,
-        type: type,
-        location_in_plan: location_in_plan,
-        is_discrete: is_discrete
-    };
-
-    $.ajax({
-        url: "/watchapp/set_position_ajax/", // the endpoint
-        type: "POST", // http method
-        data: JSON.stringify(dataSensor), // data sent with the delete request
-        contentType: "application/json;charset=utf-8",
-        async: 'true',
-        success: function (data) {
-            var type = 'Actuador';
-            if (data.type == 0) {
-                type = 'Sensor';
-            }
-
-            var dataHTML = '    <tr id="tr' + data.location_in_plan + '">' +
-                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.code + '</td>' +
-                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.description + '</td>' +
-                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' +
-            type
-
-            + '</td>' +
-                    '<td onmouseover="onSensor(' + data.location_in_plan + ',"");" onmouseleave="leaveSensor(' + data.location_in_plan + ',"");">' + data.location_in_plan + '</td>' +
-               ' </tr>';
-            $('#tableDataSensor tbody').append(dataHTML);
-
-        },
-        error: function (xhr, errmsg, err) {
- 
-        }
-    });
 }
 
 function delete_sensor(location_in_plan) {

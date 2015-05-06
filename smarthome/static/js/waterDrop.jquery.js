@@ -47,7 +47,7 @@
 			$.extend(conf, arguments[0]);
 		}
 		var action = false;
-		if((arguments[0] && arguments[0] == "drop") || (arguments[1] && arguments[1] == "drop"))
+		if((arguments[0] && arguments[0] === "drop") || (arguments[1] && arguments[1] === "drop"))
 		{
 			action = true;
 		}

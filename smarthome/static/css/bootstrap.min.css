@@ -4366,9 +4366,9 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
         color: #fff;
         background-color: #080808;
-        -webkit-box-shadow: 0px 1px 26px 8px rgba(255,255,255,0.68);
-        -moz-box-shadow: 0px 1px 26px 8px rgba(255,255,255,0.68);
-        box-shadow: 0px 1px 26px 8px rgba(255,255,255,0.68);
+        -webkit-box-shadow: 0 1px 26px 8px rgba(255,255,255,0.68);
+        -moz-box-shadow: 0 1px 26px 8px rgba(255,255,255,0.68);
+        box-shadow: 0 1px 26px 8px rgba(255,255,255,0.68);
     }
 
     .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
