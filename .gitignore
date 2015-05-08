@@ -1,4 +1,3 @@
-watchapp/migrations
 *.py[cod]
 .env
 .DS_Store
