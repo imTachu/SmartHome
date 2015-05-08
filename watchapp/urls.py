@@ -7,10 +7,10 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = patterns('',
     #URLs index o para autenticacion
-	url(r'^$', TemplateView.as_view(template_name='watchapp/index.html')),
+    url(r'^$', TemplateView.as_view(template_name='watchapp/index.html')),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^login/$', login, {'template_name': 'watchapp/login.html', }, name="login"),
-	url(r'^login_success/$', views.login_success, name='login_success'),
+    url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'^logout/$', logout, {'template_name': 'watchapp/login.html', }, name="logout"),
 	url(r'^sensorstatus/$', views.render_sensor_status, name='render_sensor_status'),
     url(r'^get_owner_reports/$', views.get_owner_reports, name='get_owner_reports'),

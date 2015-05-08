@@ -25,7 +25,8 @@ import sys
 import datetime
 from django.core import serializers
 import csv
-
+from forms import ProfileForm
+from django.core.mail import send_mail
 
 log = logging.getLogger(__name__)
 
@@ -539,56 +540,72 @@ def process_file(request):
         @param request
         @author German Bernal
     """ 
-    log.debug("process_file: entro!! ")
-    if request.user.groups.filter(name="constructoras").exists():
-        #return HttpResponse("Entro a la funcion.")
-        log.debug("process_file: entro if ")
-        log.debug("process_file: entro if: Request: " + str(request))
-        log.debug("process_file: entro if: Files " + str(request.FILES))
-        response_data = {}
-        response_data["valid"] = True;
-        for key in request.FILES:
-            log.debug("process_file: file: " + key)
-            log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
-            row_count = sum(1 for row in request.FILES[key])
-            valid_structure = validate_data_structure(request.FILES[key],5)
-            isvalid = True if row_count > 0 and valid_structure else False
-            if isvalid:
-                res = uploadres = upload_propertys(request.FILES[key])
-                if res["upload_status"] == "failed":
+    response_data = {}
+    response_data["valid"] = True;
+    try:
+        log.debug("process_file: entro!! ")
+        if request.user.groups.filter(name="constructoras").exists():
+            #return HttpResponse("Entro a la funcion.")
+            log.debug("process_file: entro if ")
+            log.debug("process_file: entro if: Request: " + str(request))
+            log.debug("process_file: entro if: Files " + str(request.FILES))
+            for key in request.FILES:
+                log.debug("process_file: file: " + key)
+                log.debug('process_file: Structure is Valid: ' + str(validate_data_structure(request.FILES[key],4)))
+                row_count = sum(1 for row in request.FILES[key])
+                valid_structure = validate_data_structure(request.FILES[key],5)
+                isvalid = True if row_count > 0 and valid_structure else False
+                if isvalid:
+                    res = uploadres = upload_propertys(request.FILES[key])
+                    if res["upload_status"] == "failed":
+                        response_data["valid"] = False;
+                    response_data["message"] = res["message"]
+                else:
                     response_data["valid"] = False;
-                response_data["message"] = res["message"]
-            else:
-                response_data["valid"] = False;
-                if not valid_structure > 0:
-                    response_data["message"] = "El archivo tiene una estructura no valida!!"
-                elif not row_count > 0:
-                    response_data["message"] = "El archivo no tiene datos"
-                break
-        #return render(request, 'watchapp/admin_file_upload.html', { "request": request, })
+                    if not valid_structure > 0:
+                        response_data["message"] = "El archivo tiene una estructura no valida!!"
+                    elif not row_count > 0:
+                        response_data["message"] = "El archivo no tiene datos"
+                    break
+            return HttpResponse(
+                    json.dumps(response_data),
+                    content_type="application/json"
+                )
+        elif request.user.groups.filter(name="usuarios").exists():       
+            return HttpResponse("No tiene permisos de acceso.")
+    except Exception as inst:
+        log.debug("process_file: error: " + str(inst))
+        response_data["message"] = str(inst)
+        response_data["valid"] = False;
         return HttpResponse(
                 json.dumps(response_data),
-                content_type="application/json"
-            )
-    elif request.user.groups.filter(name="usuarios").exists():       
-        return HttpResponse("No tiene permisos de acceso.")
+                    content_type="application/json"
+                )
+
 
 def upload_propertys(file):
+    """
+    Esta funcion crea las propiedades de un archivo
+        @param request
+        @author German Bernal
+    """ 
     result = {}
     property_inserted = False
     property_exists = False
     reader = csv.reader(file, delimiter = ',')
     for row in reader:
         log.debug("upload_propertys: row: " + str(row))
-        prop = Property.objects.filter(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
+        log.debug("upload_propertys: row - len: " + str(len(row)))
+        prop = Property.objects.filter(name = row[0].strip(),address = row[1].strip(), fixed_phone = row[2].strip(),plan =row[3].strip())
         log.debug("upload_propertys: prop count: " + str(len(prop)))
         if len(prop) == 0:
-            user = User.objects.filter(username=row[4])
-            userP = UserProfile.objects.get(user_id=user[0].id)
-            property = Property(name = row[0],address = row[1], fixed_phone = row[2],plan =row[3])
-            property.save()
-            userP.properties_as_owner.add(property);
-            property_inserted = True
+            user = User.objects.filter(username=row[4].strip())
+            if len(user) > 0: 
+                property = Property(name = row[0].strip(),address = row[1].strip(), fixed_phone = row[2].strip(),plan =row[3].strip())
+                property.save()
+                userP = UserProfile.objects.get(user_id=user[0].id)
+                userP.properties_as_owner.add(property);
+                property_inserted = True
         else:
             property_exists = True
     file.close()
@@ -597,13 +614,18 @@ def upload_propertys(file):
         result["message"] = "Propiedades registradas.";
     elif property_inserted and property_exists:
         result["upload_status"] = "partial";
-        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas.";
+        result["message"] = "Carga Parcial. Algunas de las propiedades ya estan registradas o el propietario no existe";
     else:
         result["upload_status"] = "failed";
-        result["message"] = "Las propiedades ya estan registradas en el sistema.";
+        result["message"] = "Las propiedades ya estan registradas en el sistema o los propietarios no estan registrados";
     return result
 
 def validate_data_structure(file,col_count):
+    """
+    Esta funcion valida la estructura de un archivo
+        @param request
+        @author German Bernal
+    """ 
     isvalid = True
     reader = csv.reader(file, delimiter = ',')
     for row in reader:
@@ -740,11 +762,36 @@ def update_profile(request):
     	@param request
     	@author Fredy Wilches
     """    
-    #user = User.objects.filter(username=request.user.username)
-    #userP = UserProfile.objects.get(user_id=user.id)
+    user = User.objects.filter(username=request.user.username)
+    userP = UserProfile.objects.get(user_id=user[0].id)
+
+    if request.method == 'POST':
+	form=ProfileForm(request.POST, request.FILES)
+	if form.is_valid():
+		userP.mobile_number=form.cleaned_data['mobile_number']
+		u=user[0]
+		u.email=form.cleaned_data['email']
+		u.set_password(form.cleaned_data['password'])
+		f=request.FILES['file']
+		#print(f)
+		with open('smarthome/static/images/'+f.name, 'wb+') as destination:
+			for chunk in f.chunks():
+				destination.write(chunk)
+		userP.photo=f.name
+		userP.save()
+		u.save()
+		#send_mail('Usuario Actualizado', 'Datos nuevos<p>'+'test', 'fredy.wilches@gmail.com', [user[0].email], False, 'fredy.wilches@gmail.com', 'pwd')
+		return render(request, 'watchapp/update_profile.html', { "request": request, "form": form, "actualizado":True})	
+    else:
+	data = {'mobile_number' : userP.mobile_number,
+		'email' : user[0].email}
+	form=ProfileForm(data)
+
+	return render(request, 'watchapp/update_profile.html', { "form": form, "actualizado":False})
+
 
     if request.user.groups.filter(name="usuarios").exists():        
-        return render(request, 'watchapp/update_profile.html', { "request": request, })
+        return render(request, 'watchapp/update_profile.html', { "request": request, "form": form, "actualizado":False})
     elif request.user.groups.filter(name="constructoras").exists():       
         return HttpResponse("No tiene permisos de acceso.")
 
@@ -883,3 +930,8 @@ def get_report_admin_all_property_by_owner(request):
     # Convertimos el html  a pdf    
     return generate_pdf(html)
 
+def handle_uploaded_file(f, id):
+	print(f.name)
+	with open('smarthome/static/images/fredy.jpg', 'wb+') as destination:
+		for chunk in f.chunks():
+			destination.write(chunk)
