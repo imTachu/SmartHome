@@ -82,6 +82,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('mobile_number', models.CharField(max_length=15)),
+                ('photo', models.CharField(max_length=200, null=True)),
                 ('properties_as_owner', models.ManyToManyField(related_name='properties_as_owner', to='watchapp.Property')),
                 ('properties_as_resident', models.ManyToManyField(related_name='properties_as_resident', to='watchapp.Property')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
